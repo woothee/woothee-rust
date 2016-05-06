@@ -1,0 +1,16 @@
+language: rust
+
+matrix:
+    fast_finish: true
+    include:
+        - os: osx
+        - rust: nightly
+        - rust: beta
+        - rust: stable
+
+script:
+	- cargo build --verbose $FEATURES
+	- cargo test --verbose $FEATURES --no-fail-fast
+
+notifications:
+    email: false
