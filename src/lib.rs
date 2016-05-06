@@ -1,3 +1,13 @@
+//! # Woothee
+//!
+//! Woothee is a user-agent strings parser.
+//!
+//! ## Usage
+//!
+//! ```
+//! ```
+//!
+
 extern crate regex;
 
 pub mod woothee;
