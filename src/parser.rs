@@ -59,6 +59,18 @@ pub struct WootheeResult {
 }
 
 impl WootheeResult {
+    pub fn new() -> WootheeResult {
+        WootheeResult {
+            name: VALUE_UNKNOWN.to_string(),
+            category: VALUE_UNKNOWN.to_string(),
+            os: VALUE_UNKNOWN.to_string(),
+            os_version: VALUE_UNKNOWN.to_string(),
+            browser_type: VALUE_UNKNOWN.to_string(),
+            version: VALUE_UNKNOWN.to_string(),
+            vendor: VALUE_UNKNOWN.to_string(),
+        }
+    }
+
     fn populate_with(&mut self, ds: &WootheeResult) {
         if !ds.name.is_empty() {
             self.name = ds.name.clone();
@@ -96,15 +108,7 @@ impl Parser {
     }
 
     pub fn parse(&self, agent: &str) -> Option<WootheeResult> {
-        let mut result = WootheeResult {
-            name: VALUE_UNKNOWN.to_string(),
-            category: VALUE_UNKNOWN.to_string(),
-            os: VALUE_UNKNOWN.to_string(),
-            os_version: VALUE_UNKNOWN.to_string(),
-            browser_type: VALUE_UNKNOWN.to_string(),
-            version: VALUE_UNKNOWN.to_string(),
-            vendor: VALUE_UNKNOWN.to_string(),
-        };
+        let mut result = WootheeResult::new();
         if agent == "" || agent == "-" {
             return Some(result);
         }
@@ -155,7 +159,7 @@ impl Parser {
         self.agent_dataset.get(label)
     }
 
-    fn try_crawler(&self, agent: &str, result: &mut WootheeResult) -> bool {
+    pub fn try_crawler(&self, agent: &str, result: &mut WootheeResult) -> bool {
         if self.challenge_google(agent, result) {
             return true;
         }
@@ -498,7 +502,7 @@ impl Parser {
         let re_firefox_ios = Regex::new(RX_FIREFOX_IOS_PATTERN).unwrap();
         match re_firefox_ios.captures(agent) {
             Some(caps) => {
-                result.version = caps.at(0).unwrap().to_string();
+                result.version = caps.at(1).unwrap().to_string();
             }
             None => {
                 return false;
@@ -753,64 +757,40 @@ impl Parser {
     }
 
     fn challenge_playstation(&self, agent: &str, result: &mut WootheeResult) -> bool {
-        let os_version;
-        let mut data = &WootheeResult::default();
+        let mut os_version = "";
 
-        if agent.contains("PSP (PlayStation Portable)") {
-            match self.lookup_dataset("PSP") {
-                Some(d) => {
-                    data = d;
-                }
-                None => {
-                    return false;
-                }
-            }
+        let d = if agent.contains("PSP (PlayStation Portable)") {
             os_version = match Regex::new(RX_PSP_OS_VERSION).unwrap().captures(agent) {
                 Some(caps) => caps.at(1).unwrap(),
                 None => "",
-            }
+            };
+            self.lookup_dataset("PSP")
         } else if agent.contains("PlayStation Vita") {
-            match self.lookup_dataset("PSVita") {
-                Some(d) => {
-                    data = d;
-                }
-                None => {
-                    return false;
-                }
-            }
             os_version = match Regex::new(RX_PSVITA_OS_VERSION).unwrap().captures(agent) {
                 Some(caps) => caps.at(1).unwrap(),
                 None => "",
-            }
+            };
+            self.lookup_dataset("PSVita")
         } else if agent.contains("PLAYSTATION 3 ") || agent.contains("PLAYSTATION 3;") {
-            match self.lookup_dataset("PS3") {
-                Some(d) => {
-                    data = d;
-                }
-                None => {
-                    return false;
-                }
-            }
             os_version = match Regex::new(RX_PS3_OS_VERSION).unwrap().captures(agent) {
                 Some(caps) => caps.at(1).unwrap(),
                 None => "",
-            }
+            };
+            self.lookup_dataset("PS3")
         } else if agent.contains("PlayStation 4 ") {
-            match self.lookup_dataset("PS4") {
-                Some(d) => {
-                    data = d;
-                }
-                None => {
-                    return false;
-                }
-            }
             os_version = match Regex::new(RX_PS4_OS_VERSION).unwrap().captures(agent) {
                 Some(caps) => caps.at(1).unwrap(),
                 None => "",
-            }
+            };
+            self.lookup_dataset("PS4")
         } else {
+            None
+        };
+
+        if d.is_none() {
             return false;
         }
+        let data = d.unwrap();
 
         result.populate_with(data);
 
@@ -917,13 +897,12 @@ impl Parser {
             return false;
         }
 
-        let mut version = String::new();
-
         let mut d = self.lookup_dataset("OSX");
         if d.is_none() {
             return false;
         }
         let mut data = d.unwrap();
+        let mut version = String::new();
 
         if agent.contains("like Mac OS X") {
             if agent.contains("iPhone;") {
@@ -991,7 +970,7 @@ impl Parser {
     }
 
     fn challenge_smartphone(&self, agent: &str, result: &mut WootheeResult) -> bool {
-        let mut os_version: &str = "";
+        let mut os_version = "";
 
         let mut d = if agent.contains("iPhone") {
             self.lookup_dataset("iPhone")
@@ -1019,10 +998,6 @@ impl Parser {
         } else {
             None
         };
-
-        if d.is_none() {
-            return false;
-        }
 
         let f = self.lookup_dataset("Firefox");
         if f.is_none() {
@@ -1153,6 +1128,10 @@ impl Parser {
     }
 
     fn challenge_sleipnir(&self, agent: &str, result: &mut WootheeResult) -> bool {
+        if !agent.contains("Sleipnir/") {
+            return false;
+        }
+
         let version = match Regex::new(r"Sleipnir/([.0-9]+)").unwrap().captures(agent) {
             Some(caps) => caps.at(1).unwrap(),
             None => VALUE_UNKNOWN,
@@ -1228,7 +1207,7 @@ impl Parser {
         if Regex::new(RX_MAYBE_CRAWLER_PATTERN).unwrap().is_match(agent) ||
            Regex::new(r"(?:Rome Client |UnwindFetchor/|ia_archiver |Summify |PostRank/)")
                .unwrap()
-               .is_match(agent) ||
+               .is_match(agent) || agent.contains("ASP-Ranker Feed Crawler") ||
            Regex::new(RX_MAYBE_FEED_PARSER_PATTERN).unwrap().is_match(agent) ||
            Regex::new(RX_MAYBE_WATCHDOG_PATTERN).unwrap().is_match(agent) {
             return self.populate_dataset(result, "VariousCrawler");
@@ -1306,10 +1285,10 @@ mod tests {
     use parser::Parser;
 
     #[test]
-    fn parse() {
+    fn test_parse_smoke() {
         let parser = Parser::new();
-        match parser.parse("Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.1; Trident/4.0)") {
-            Some(result) => assert_eq!(result.name, "Internet Explorer".to_string()),
+        match parser.parse("Mozilla/5.0 (Mobile; rv:18.0) Gecko/18.0 Firefox/18.0") {
+            Some(result) => assert_eq!(result.category, "smartphone".to_string()),
             None => panic!("invalid"),
         }
     }
