@@ -7,6 +7,7 @@ license-file = "LICENSE"
 repository = "https://github.com/hhatto/woothee-rust"
 keywords = ["useragent", "ua"]
 description = "user-agent strings parser"
+documentaiton = "http://hhatto.github.io/woothee-rust/woothee/"
 
 [dependencies]
 regex = "0.1"
