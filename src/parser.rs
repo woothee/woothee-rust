@@ -44,7 +44,7 @@ static RX_BLACKBERRY10_OS_VERSION: &'static str = r"BB10(?:.+)Version/([.0-9]+) 
 static RX_BLACKBERRY_OS_VERSION: &'static str = r"BlackBerry(?:\d+)/([.0-9]+) ";
 
 static RE_OSX_IPHONE_OS_VERSION: &'static str =
-    r"; CPU(?: iPhone)? OS (\d+\_\d+(?:_\d+)?) like Mac OS X";
+    r"; CPU(?: iPhone)? OS (\d+_\d+(?:_\d+)?) like Mac OS X";
 static RE_OSX_OS_VERSION: &'static str = r"Mac OS X (10[._]\d+(?:[._]\d+)?)(?:\)|;)";
 
 #[derive(Debug, Default)]
@@ -1181,7 +1181,7 @@ impl Parser {
         let re_http_client_other = Regex::new(r"[- ]HttpClient(/|$)").unwrap();
         let re_php = Regex::new(r"^(?:PHP|WordPress|CakePHP|PukiWiki|PECL::HTTP)(?:/| |$)")
                          .unwrap();
-        let re_pear = Regex::new(r"(?:PEAR |1)HTTP_Request(?: class|2)").unwrap();
+        let re_pear = Regex::new(r"(?:PEAR HTTP_Request|HTTP_Request)(?: class|2)").unwrap();
 
         if re_http_client.is_match(agent) || re_http_client_other.is_match(agent) {
             version = "Java";
