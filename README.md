@@ -1,7 +1,9 @@
-# woothee-rust
+# woothee-rust [![](https://travis-ci.org/hhatto/woothee-rust.svg?branch=master)](https://travis-ci.org/hhatto/woothee-rust)
+
 The Rust implementation of Project Woothee, which is multi-language user-agent strings parsers. ( **Unofficial Woothee Project, NOW** )
 
 ## Usage
+
 parsing user-agent.
 
 ```
