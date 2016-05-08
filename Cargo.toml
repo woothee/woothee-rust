@@ -6,7 +6,7 @@ license = "Apache-2.0"
 repository = "https://github.com/hhatto/woothee-rust"
 keywords = ["useragent", "ua"]
 description = "user-agent strings parser"
-documentaiton = "http://hhatto.github.io/woothee-rust/woothee/"
+documentation = "http://hhatto.github.io/woothee-rust/woothee/"
 
 [dependencies]
 regex = "0.1"
