@@ -4,12 +4,12 @@
 //!
 //! ## Usage
 //!
-//! ```
+//! ```toml
 //! [dependencies]
 //! woothee = "*"
 //! ```
 //!
-//! ```
+//! ```rust
 //! extern crate woothee;
 //!
 //! use woothee::parse;
