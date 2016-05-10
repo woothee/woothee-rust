@@ -45,6 +45,11 @@ lazy_static! {
 
     static ref RE_OSX_IPHONE_OS_VERSION: Regex = Regex::new(r"; CPU(?: iPhone)? OS (\d+_\d+(?:_\d+)?) like Mac OS X").unwrap();
     static ref RE_OSX_OS_VERSION: Regex = Regex::new(r"Mac OS X (10[._]\d+(?:[._]\d+)?)(?:\)|;)").unwrap();
+    static ref RX_HTTP_CLIENT: Regex = Regex::new(r"^(?:Apache-HttpClient/|Jakarta Commons-HttpClient/|Java/)").unwrap();
+    static ref RX_HTTP_CLIENT_OTHER: Regex = Regex::new(r"[- ]HttpClient(/|$)").unwrap();
+    static ref RX_PHP: Regex = Regex::new(r"^(?:PHP|WordPress|CakePHP|PukiWiki|PECL::HTTP)(?:/| |$)").unwrap();
+    static ref RX_PEAR: Regex = Regex::new(r"(?:PEAR HTTP_Request|HTTP_Request)(?: class|2)").unwrap();
+    static ref RX_MAYBE_CRAWLER_OTHER: Regex = Regex::new(r"(?:Rome Client |UnwindFetchor/|ia_archiver |Summify |PostRank/)").unwrap();
 }
 
 #[derive(Debug, Default)]
@@ -1151,14 +1156,8 @@ impl Parser {
     fn challenge_http_library(&self, agent: &str, result: &mut WootheeResult) -> bool {
         // TODO: wip
         let mut version = "";
-        let re_http_client =
-            Regex::new(r"^(?:Apache-HttpClient/|Jakarta Commons-HttpClient/|Java/)").unwrap();
-        let re_http_client_other = Regex::new(r"[- ]HttpClient(/|$)").unwrap();
-        let re_php = Regex::new(r"^(?:PHP|WordPress|CakePHP|PukiWiki|PECL::HTTP)(?:/| |$)")
-                         .unwrap();
-        let re_pear = Regex::new(r"(?:PEAR HTTP_Request|HTTP_Request)(?: class|2)").unwrap();
 
-        if re_http_client.is_match(agent) || re_http_client_other.is_match(agent) {
+        if RX_HTTP_CLIENT.is_match(agent) || RX_HTTP_CLIENT_OTHER.is_match(agent) {
             version = "Java";
         } else if agent.contains("Java(TM) 2 Runtime Environment,") {
             version = "Java";
@@ -1173,7 +1172,7 @@ impl Parser {
             version = "ruby"
         } else if agent.starts_with("Python-urllib/") || agent.starts_with("Twisted ") {
             version = "python";
-        } else if re_php.is_match(agent) || re_pear.is_match(agent) {
+        } else if RX_PHP.is_match(agent) || RX_PEAR.is_match(agent) {
             version = "php";
         }
 
@@ -1199,10 +1198,8 @@ impl Parser {
     }
 
     fn challenge_maybe_crawler(&self, agent: &str, result: &mut WootheeResult) -> bool {
-        if RX_MAYBE_CRAWLER_PATTERN.is_match(agent) ||
-           Regex::new(r"(?:Rome Client |UnwindFetchor/|ia_archiver |Summify |PostRank/)")
-               .unwrap()
-               .is_match(agent) || agent.contains("ASP-Ranker Feed Crawler") ||
+        if RX_MAYBE_CRAWLER_PATTERN.is_match(agent) || RX_MAYBE_CRAWLER_OTHER.is_match(agent) ||
+           agent.contains("ASP-Ranker Feed Crawler") ||
            RX_MAYBE_FEED_PARSER_PATTERN.is_match(agent) ||
            RX_MAYBE_WATCHDOG_PATTERN.is_match(agent) {
             return self.populate_dataset(result, "VariousCrawler");
