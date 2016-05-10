@@ -1,3 +1,4 @@
+#![recursion_limit="100"]
 //! # Woothee
 //!
 //! Woothee is a user-agent strings parser.
