@@ -3,49 +3,54 @@ use regex::Regex;
 use dataset;
 use woothee::VALUE_UNKNOWN;
 
-static RX_CHROME_PATTERN: &'static str = r"(?:Chrome|CrMo|CriOS)/([.0-9]+)";
-static RX_DOCOMO_VERSION_PATTERN: &'static str = r#"DoCoMo/[.0-9]+[ /]([^- /;()"']+)"#;
-static RX_FIREFOX_PATTERN: &'static str = r"Firefox/([.0-9]+)";
-static RX_FIREFOX_OS_PATTERN: &'static str =
-    r"^Mozilla/[.0-9]+ \((?:Mobile|Tablet);(?:.*;)? rv:([.0-9]+)\) Gecko/[.0-9]+ Firefox/[.0-9]+$";
-static RX_FIREFOX_IOS_PATTERN: &'static str = r"FxiOS/([.0-9]+)";
-static RX_FOMA_VERSION_PATTERN: &'static str = r"\(([^;)]+);FOMA;";
-static RX_HEADLINE_READER_PATTERN: &'static str = r"(?i)headline-reader";
-static RX_JIG_PATTERN: &'static str = r"jig browser[^;]+; ([^);]+)";
-static RX_KDDI_PATTERN: &'static str = r#"KDDI-([^- /;()"']+)"#;
-static RX_MAYBE_RSS_PATTERN: &'static str = r"(?i)rss(?:reader|bar|[-_ /;()]|[ +]*/)";
-static RX_MAYBE_CRAWLER_PATTERN: &'static str = r"(?i)(?:bot|crawler|spider)(?:[-_ ./;@()]|$)";
-static RX_MAYBE_FEED_PARSER_PATTERN: &'static str = r"(?i)(?:feed|web) ?parser";
-static RX_MAYBE_WATCHDOG_PATTERN: &'static str = r"(?i)watch ?dog";
-static RX_MSEDGE_PATTERN: &'static str = r"Edge/([.0-9]+)";
-static RX_MSIE_PATTERN: &'static str = r"MSIE ([.0-9]+);";
-static RX_OPERA_VERSION_PATTERN1: &'static str = r"Version/([.0-9]+)";
-static RX_OPERA_VERSION_PATTERN2: &'static str = r"Opera[/ ]([.0-9]+)";
-static RX_OPERA_VERSION_PATTERN3: &'static str = r"OPR/([.0-9]+)";
-static RX_SAFARI_PATTERN: &'static str = r"Version/([.0-9]+)";
-static RX_SOFTBANK_PATTERN: &'static str = r"(?:SoftBank|Vodafone|J-PHONE)/[.0-9]+/([^ /;()]+)";
-static RX_TRIDENT_PATTERN: &'static str = r"Trident/([.0-9]+);";
-static RX_TRIDENT_VERSION_PATTERN: &'static str = r" rv:([.0-9]+)";
-static RX_IEMOBILE_PATTERN: &'static str = r"IEMobile/([.0-9]+);";
-static RX_WILLCOM_PATTERN: &'static str = r"(?:WILLCOM|DDIPOCKET);[^/]+/([^ /;()]+)";
-static RX_WINDOWS_VERSION_PATTERN: &'static str = r"Windows ([ .a-zA-Z0-9]+)[;\\)]";
-static RX_WIN_PHONE: &'static str = r"^Phone(?: OS)? ([.0-9]+)";
-static RX_WEBVIEW_PATTERN: &'static str = r"iP(hone;|ad;|od) .*like Mac OS X";
-static RX_WEBVIEW_VERSION_PATTERN: &'static str = r"Version/([.0-9]+)";
-static RX_PPC_OS_VERSION: &'static str = r"rv:(\d+\.\d+\.\d+)";
-static RX_FREEBSD_OS_VERSION: &'static str = r"FreeBSD ([^;\)]+);";
-static RX_CHROMEOS_OS_VERSION: &'static str = r"CrOS ([^\)]+)\)";
-static RX_ANDROIDOS_OS_VERSION: &'static str = r"Android[- ](\d+\.\d+(?:\.\d+)?)";
-static RX_PSP_OS_VERSION: &'static str = r"PSP \(PlayStation Portable\); ([.0-9]+)\)";
-static RX_PS3_OS_VERSION: &'static str = r"PLAYSTATION 3;? ([.0-9]+)\)";
-static RX_PSVITA_OS_VERSION: &'static str = r"PlayStation Vita ([.0-9]+)\)";
-static RX_PS4_OS_VERSION: &'static str = r"PlayStation 4 ([.0-9]+)\)";
-static RX_BLACKBERRY10_OS_VERSION: &'static str = r"BB10(?:.+)Version/([.0-9]+) ";
-static RX_BLACKBERRY_OS_VERSION: &'static str = r"BlackBerry(?:\d+)/([.0-9]+) ";
+lazy_static! {
+    static ref RX_CHROME_PATTERN: Regex = Regex::new(r"(?:Chrome|CrMo|CriOS)/([.0-9]+)").unwrap();
+    static ref RX_DOCOMO_VERSION_PATTERN: Regex = Regex::new(r#"DoCoMo/[.0-9]+[ /]([^- /;()"']+)"#).unwrap();
+    static ref RX_FIREFOX_PATTERN: Regex = Regex::new(r"Firefox/([.0-9]+)").unwrap();
+    static ref RX_FIREFOX_OS_PATTERN: Regex = Regex::new(r"^Mozilla/[.0-9]+ \((?:Mobile|Tablet);(?:.*;)? rv:([.0-9]+)\) Gecko/[.0-9]+ Firefox/[.0-9]+$").unwrap();
+    static ref RX_FIREFOX_IOS_PATTERN: Regex = Regex::new(r"FxiOS/([.0-9]+)").unwrap();
+    static ref RX_FOMA_VERSION_PATTERN: Regex = Regex::new(r"\(([^;)]+);FOMA;").unwrap();
+    static ref RX_HEADLINE_READER_PATTERN: Regex = Regex::new(r"(?i)headline-reader").unwrap();
+    static ref RX_JIG_PATTERN: Regex = Regex::new(r"jig browser[^;]+; ([^);]+)").unwrap();
+    static ref RX_KDDI_PATTERN: Regex = Regex::new(r#"KDDI-([^- /;()"']+)"#).unwrap();
+    static ref RX_MAYBE_RSS_PATTERN: Regex = Regex::new(r"(?i)rss(?:reader|bar|[-_ /;()]|[ +]*/)").unwrap();
+    static ref RX_MAYBE_CRAWLER_PATTERN: Regex = Regex::new(r"(?i)(?:bot|crawler|spider)(?:[-_ ./;@()]|$)").unwrap();
+    static ref RX_MAYBE_FEED_PARSER_PATTERN: Regex = Regex::new(r"(?i)(?:feed|web) ?parser").unwrap();
+    static ref RX_MAYBE_WATCHDOG_PATTERN: Regex = Regex::new(r"(?i)watch ?dog").unwrap();
+    static ref RX_MSEDGE_PATTERN: Regex = Regex::new(r"Edge/([.0-9]+)").unwrap();
+    static ref RX_MSIE_PATTERN: Regex = Regex::new(r"MSIE ([.0-9]+);").unwrap();
+    static ref RX_OPERA_VERSION_PATTERN1: Regex = Regex::new(r"Version/([.0-9]+)").unwrap();
+    static ref RX_OPERA_VERSION_PATTERN2: Regex = Regex::new(r"Opera[/ ]([.0-9]+)").unwrap();
+    static ref RX_OPERA_VERSION_PATTERN3: Regex = Regex::new(r"OPR/([.0-9]+)").unwrap();
+    static ref RX_SAFARI_PATTERN: Regex = Regex::new(r"Version/([.0-9]+)").unwrap();
+    static ref RX_SOFTBANK_PATTERN: Regex = Regex::new(r"(?:SoftBank|Vodafone|J-PHONE)/[.0-9]+/([^ /;()]+)").unwrap();
+    static ref RX_TRIDENT_PATTERN: Regex = Regex::new(r"Trident/([.0-9]+);").unwrap();
+    static ref RX_TRIDENT_VERSION_PATTERN: Regex = Regex::new(r" rv:([.0-9]+)").unwrap();
+    static ref RX_IEMOBILE_PATTERN: Regex = Regex::new(r"IEMobile/([.0-9]+);").unwrap();
+    static ref RX_WILLCOM_PATTERN: Regex = Regex::new(r"(?:WILLCOM|DDIPOCKET);[^/]+/([^ /;()]+)").unwrap();
+    static ref RX_WINDOWS_VERSION_PATTERN: Regex = Regex::new(r"Windows ([ .a-zA-Z0-9]+)[;\\)]").unwrap();
+    static ref RX_WIN_PHONE: Regex = Regex::new(r"^Phone(?: OS)? ([.0-9]+)").unwrap();
+    static ref RX_WEBVIEW_PATTERN: Regex = Regex::new(r"iP(hone;|ad;|od) .*like Mac OS X").unwrap();
+    static ref RX_WEBVIEW_VERSION_PATTERN: Regex = Regex::new(r"Version/([.0-9]+)").unwrap();
+    static ref RX_PPC_OS_VERSION: Regex = Regex::new(r"rv:(\d+\.\d+\.\d+)").unwrap();
+    static ref RX_FREEBSD_OS_VERSION: Regex = Regex::new(r"FreeBSD ([^;\)]+);").unwrap();
+    static ref RX_CHROMEOS_OS_VERSION: Regex = Regex::new(r"CrOS ([^\)]+)\)").unwrap();
+    static ref RX_ANDROIDOS_OS_VERSION: Regex = Regex::new(r"Android[- ](\d+\.\d+(?:\.\d+)?)").unwrap();
+    static ref RX_PSP_OS_VERSION: Regex = Regex::new(r"PSP \(PlayStation Portable\); ([.0-9]+)\)").unwrap();
+    static ref RX_PS3_OS_VERSION: Regex = Regex::new(r"PLAYSTATION 3;? ([.0-9]+)\)").unwrap();
+    static ref RX_PSVITA_OS_VERSION: Regex = Regex::new(r"PlayStation Vita ([.0-9]+)\)").unwrap();
+    static ref RX_PS4_OS_VERSION: Regex = Regex::new(r"PlayStation 4 ([.0-9]+)\)").unwrap();
+    static ref RX_BLACKBERRY10_OS_VERSION: Regex = Regex::new(r"BB10(?:.+)Version/([.0-9]+) ").unwrap();
+    static ref RX_BLACKBERRY_OS_VERSION: Regex = Regex::new(r"BlackBerry(?:\d+)/([.0-9]+) ").unwrap();
 
-static RE_OSX_IPHONE_OS_VERSION: &'static str =
-    r"; CPU(?: iPhone)? OS (\d+_\d+(?:_\d+)?) like Mac OS X";
-static RE_OSX_OS_VERSION: &'static str = r"Mac OS X (10[._]\d+(?:[._]\d+)?)(?:\)|;)";
+    static ref RE_OSX_IPHONE_OS_VERSION: Regex = Regex::new(r"; CPU(?: iPhone)? OS (\d+_\d+(?:_\d+)?) like Mac OS X").unwrap();
+    static ref RE_OSX_OS_VERSION: Regex = Regex::new(r"Mac OS X (10[._]\d+(?:[._]\d+)?)(?:\)|;)").unwrap();
+    static ref RX_HTTP_CLIENT: Regex = Regex::new(r"^(?:Apache-HttpClient/|Jakarta Commons-HttpClient/|Java/)").unwrap();
+    static ref RX_HTTP_CLIENT_OTHER: Regex = Regex::new(r"[- ]HttpClient(/|$)").unwrap();
+    static ref RX_PHP: Regex = Regex::new(r"^(?:PHP|WordPress|CakePHP|PukiWiki|PECL::HTTP)(?:/| |$)").unwrap();
+    static ref RX_PEAR: Regex = Regex::new(r"(?:PEAR HTTP_Request|HTTP_Request)(?: class|2)").unwrap();
+    static ref RX_MAYBE_CRAWLER_OTHER: Regex = Regex::new(r"(?:Rome Client |UnwindFetchor/|ia_archiver |Summify |PostRank/)").unwrap();
+}
 
 #[derive(Debug, Default)]
 pub struct WootheeResult {
@@ -463,10 +468,10 @@ impl Parser {
         }
 
         let mut version = VALUE_UNKNOWN;
-        let re_msie_caps = Regex::new(RX_MSIE_PATTERN).unwrap().captures(agent);
-        let re_trident_caps = Regex::new(RX_TRIDENT_PATTERN).unwrap().captures(agent);
-        let re_trident_ver_caps = Regex::new(RX_TRIDENT_VERSION_PATTERN).unwrap().captures(agent);
-        let re_ie_mobile_caps = Regex::new(RX_IEMOBILE_PATTERN).unwrap().captures(agent);
+        let re_msie_caps = RX_MSIE_PATTERN.captures(agent);
+        let re_trident_caps = RX_TRIDENT_PATTERN.captures(agent);
+        let re_trident_ver_caps = RX_TRIDENT_VERSION_PATTERN.captures(agent);
+        let re_ie_mobile_caps = RX_IEMOBILE_PATTERN.captures(agent);
 
         if re_msie_caps.is_some() {
             version = re_msie_caps.unwrap().at(1).unwrap();
@@ -486,8 +491,7 @@ impl Parser {
     }
 
     fn challenge_ms_edge(&self, agent: &str, result: &mut WootheeResult) -> bool {
-        let re_msedge = Regex::new(RX_MSEDGE_PATTERN).unwrap();
-        if !re_msedge.is_match(agent) {
+        if !RX_MSEDGE_PATTERN.is_match(agent) {
             return false;
         };
 
@@ -499,8 +503,7 @@ impl Parser {
     }
 
     fn challenge_firefox_ios(&self, agent: &str, result: &mut WootheeResult) -> bool {
-        let re_firefox_ios = Regex::new(RX_FIREFOX_IOS_PATTERN).unwrap();
-        match re_firefox_ios.captures(agent) {
+        match RX_FIREFOX_IOS_PATTERN.captures(agent) {
             Some(caps) => {
                 result.version = caps.at(1).unwrap().to_string();
             }
@@ -521,11 +524,9 @@ impl Parser {
             return false;
         }
 
-        let re_chrome = Regex::new(RX_CHROME_PATTERN).unwrap();
-        if re_chrome.is_match(agent) {
-            let re_opera3 = Regex::new(RX_OPERA_VERSION_PATTERN3).unwrap();
-            if re_opera3.is_match(agent) {
-                let version = match re_opera3.captures(agent) {
+        if RX_CHROME_PATTERN.is_match(agent) {
+            if RX_OPERA_VERSION_PATTERN3.is_match(agent) {
+                let version = match RX_OPERA_VERSION_PATTERN3.captures(agent) {
                     Some(caps) => caps.at(1).unwrap(),
                     None => "",
                 };
@@ -542,7 +543,7 @@ impl Parser {
                 return false;
             }
 
-            let version = match re_chrome.captures(agent) {
+            let version = match RX_CHROME_PATTERN.captures(agent) {
                 Some(caps) => caps.at(1).unwrap(),
                 None => "",
             };
@@ -552,7 +553,7 @@ impl Parser {
             return true;
         }
 
-        let version = match Regex::new(RX_SAFARI_PATTERN).unwrap().captures(agent) {
+        let version = match RX_SAFARI_PATTERN.captures(agent) {
             Some(caps) => caps.at(1).unwrap(),
             None => VALUE_UNKNOWN,
         };
@@ -571,7 +572,7 @@ impl Parser {
             return false;
         }
 
-        let version = match Regex::new(RX_FIREFOX_PATTERN).unwrap().captures(agent) {
+        let version = match RX_FIREFOX_PATTERN.captures(agent) {
             Some(caps) => caps.at(1).unwrap(),
             None => VALUE_UNKNOWN,
         };
@@ -590,10 +591,10 @@ impl Parser {
             return false;
         }
 
-        let version = match Regex::new(RX_OPERA_VERSION_PATTERN1).unwrap().captures(agent) {
+        let version = match RX_OPERA_VERSION_PATTERN1.captures(agent) {
             Some(caps) => caps.at(1).unwrap(),
             None => {
-                match Regex::new(RX_OPERA_VERSION_PATTERN2).unwrap().captures(agent) {
+                match RX_OPERA_VERSION_PATTERN2.captures(agent) {
                     Some(caps2) => caps2.at(1).unwrap(),
                     None => VALUE_UNKNOWN,
                 }
@@ -610,7 +611,7 @@ impl Parser {
     }
 
     fn challenge_webview(&self, agent: &str, result: &mut WootheeResult) -> bool {
-        if !Regex::new(RX_WEBVIEW_PATTERN).unwrap().is_match(agent) || agent.contains("Safari/") {
+        if !RX_WEBVIEW_PATTERN.is_match(agent) || agent.contains("Safari/") {
             return false;
         }
 
@@ -618,7 +619,7 @@ impl Parser {
             return false;
         }
 
-        let version = match Regex::new(RX_WEBVIEW_VERSION_PATTERN).unwrap().captures(agent) {
+        let version = match RX_WEBVIEW_VERSION_PATTERN.captures(agent) {
             Some(caps) => caps.at(1).unwrap(),
             None => "",
         };
@@ -635,8 +636,8 @@ impl Parser {
         }
 
         let mut version = VALUE_UNKNOWN;
-        let docomo_caps = Regex::new(RX_DOCOMO_VERSION_PATTERN).unwrap().captures(agent);
-        let foma_caps = Regex::new(RX_FOMA_VERSION_PATTERN).unwrap().captures(agent);
+        let docomo_caps = RX_DOCOMO_VERSION_PATTERN.captures(agent);
+        let foma_caps = RX_FOMA_VERSION_PATTERN.captures(agent);
         if docomo_caps.is_some() {
             version = docomo_caps.unwrap().at(1).unwrap();
         } else if foma_caps.is_some() {
@@ -657,7 +658,7 @@ impl Parser {
         }
 
         let mut version = VALUE_UNKNOWN;
-        let caps = Regex::new(RX_KDDI_PATTERN).unwrap().captures(agent);
+        let caps = RX_KDDI_PATTERN.captures(agent);
         if caps.is_some() {
             version = caps.unwrap().at(1).unwrap();
         }
@@ -677,7 +678,7 @@ impl Parser {
         }
 
         let mut version = VALUE_UNKNOWN;
-        let caps = Regex::new(RX_SOFTBANK_PATTERN).unwrap().captures(agent);
+        let caps = RX_SOFTBANK_PATTERN.captures(agent);
         if caps.is_some() {
             version = caps.unwrap().at(1).unwrap();
         }
@@ -696,7 +697,7 @@ impl Parser {
         }
 
         let mut version = VALUE_UNKNOWN;
-        let caps = Regex::new(RX_WILLCOM_PATTERN).unwrap().captures(agent);
+        let caps = RX_WILLCOM_PATTERN.captures(agent);
         if caps.is_some() {
             version = caps.unwrap().at(1).unwrap();
         }
@@ -715,7 +716,7 @@ impl Parser {
                 return false;
             }
 
-            let caps = Regex::new(RX_JIG_PATTERN).unwrap().captures(agent);
+            let caps = RX_JIG_PATTERN.captures(agent);
             if caps.is_some() {
                 result.version = caps.unwrap().at(1).unwrap().to_string();
             }
@@ -760,25 +761,25 @@ impl Parser {
         let mut os_version = "";
 
         let d = if agent.contains("PSP (PlayStation Portable)") {
-            os_version = match Regex::new(RX_PSP_OS_VERSION).unwrap().captures(agent) {
+            os_version = match RX_PSP_OS_VERSION.captures(agent) {
                 Some(caps) => caps.at(1).unwrap(),
                 None => "",
             };
             self.lookup_dataset("PSP")
         } else if agent.contains("PlayStation Vita") {
-            os_version = match Regex::new(RX_PSVITA_OS_VERSION).unwrap().captures(agent) {
+            os_version = match RX_PSVITA_OS_VERSION.captures(agent) {
                 Some(caps) => caps.at(1).unwrap(),
                 None => "",
             };
             self.lookup_dataset("PSVita")
         } else if agent.contains("PLAYSTATION 3 ") || agent.contains("PLAYSTATION 3;") {
-            os_version = match Regex::new(RX_PS3_OS_VERSION).unwrap().captures(agent) {
+            os_version = match RX_PS3_OS_VERSION.captures(agent) {
                 Some(caps) => caps.at(1).unwrap(),
                 None => "",
             };
             self.lookup_dataset("PS3")
         } else if agent.contains("PlayStation 4 ") {
-            os_version = match Regex::new(RX_PS4_OS_VERSION).unwrap().captures(agent) {
+            os_version = match RX_PS4_OS_VERSION.captures(agent) {
                 Some(caps) => caps.at(1).unwrap(),
                 None => "",
             };
@@ -847,7 +848,7 @@ impl Parser {
         }
         let mut win = w.unwrap();
 
-        let caps = Regex::new(RX_WINDOWS_VERSION_PATTERN).unwrap().captures(agent);
+        let caps = RX_WINDOWS_VERSION_PATTERN.captures(agent);
         if caps.is_none() {
             result.category = win.category.clone();
             result.os = win.name.clone();
@@ -868,7 +869,7 @@ impl Parser {
             "95" => self.lookup_dataset("Win95"),
             "CE" => self.lookup_dataset("WinCE"),
             _ => {
-                let caps = Regex::new(RX_WIN_PHONE).unwrap().captures(version);
+                let caps = RX_WIN_PHONE.captures(version);
                 if caps.is_some() {
                     version = caps.unwrap().at(1).unwrap();
                     self.lookup_dataset("WinPhone")
@@ -917,13 +918,13 @@ impl Parser {
             }
             data = d.unwrap();
 
-            let caps = Regex::new(RE_OSX_IPHONE_OS_VERSION).unwrap().captures(agent);
+            let caps = RE_OSX_IPHONE_OS_VERSION.captures(agent);
             if caps.is_some() {
                 let v = caps.unwrap().at(1).unwrap();
                 version = v.replace("_", ".");
             }
         } else {
-            let caps = Regex::new(RE_OSX_OS_VERSION).unwrap().captures(agent);
+            let caps = RE_OSX_OS_VERSION.captures(agent);
             if caps.is_some() {
                 let v = caps.unwrap().at(1).unwrap();
                 version = v.replace("_", ".");
@@ -946,7 +947,7 @@ impl Parser {
 
         let mut os_version = String::new();
         let d = if agent.contains("Android") {
-            let caps = Regex::new(RX_ANDROIDOS_OS_VERSION).unwrap().captures(agent);
+            let caps = RX_ANDROIDOS_OS_VERSION.captures(agent);
             if caps.is_some() {
                 os_version = caps.unwrap().at(1).unwrap().to_string();
             }
@@ -983,14 +984,14 @@ impl Parser {
         } else if agent.contains("CFNetwork") {
             self.lookup_dataset("iOS")
         } else if agent.contains("BB10") {
-            let caps = Regex::new(RX_BLACKBERRY10_OS_VERSION).unwrap().captures(agent);
+            let caps = RX_BLACKBERRY10_OS_VERSION.captures(agent);
             if caps.is_some() {
                 os_version = caps.unwrap().at(1).unwrap();
             }
             result.version = VALUE_UNKNOWN.to_string();
             self.lookup_dataset("BlackBerry10")
         } else if agent.contains("BlackBerry") {
-            let caps = Regex::new(RX_BLACKBERRY_OS_VERSION).unwrap().captures(agent);
+            let caps = RX_BLACKBERRY_OS_VERSION.captures(agent);
             if caps.is_some() {
                 os_version = caps.unwrap().at(1).unwrap();
             }
@@ -1009,7 +1010,7 @@ impl Parser {
             // Firefox OS specific pattern
             // http://lawrencemandel.com/2012/07/27/decision-made-firefox-os-user-agent-string/
             // https://github.com/woothee/woothee/issues/2
-            let caps = Regex::new(RX_FIREFOX_OS_PATTERN).unwrap().captures(agent);
+            let caps = RX_FIREFOX_OS_PATTERN.captures(agent);
             if caps.is_some() {
                 let c = caps.unwrap();
                 if c.len() > 1 {
@@ -1035,7 +1036,7 @@ impl Parser {
 
     fn challenge_mobilephone(&self, agent: &str, result: &mut WootheeResult) -> bool {
         if agent.contains("KDDI-") {
-            let caps = Regex::new(RX_KDDI_PATTERN).unwrap().captures(agent);
+            let caps = RX_KDDI_PATTERN.captures(agent);
             if caps.is_some() {
                 let term = caps.unwrap().at(1).unwrap();
                 let d = self.lookup_dataset("au");
@@ -1051,7 +1052,7 @@ impl Parser {
         }
 
         if agent.contains("WILLCOM") || agent.contains("DDIPOCKET") {
-            let caps = Regex::new(RX_WILLCOM_PATTERN).unwrap().captures(agent);
+            let caps = RX_WILLCOM_PATTERN.captures(agent);
             if caps.is_some() {
                 let term = caps.unwrap().at(1).unwrap();
                 let d = self.lookup_dataset("willcom");
@@ -1155,14 +1156,8 @@ impl Parser {
     fn challenge_http_library(&self, agent: &str, result: &mut WootheeResult) -> bool {
         // TODO: wip
         let mut version = "";
-        let re_http_client =
-            Regex::new(r"^(?:Apache-HttpClient/|Jakarta Commons-HttpClient/|Java/)").unwrap();
-        let re_http_client_other = Regex::new(r"[- ]HttpClient(/|$)").unwrap();
-        let re_php = Regex::new(r"^(?:PHP|WordPress|CakePHP|PukiWiki|PECL::HTTP)(?:/| |$)")
-                         .unwrap();
-        let re_pear = Regex::new(r"(?:PEAR HTTP_Request|HTTP_Request)(?: class|2)").unwrap();
 
-        if re_http_client.is_match(agent) || re_http_client_other.is_match(agent) {
+        if RX_HTTP_CLIENT.is_match(agent) || RX_HTTP_CLIENT_OTHER.is_match(agent) {
             version = "Java";
         } else if agent.contains("Java(TM) 2 Runtime Environment,") {
             version = "Java";
@@ -1177,7 +1172,7 @@ impl Parser {
             version = "ruby"
         } else if agent.starts_with("Python-urllib/") || agent.starts_with("Twisted ") {
             version = "python";
-        } else if re_php.is_match(agent) || re_pear.is_match(agent) {
+        } else if RX_PHP.is_match(agent) || RX_PEAR.is_match(agent) {
             version = "php";
         }
 
@@ -1194,8 +1189,7 @@ impl Parser {
     }
 
     fn challenge_maybe_rss_reader(&self, agent: &str, result: &mut WootheeResult) -> bool {
-        if Regex::new(RX_MAYBE_RSS_PATTERN).unwrap().is_match(agent) ||
-           Regex::new(RX_HEADLINE_READER_PATTERN).unwrap().is_match(agent) ||
+        if RX_MAYBE_RSS_PATTERN.is_match(agent) || RX_HEADLINE_READER_PATTERN.is_match(agent) ||
            agent.contains("cococ/") {
             return self.populate_dataset(result, "VariousRSSReader");
         }
@@ -1204,12 +1198,10 @@ impl Parser {
     }
 
     fn challenge_maybe_crawler(&self, agent: &str, result: &mut WootheeResult) -> bool {
-        if Regex::new(RX_MAYBE_CRAWLER_PATTERN).unwrap().is_match(agent) ||
-           Regex::new(r"(?:Rome Client |UnwindFetchor/|ia_archiver |Summify |PostRank/)")
-               .unwrap()
-               .is_match(agent) || agent.contains("ASP-Ranker Feed Crawler") ||
-           Regex::new(RX_MAYBE_FEED_PARSER_PATTERN).unwrap().is_match(agent) ||
-           Regex::new(RX_MAYBE_WATCHDOG_PATTERN).unwrap().is_match(agent) {
+        if RX_MAYBE_CRAWLER_PATTERN.is_match(agent) || RX_MAYBE_CRAWLER_OTHER.is_match(agent) ||
+           agent.contains("ASP-Ranker Feed Crawler") ||
+           RX_MAYBE_FEED_PARSER_PATTERN.is_match(agent) ||
+           RX_MAYBE_WATCHDOG_PATTERN.is_match(agent) {
             return self.populate_dataset(result, "VariousCrawler");
         }
 
@@ -1247,19 +1239,19 @@ impl Parser {
             result.os_version = "98".to_string();
             self.lookup_dataset("Win98")
         } else if agent.contains("Macintosh; U; PPC;") || agent.contains("Mac_PowerPC") {
-            let caps = Regex::new(RX_PPC_OS_VERSION).unwrap().captures(agent);
+            let caps = RX_PPC_OS_VERSION.captures(agent);
             if caps.is_some() {
                 result.os_version = caps.unwrap().at(1).unwrap().to_string();
             }
             self.lookup_dataset("MacOS")
         } else if agent.contains("X11; FreeBSD ") {
-            let caps = Regex::new(RX_FREEBSD_OS_VERSION).unwrap().captures(agent);
+            let caps = RX_FREEBSD_OS_VERSION.captures(agent);
             if caps.is_some() {
                 result.os_version = caps.unwrap().at(1).unwrap().to_string();
             }
             self.lookup_dataset("BSD")
         } else if agent.contains("X11; CrOS ") {
-            let caps = Regex::new(RX_CHROMEOS_OS_VERSION).unwrap().captures(agent);
+            let caps = RX_CHROMEOS_OS_VERSION.captures(agent);
             if caps.is_some() {
                 result.os_version = caps.unwrap().at(1).unwrap().to_string();
             }

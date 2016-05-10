@@ -1,3 +1,4 @@
+#![recursion_limit="100"]
 //! # Woothee
 //!
 //! Woothee is a user-agent strings parser.
@@ -21,6 +22,8 @@
 //! ```
 //!
 
+#[macro_use]
+extern crate lazy_static;
 extern crate regex;
 
 pub mod woothee;
