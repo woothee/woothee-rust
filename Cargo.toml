@@ -10,3 +10,4 @@ documentation = "http://hhatto.github.io/woothee-rust/woothee/"
 
 [dependencies]
 regex = "0.1"
+lazy_static = "0.2.1"

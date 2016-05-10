@@ -47,6 +47,10 @@ static RE_OSX_IPHONE_OS_VERSION: &'static str =
     r"; CPU(?: iPhone)? OS (\d+_\d+(?:_\d+)?) like Mac OS X";
 static RE_OSX_OS_VERSION: &'static str = r"Mac OS X (10[._]\d+(?:[._]\d+)?)(?:\)|;)";
 
+lazy_static! {
+    static ref RX_XXX: Regex = Regex::new(RX_CHROME_PATTERN).unwrap();
+}
+
 #[derive(Debug, Default)]
 pub struct WootheeResult {
     pub name: String,
@@ -521,8 +525,7 @@ impl Parser {
             return false;
         }
 
-        let re_chrome = Regex::new(RX_CHROME_PATTERN).unwrap();
-        if re_chrome.is_match(agent) {
+        if RX_XXX.is_match(agent) {
             let re_opera3 = Regex::new(RX_OPERA_VERSION_PATTERN3).unwrap();
             if re_opera3.is_match(agent) {
                 let version = match re_opera3.captures(agent) {
@@ -542,7 +545,7 @@ impl Parser {
                 return false;
             }
 
-            let version = match re_chrome.captures(agent) {
+            let version = match RX_XXX.captures(agent) {
                 Some(caps) => caps.at(1).unwrap(),
                 None => "",
             };
