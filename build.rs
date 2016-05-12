@@ -53,31 +53,31 @@ pub fn \
                         f.write_all(b"        WootheeResult {\n").unwrap();
                     }
                     "name" => {
-                        f.write_all(format!("      name: \"{}\".to_string(),\n",
+                        f.write_all(format!("            name: \"{}\".to_string(),\n",
                                             value.as_str().unwrap())
                                         .as_bytes())
                          .unwrap();
                     }
                     "type" => {
-                        f.write_all(format!("      browser_type: \"{}\".to_string(),\n",
+                        f.write_all(format!("            browser_type: \"{}\".to_string(),\n",
                                             value.as_str().unwrap())
                                         .as_bytes())
                          .unwrap();
                     }
                     "vendor" => {
-                        f.write_all(format!("      vendor: \"{}\".to_string(),\n",
+                        f.write_all(format!("            vendor: \"{}\".to_string(),\n",
                                             value.as_str().unwrap())
                                         .as_bytes())
                          .unwrap();
                     }
                     "category" => {
-                        f.write_all(format!("      category: \"{}\".to_string(),\n",
+                        f.write_all(format!("            category: \"{}\".to_string(),\n",
                                             value.as_str().unwrap())
                                         .as_bytes())
                          .unwrap();
                     }
                     "os" => {
-                        f.write_all(format!("      os: \"{}\".to_string(),\n",
+                        f.write_all(format!("            os: \"{}\".to_string(),\n",
                                             value.as_str().unwrap())
                                         .as_bytes())
                          .unwrap();
@@ -85,7 +85,7 @@ pub fn \
                     _ => (),
                 }
             }
-            f.write_all(b"        ..WootheeResult::default()\n    });\n").unwrap();
+            f.write_all(b"            ..WootheeResult::default()\n        });\n").unwrap();
         }
 
         // f.write_all(output.as_bytes()).unwrap();
