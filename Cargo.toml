@@ -7,7 +7,17 @@ repository = "https://github.com/hhatto/woothee-rust"
 keywords = ["useragent", "ua"]
 description = "user-agent strings parser"
 documentation = "http://hhatto.github.io/woothee-rust/woothee/"
+build = "build.rs"
 
 [dependencies]
 regex = "0.1"
 lazy_static = "0.2.1"
+
+[features]
+default = []
+code-update = ["yaml-rust", "tera", "tempdir"]
+
+[build-dependencies]
+tera = { version = "*", optional = true }
+yaml-rust = { version = "*", optional = true }
+tempdir = { version = "0.3", optional = true }
