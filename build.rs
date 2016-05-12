@@ -50,7 +50,7 @@ pub fn \
                                             value.as_str().unwrap())
                                         .as_bytes())
                          .unwrap();
-                        f.write_all(b"        WootheeResult{").unwrap();
+                        f.write_all(b"        WootheeResult {\n").unwrap();
                     }
                     "name" => {
                         f.write_all(format!("      name: \"{}\".to_string(),\n",
@@ -73,12 +73,14 @@ pub fn \
                     "category" => {
                         f.write_all(format!("      category: \"{}\".to_string(),\n",
                                             value.as_str().unwrap())
-                                        .as_bytes());
+                                        .as_bytes())
+                         .unwrap();
                     }
                     "os" => {
                         f.write_all(format!("      os: \"{}\".to_string(),\n",
                                             value.as_str().unwrap())
-                                        .as_bytes());
+                                        .as_bytes())
+                         .unwrap();
                     }
                     _ => (),
                 }
