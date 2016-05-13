@@ -6,6 +6,7 @@ use woothee::VALUE_UNKNOWN;
 lazy_static! {
     static ref RX_CHROME_PATTERN: Regex = Regex::new(r"(?:Chrome|CrMo|CriOS)/([.0-9]+)").unwrap();
     static ref RX_DOCOMO_VERSION_PATTERN: Regex = Regex::new(r#"DoCoMo/[.0-9]+[ /]([^- /;()"']+)"#).unwrap();
+    static ref RX_VIVALDI_PATTERN: Regex = Regex::new(r"Vivaldi/([.0-9]+)").unwrap();
     static ref RX_FIREFOX_PATTERN: Regex = Regex::new(r"Firefox/([.0-9]+)").unwrap();
     static ref RX_FIREFOX_OS_PATTERN: Regex = Regex::new(r"^Mozilla/[.0-9]+ \((?:Mobile|Tablet);(?:.*;)? rv:([.0-9]+)\) Gecko/[.0-9]+ Firefox/[.0-9]+$").unwrap();
     static ref RX_FIREFOX_IOS_PATTERN: Regex = Regex::new(r"FxiOS/([.0-9]+)").unwrap();
@@ -214,6 +215,10 @@ impl Parser {
         }
 
         if self.challenge_ms_edge(agent, result) {
+            return true;
+        }
+
+        if self.challenge_vivaldi(agent, result) {
             return true;
         }
 
@@ -496,6 +501,23 @@ impl Parser {
         };
 
         if !self.populate_dataset(result, "Edge") {
+            return false;
+        }
+
+        true
+    }
+
+    fn challenge_vivaldi(&self, agent: &str, result: &mut WootheeResult) -> bool {
+        match RX_VIVALDI_PATTERN.captures(agent) {
+            Some(caps) => {
+                result.version = caps.at(1).unwrap().to_string();
+            }
+            None => {
+                return false;
+            }
+        };
+
+        if !self.populate_dataset(result, "Vivaldi") {
             return false;
         }
 
