@@ -60,9 +60,7 @@ mod tests {
             }
         }
         match parser.parse(r#""mapion-news-bot/1.0 (http://www.mapion.co.jp/news/)""#) {
-            None => {
-                panic!(r#"invalid parse. ""mapion-news-bot/1.0 (http://www.mapion.co.jp/news/)"""#)
-            }
+            None => panic!(r#"invalid parse. ""mapion-news-bot/1.0 (http://www.mapion.co.jp/news/)"""#),
             Some(result) => {
                 assert_eq!(result.category, "crawler".to_string());
                 assert_eq!(result.name, "misc crawler".to_string());
@@ -251,6 +249,5 @@ mod tests {
                 assert_eq!(result.version, "UNKNOWN".to_string());
             }
         }
-
     }
 }

@@ -9,9 +9,7 @@ mod tests {
         let parser = Parser::new();
 
         match parser.parse(r#"Mozilla/5.0 (Nintendo 3DS; U; ; ja) Version/1.7455.JP"#) {
-            None => {
-                panic!(r#"invalid parse. "Mozilla/5.0 (Nintendo 3DS; U; ; ja) Version/1.7455.JP""#)
-            }
+            None => panic!(r#"invalid parse. "Mozilla/5.0 (Nintendo 3DS; U; ; ja) Version/1.7455.JP""#),
             Some(result) => {
                 assert_eq!(result.category, "appliance".to_string());
                 assert_eq!(result.name, "Nintendo 3DS".to_string());
@@ -162,6 +160,5 @@ mod tests {
                 assert_eq!(result.version, "UNKNOWN".to_string());
             }
         }
-
     }
 }

@@ -1,4 +1,4 @@
-/* This file is auto-generated! Any changes to this file will be lost! */
+// This file is auto-generated! Any changes to this file will be lost!
 extern crate woothee;
 
 mod tests {
@@ -18,6 +18,5 @@ mod tests {
                 assert_eq!(result.version, "2.9.9".to_string());
             }
         }
-
     }
 }

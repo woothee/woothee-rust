@@ -94,6 +94,5 @@ mod tests {
                 assert_eq!(result.version, "UNKNOWN".to_string());
             }
         }
-
     }
 }
