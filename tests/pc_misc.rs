@@ -58,6 +58,16 @@ mod tests {
                 assert_eq!(result.version, "20.0.1387.82".to_string());
             }
         }
+        match parser.parse(r#"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.94 Safari/537.36 Vivaldi/1.1.453.52"#) {
+            None => panic!(r#"invalid parse. "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.94 Safari/537.36 Vivaldi/1.1.453.52""#),
+            Some(result) => {
+                assert_eq!(result.category, "pc".to_string());
+                assert_eq!(result.name, "Vivaldi".to_string());
+                assert_eq!(result.os, "Mac OSX".to_string());
+                assert_eq!(result.os_version, "10.11.4".to_string());
+                assert_eq!(result.version, "1.1.453.52".to_string());
+            }
+        }
         match parser.parse(r#"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_6_8) AppleWebKit/534.50 (KHTML, like Gecko) Version/5.1 Instapaper/4.0 (+http://www.instapaper.com/)"#) {
             None => panic!(r#"invalid parse. "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_6_8) AppleWebKit/534.50 (KHTML, like Gecko) Version/5.1 Instapaper/4.0 (+http://www.instapaper.com/)""#),
             Some(result) => {
@@ -117,6 +127,16 @@ mod tests {
                 assert_eq!(result.os, "Linux".to_string());
                 assert_eq!(result.os_version, "UNKNOWN".to_string());
                 assert_eq!(result.version, "16.0.912.75".to_string());
+            }
+        }
+        match parser.parse(r#"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.99 Safari/537.36 Vivaldi/1.0.321.3"#) {
+            None => panic!(r#"invalid parse. "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.99 Safari/537.36 Vivaldi/1.0.321.3""#),
+            Some(result) => {
+                assert_eq!(result.category, "pc".to_string());
+                assert_eq!(result.name, "Vivaldi".to_string());
+                assert_eq!(result.os, "Linux".to_string());
+                assert_eq!(result.os_version, "UNKNOWN".to_string());
+                assert_eq!(result.version, "1.0.321.3".to_string());
             }
         }
         match parser.parse(r#"Mozilla/5.0 (X11; U; Linux x86_64; en-US; rv:1.9.2.24) Gecko cXense"#) {
@@ -180,6 +200,5 @@ mod tests {
                 assert_eq!(result.version, "33.0.1750.152".to_string());
             }
         }
-
     }
 }

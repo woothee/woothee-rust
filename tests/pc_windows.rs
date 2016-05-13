@@ -1,11 +1,11 @@
-/* This file is auto-generated! Any changes to this file will be lost! */
+// This file is auto-generated! Any changes to this file will be lost!
 extern crate woothee;
 
 mod tests {
     use woothee::parser::Parser;
 
     #[test]
-    fn test_pc_win() {
+    fn test_pc_windows() {
         let parser = Parser::new();
 
         match parser.parse(r#"Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.0; InfoPath.1)"#) {
@@ -218,6 +218,16 @@ mod tests {
                 assert_eq!(result.version, "9.52".to_string());
             }
         }
+        match parser.parse(r#"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/48.0.2564.88 Safari/537.36 Vivaldi/1.0.380.2"#) {
+            None => panic!(r#"invalid parse. "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/48.0.2564.88 Safari/537.36 Vivaldi/1.0.380.2""#),
+            Some(result) => {
+                assert_eq!(result.category, "pc".to_string());
+                assert_eq!(result.name, "Vivaldi".to_string());
+                assert_eq!(result.os, "Windows 10".to_string());
+                assert_eq!(result.os_version, "NT 10.0".to_string());
+                assert_eq!(result.version, "1.0.380.2".to_string());
+            }
+        }
         match parser.parse(r#"Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/33.0.1750.117 Safari/537.36 OPR/20.0.1387.64"#) {
             None => panic!(r#"invalid parse. "Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/33.0.1750.117 Safari/537.36 OPR/20.0.1387.64""#),
             Some(result) => {
@@ -258,6 +268,5 @@ mod tests {
                 assert_eq!(result.version, "UNKNOWN".to_string());
             }
         }
-
     }
 }
