@@ -3,6 +3,7 @@
 The Rust implementation of [Project Woothee](https://github.com/woothee/woothee),
 which is multi-language user-agent strings parsers.
 
+
 ## Usage
 
 parsing user-agent.
@@ -23,6 +24,7 @@ run
 Some(WootheeResult { name: "Internet Explorer", category: "pc", os: "Windows 7", os_version: "NT 6.1", browser_type: "UNKNOWN", version: "8.0", vendor: "Microsoft" })
 ```
 
+
 ## Benchmark
 ```
 running 2 tests
@@ -31,6 +33,16 @@ test bench_woothee ... bench:     542,426 ns/iter (+/- 24,330)
 
 test result: ok. 0 passed; 0 failed; 0 ignored; 2 measured
 ```
+
+
+## for Maintainer
+generate code from woothee/woothee dataset & testsets.
+
+```
+$ cargo build --features=generate && cargo fmt
+$ cargo test    # and code review!!!
+```
+
 
 ## Links
 * [on crates.io](https://crates.io/crates/woothee)
