@@ -15,9 +15,10 @@ lazy_static = "0.2.1"
 
 [features]
 default = []
-code-update = ["yaml-rust", "tera", "tempdir"]
+generate = ["yaml-rust", "tera", "tempdir", "serde"]
 
 [build-dependencies]
 tera = { version = "*", optional = true }
 yaml-rust = { version = "*", optional = true }
 tempdir = { version = "0.3", optional = true }
+serde = { version = "0.7", optional = true }

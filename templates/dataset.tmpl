@@ -1,0 +1,22 @@
+// This file is auto-generated! Any changes to this file will be lost!
+use std::collections::HashMap;
+use parser::WootheeResult;
+
+pub fn get_default_dataset() -> HashMap<String, WootheeResult> {
+    let mut dataset: HashMap<String, WootheeResult> = HashMap::new();
+
+    {% for result in results %}
+    dataset.insert("{{result.label}}".to_string(),
+                   WootheeResult {
+                       name: "{{result.name}}".to_string(),
+                       browser_type: "{{result.browser_type}}".to_string(),
+                       category: "{{result.category}}".to_string(),
+                       os: "{{result.os}}".to_string(),
+                       os_version: "{{result.os_version}}".to_string(),
+                       vendor: "{{result.vendor}}".to_string(),
+                       version: "{{result.version}}".to_string(),
+                   });
+    {% endfor %}
+
+    dataset
+}
