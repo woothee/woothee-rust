@@ -1,0 +1,40 @@
+// This file is auto-generated! Any changes to this file will be lost!
+extern crate woothee;
+
+mod tests {
+    use woothee::parser::Parser;
+
+    #[test]
+    fn test_{{test_fnname}}() {
+        let parser = Parser::new();
+
+        {% for test in tests %}
+        match parser.parse(r#"{{test.target}}"#) {
+            None => panic!(r#"invalid parse. "{{test.target}}""#),
+            Some(result) => {
+                {% if test.category %}
+                    assert_eq!(result.category, "{{test.category}}".to_string());
+                {% else %}
+                  assert_eq!(result.category, "UNKNOWN".to_string());
+                {% endif %}
+                {% if test.name %}
+                    assert_eq!(result.name, "{{test.name}}".to_string());
+                {% else %}assert_eq!(result.name, "UNKNOWN".to_string());
+                {% endif %}
+                {% if test.os %}
+                    assert_eq!(result.os, "{{test.os}}".to_string());
+                {% else %}assert_eq!(result.os, "UNKNOWN".to_string());
+                {% endif %}
+                {% if test.os_version %}
+                    assert_eq!(result.os_version, "{{test.os_version}}".to_string());
+                {% else %}assert_eq!(result.os_version, "UNKNOWN".to_string());
+                {% endif %}
+                {% if test.version %}
+                    assert_eq!(result.version, "{{test.version}}".to_string());
+                {% else %}assert_eq!(result.version, "UNKNOWN".to_string());
+                {% endif %}
+            }
+        }
+        {% endfor %}
+    }
+}
