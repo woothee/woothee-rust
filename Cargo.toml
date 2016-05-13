@@ -18,8 +18,8 @@ default = []
 generate = ["yaml-rust", "tera", "tempdir", "glob", "serde"]
 
 [build-dependencies]
-tera = { version = "*", optional = true }
-yaml-rust = { version = "*", optional = true }
+tera = { version = "0.1.1", optional = true }
+yaml-rust = { version = "0.3.2", optional = true }
 tempdir = { version = "0.3", optional = true }
-glob = { version = "*", optional = true }
+glob = { version = "0.2.11", optional = true }
 serde = { version = "0.7", optional = true }
