@@ -11,7 +11,6 @@ lazy_static! {
     static ref RX_FIREFOX_OS_PATTERN: Regex = Regex::new(r"^Mozilla/[.0-9]+ \((?:Mobile|Tablet);(?:.*;)? rv:([.0-9]+)\) Gecko/[.0-9]+ Firefox/[.0-9]+$").unwrap();
     static ref RX_FIREFOX_IOS_PATTERN: Regex = Regex::new(r"FxiOS/([.0-9]+)").unwrap();
     static ref RX_FOMA_VERSION_PATTERN: Regex = Regex::new(r"\(([^;)]+);FOMA;").unwrap();
-    static ref RX_HEADLINE_READER_PATTERN: Regex = Regex::new(r"(?i)headline-reader").unwrap();
     static ref RX_JIG_PATTERN: Regex = Regex::new(r"jig browser[^;]+; ([^);]+)").unwrap();
     static ref RX_KDDI_PATTERN: Regex = Regex::new(r#"KDDI-([^- /;()"']+)"#).unwrap();
     static ref RX_MAYBE_RSS_PATTERN: Regex = Regex::new(r"(?i)rss(?:reader|bar|[-_ /;()]|[ +]*/)").unwrap();
@@ -104,6 +103,7 @@ impl WootheeResult {
     }
 }
 
+#[derive(Default)]
 pub struct Parser {
     agent_dataset: HashMap<String, WootheeResult>,
 }
@@ -124,7 +124,7 @@ impl Parser {
         }
 
         if self.try_browser(agent, &mut result) {
-            self.try_os(&agent, &mut result);
+            self.try_os(agent, &mut result);
             return Some(result);
         }
 
@@ -144,7 +144,7 @@ impl Parser {
             return Some(result);
         }
 
-        if self.try_rare_cases(&agent, &mut result) {
+        if self.try_rare_cases(agent, &mut result) {
             return Some(result);
         }
 
@@ -332,11 +332,9 @@ impl Parser {
             return self.populate_dataset(result, "GoogleBot");
         }
 
-        if agent.contains("Mediapartners-Google") {
-            if agent.contains("compatible; Mediapartners-Google") ||
-               agent == "Mediapartners-Google" {
-                return self.populate_dataset(result, "GoogleMediaPartners");
-            }
+        if agent.contains("Mediapartners-Google") &&
+           (agent.contains("compatible; Mediapartners-Google") || agent == "Mediapartners-Google") {
+            return self.populate_dataset(result, "GoogleMediaPartners");
         }
 
         if agent.contains("Feedfetcher-Google;") {
@@ -359,12 +357,11 @@ impl Parser {
            agent.contains("listing.yahoo.co.jp/support/faq/") {
             if agent.contains("compatible; Yahoo! Slurp") {
                 return self.populate_dataset(result, "YahooSlurp");
-            } else if agent.contains("YahooFeedSeekerJp") || agent.contains("YahooFeedSeekerBetaJp") {
-                return self.populate_dataset(result, "YahooJP");
-            } else if agent.contains("crawler (http://listing.yahoo.co.jp/support/faq/") ||
-               agent.contains("crawler (http://help.yahoo.co.jp/help/jp/") {
-                return self.populate_dataset(result, "YahooJP");
-            } else if agent.contains("Y!J-BRZ/YATSHA crawler") || agent.contains("Y!J-BRY/YATSH crawler") {
+            } else if agent.contains("YahooFeedSeekerJp") || agent.contains("YahooFeedSeekerBetaJp") ||
+               agent.contains("crawler (http://listing.yahoo.co.jp/support/faq/") ||
+               agent.contains("crawler (http://help.yahoo.co.jp/help/jp/") ||
+               agent.contains("Y!J-BRZ/YATSHA crawler") ||
+               agent.contains("Y!J-BRY/YATSH crawler") {
                 return self.populate_dataset(result, "YahooJP");
             } else if agent.contains("Yahoo Pipes") {
                 return self.populate_dataset(result, "YahooPipes");
@@ -375,23 +372,18 @@ impl Parser {
             return self.populate_dataset(result, "msnbot");
         }
 
-        if agent.contains("bingbot") {
-            if agent.contains("compatible; bingbot") {
-                return self.populate_dataset(result, "bingbot");
-            }
+        if agent.contains("bingbot") && agent.contains("compatible; bingbot") {
+            return self.populate_dataset(result, "bingbot");
         }
 
-        if agent.contains("Baidu") {
-            if agent.contains("compatible; Baiduspider") || agent.contains("Baiduspider+") ||
-               agent.contains("Baiduspider-image+") {
-                return self.populate_dataset(result, "Baiduspider");
-            }
+        if agent.contains("Baidu") &&
+           (agent.contains("compatible; Baiduspider") || agent.contains("Baiduspider+") ||
+            agent.contains("Baiduspider-image+")) {
+            return self.populate_dataset(result, "Baiduspider");
         }
 
-        if agent.contains("Yeti") {
-            if agent.contains("http://help.naver.com/robots") {
-                return self.populate_dataset(result, "Yeti");
-            }
+        if agent.contains("Yeti") && agent.contains("http://help.naver.com/robots") {
+            return self.populate_dataset(result, "Yeti");
         }
 
         if agent.contains("FeedBurner/") {
@@ -406,11 +398,10 @@ impl Parser {
             return self.populate_dataset(result, "twitter");
         }
 
-        if agent.contains("ichiro") {
-            if agent.contains("http://help.goo.ne.jp/door/crawler.html") ||
-               agent.contains("compatible; ichiro/mobile goo;") {
-                return self.populate_dataset(result, "goo");
-            }
+        if agent.contains("ichiro") &&
+           (agent.contains("http://help.goo.ne.jp/door/crawler.html") ||
+            agent.contains("compatible; ichiro/mobile goo;")) {
+            return self.populate_dataset(result, "goo");
         }
 
         if agent.contains("gooblogsearch/") {
@@ -445,11 +436,9 @@ impl Parser {
             return self.populate_dataset(result, "livedoorFeedFetcher");
         }
 
-        if agent.contains("Hatena ") {
-            if agent.contains("Hatena Antenna") || agent.contains("Hatena Pagetitle Agent") ||
-               agent.contains("Hatena Diary RSS") {
-                return self.populate_dataset(result, "Hatena");
-            }
+        if agent.contains("Hatena Antenna") || agent.contains("Hatena Pagetitle Agent") ||
+           agent.contains("Hatena Diary RSS") {
+            return self.populate_dataset(result, "Hatena");
         }
 
         if agent.contains("mixi-check") || agent.contains("mixi-crawler") ||
@@ -457,10 +446,8 @@ impl Parser {
             return self.populate_dataset(result, "mixi");
         }
 
-        if agent.contains("Indy Library") {
-            if agent.contains("compatible; Indy Library") {
-                return self.populate_dataset(result, "IndyLibrary");
-            }
+        if agent.contains("Indy Library") && agent.contains("compatible; Indy Library") {
+            return self.populate_dataset(result, "IndyLibrary");
         }
 
         false
@@ -1179,9 +1166,8 @@ impl Parser {
         // TODO: wip
         let mut version = "";
 
-        if RX_HTTP_CLIENT.is_match(agent) || RX_HTTP_CLIENT_OTHER.is_match(agent) {
-            version = "Java";
-        } else if agent.contains("Java(TM) 2 Runtime Environment,") {
+        if RX_HTTP_CLIENT.is_match(agent) || RX_HTTP_CLIENT_OTHER.is_match(agent) ||
+           agent.contains("Java(TM) 2 Runtime Environment,") {
             version = "Java";
         } else if agent.starts_with("Wget/") {
             version = "wget";
@@ -1211,8 +1197,8 @@ impl Parser {
     }
 
     fn challenge_maybe_rss_reader(&self, agent: &str, result: &mut WootheeResult) -> bool {
-        if RX_MAYBE_RSS_PATTERN.is_match(agent) || RX_HEADLINE_READER_PATTERN.is_match(agent) ||
-           agent.contains("cococ/") {
+        if RX_MAYBE_RSS_PATTERN.is_match(agent) ||
+           agent.to_lowercase().contains("headline-reader") || agent.contains("cococ/") {
             return self.populate_dataset(result, "VariousRSSReader");
         }
 
