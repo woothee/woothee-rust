@@ -27,12 +27,12 @@ Some(WootheeResult { name: "Internet Explorer", category: "pc", os: "Windows 7",
 
 ## Benchmark
 ```
-running 2 tests
-test bench_uap     ... bench: 204,584,510 ns/iter (+/- 4,739,819)
-test bench_woothee ... bench:     542,426 ns/iter (+/- 24,330)
-
-test result: ok. 0 passed; 0 failed; 0 ignored; 2 measured
+running 3 tests
+test bench_stabilizer ... bench:          14 ns/iter (+/- 1)
+test bench_uap        ... bench: 210,071,986 ns/iter (+/- 27,302,537)
+test bench_woothee    ... bench:      20,553 ns/iter (+/- 2,068)
 ```
+[benchmark script](https://github.com/hhatto/rust-snippets/blob/master/parser/src/lib.rs)
 
 
 ## for Maintainer
