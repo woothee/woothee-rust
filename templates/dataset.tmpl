@@ -2,18 +2,18 @@
 use std::collections::HashMap;
 use parser::WootheeResult;
 
-pub fn get_default_dataset<'a>() -> HashMap<&'a str, WootheeResult> {
-    let mut dataset: HashMap<&'a str, WootheeResult> = HashMap::new();
+pub fn get_default_dataset<'a>() -> HashMap<&'a str, WootheeResult<'a>> {
+    let mut dataset: HashMap<&'a str, WootheeResult<'a>> = HashMap::new();
 
     {% for result in results %}
     dataset.insert("{{result.label}}",
                    WootheeResult {
-                       name: "{{result.name}}".to_string(),
-                       browser_type: "{{result.browser_type}}".to_string(),
-                       category: "{{result.category}}".to_string(),
-                       os: "{{result.os}}".to_string(),
+                       name: "{{result.name}}",
+                       browser_type: "{{result.browser_type}}",
+                       category: "{{result.category}}",
+                       os: "{{result.os}}",
                        os_version: "{{result.os_version}}".to_string(),
-                       vendor: "{{result.vendor}}".to_string(),
+                       vendor: "{{result.vendor}}",
                        version: "{{result.version}}".to_string(),
                    });
     {% endfor %}
