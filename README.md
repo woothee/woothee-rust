@@ -8,7 +8,7 @@ which is multi-language user-agent strings parsers.
 
 parsing user-agent.
 
-```
+```rust
 extern crate woothee;
 
 use woothee::parser::Parser;
@@ -21,7 +21,7 @@ fn main() {
 ```
 
 run
-```
+```rust
 Some(WootheeResult { name: "Internet Explorer", category: "pc", os: "Windows 7", os_version: "NT 6.1", browser_type: "UNKNOWN", version: "8.0", vendor: "Microsoft" })
 ```
 
