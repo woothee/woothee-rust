@@ -104,12 +104,12 @@ impl WootheeResult {
 }
 
 #[derive(Default)]
-pub struct Parser {
-    agent_dataset: HashMap<String, WootheeResult>,
+pub struct Parser<'a> {
+    agent_dataset: HashMap<&'a str, WootheeResult>,
 }
 
-impl Parser {
-    pub fn new() -> Parser {
+impl<'a> Parser<'a> {
+    pub fn new() -> Parser<'a> {
         Parser { agent_dataset: dataset::get_default_dataset() }
     }
 

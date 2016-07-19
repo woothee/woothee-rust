@@ -2,11 +2,11 @@
 use std::collections::HashMap;
 use parser::WootheeResult;
 
-pub fn get_default_dataset() -> HashMap<String, WootheeResult> {
-    let mut dataset: HashMap<String, WootheeResult> = HashMap::new();
+pub fn get_default_dataset<'a>() -> HashMap<&'a str, WootheeResult> {
+    let mut dataset: HashMap<&'a str, WootheeResult> = HashMap::new();
 
     {% for result in results %}
-    dataset.insert("{{result.label}}".to_string(),
+    dataset.insert("{{result.label}}",
                    WootheeResult {
                        name: "{{result.name}}".to_string(),
                        browser_type: "{{result.browser_type}}".to_string(),
