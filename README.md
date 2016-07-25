@@ -28,12 +28,13 @@ Some(WootheeResult { name: "Internet Explorer", category: "pc", os: "Windows 7",
 
 ## Benchmark
 ```
+$ rustup run nightly cargo bench
 running 3 tests
 test bench_stabilizer ... bench:          14 ns/iter (+/- 1)
 test bench_uap        ... bench: 210,071,986 ns/iter (+/- 27,302,537)
 test bench_woothee    ... bench:      20,553 ns/iter (+/- 2,068)
 ```
-[benchmark script](https://github.com/hhatto/rust-snippets/blob/master/parser/src/lib.rs)
+[benchmark script](https://github.com/hhatto/woothee-rust/blob/master/tests/benchmark.rs)
 
 
 ## for Maintainer
