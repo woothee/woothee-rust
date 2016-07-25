@@ -14,6 +14,13 @@ regex = "0.1"
 lazy_static = "0.2.1"
 clippy = { version = "0.0.79", optional = true }
 
+[dev-dependencies]
+uap-rust = "*"
+
+[[bench]]
+name = "benchmark"
+path = "tests/benchmark.rs"
+
 [features]
 default = []
 generate = ["yaml-rust", "tera", "tempdir", "glob", "serde"]
