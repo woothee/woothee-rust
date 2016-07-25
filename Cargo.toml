@@ -19,7 +19,7 @@ uap-rust = "*"
 
 [[bench]]
 name = "benchmark"
-path = "tests/benchmark.rs"
+path = "benches/benchmark.rs"
 
 [features]
 default = []
