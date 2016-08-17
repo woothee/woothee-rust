@@ -15,7 +15,7 @@ lazy_static = "0.2.1"
 clippy = { version = "0.0.79", optional = true }
 
 [dev-dependencies]
-uap-rust = "*"
+uap-rust = "0.0.4"
 
 [[bench]]
 name = "benchmark"
