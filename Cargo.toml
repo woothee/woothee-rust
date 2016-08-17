@@ -1,6 +1,6 @@
 [package]
 name = "woothee"
-version = "0.4.0"
+version = "0.5.0"
 authors = ["hhatto <hhatto.jp@gmail.com>"]
 license = "Apache-2.0"
 repository = "https://github.com/hhatto/woothee-rust"
