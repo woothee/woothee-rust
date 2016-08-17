@@ -376,6 +376,10 @@ impl<'a> Parser<'a> {
             return self.populate_dataset(result, "bingbot");
         }
 
+        if agent.contains("BingPreview") {
+            return self.populate_dataset(result, "BingPreview")
+        }
+
         if agent.contains("Baidu") &&
            (agent.contains("compatible; Baiduspider") || agent.contains("Baiduspider+") ||
             agent.contains("Baiduspider-image+")) {
