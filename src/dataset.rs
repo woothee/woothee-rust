@@ -725,6 +725,16 @@ pub fn get_default_dataset<'a>() -> HashMap<&'a str, WootheeResult<'a>> {
                        vendor: "",
                        version: "".to_string(),
                    });
+    dataset.insert("BingPreview",
+                   WootheeResult {
+                       name: "BingPreview",
+                       browser_type: "full",
+                       category: "crawler",
+                       os: "",
+                       os_version: "".to_string(),
+                       vendor: "",
+                       version: "".to_string(),
+                   });
     dataset.insert("Yeti",
                    WootheeResult {
                        name: "Naver Yeti",

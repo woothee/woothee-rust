@@ -198,6 +198,16 @@ mod tests {
                 assert_eq!(result.version, "UNKNOWN".to_string());
             }
         }
+        match parser.parse(r#"Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/534+ (KHTML, like Gecko) BingPreview/1.0b"#) {
+            None => panic!(r#"invalid parse. "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/534+ (KHTML, like Gecko) BingPreview/1.0b""#),
+            Some(result) => {
+                assert_eq!(result.category, "crawler".to_string());
+                assert_eq!(result.name, "BingPreview".to_string());
+                assert_eq!(result.os, "UNKNOWN".to_string());
+                assert_eq!(result.os_version, "UNKNOWN".to_string());
+                assert_eq!(result.version, "UNKNOWN".to_string());
+            }
+        }
         match parser.parse(r#"Yeti/1.0 (NHN Corp.; http://help.naver.com/robots/)"#) {
             None => panic!(r#"invalid parse. "Yeti/1.0 (NHN Corp.; http://help.naver.com/robots/)""#),
             Some(result) => {
