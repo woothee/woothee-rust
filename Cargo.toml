@@ -10,7 +10,7 @@ documentation = "http://hhatto.github.io/woothee-rust/woothee/"
 build = "build.rs"
 
 [dependencies]
-regex = "0.1"
+regex = "^0.2"
 lazy_static = "0.2.1"
 clippy = { version = "0.0.79", optional = true }
 

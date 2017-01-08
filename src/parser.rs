@@ -470,11 +470,11 @@ impl<'a> Parser<'a> {
         let re_ie_mobile_caps = RX_IEMOBILE_PATTERN.captures(agent);
 
         if re_msie_caps.is_some() {
-            version = re_msie_caps.unwrap().at(1).unwrap();
+            version = re_msie_caps.unwrap().get(1).unwrap().as_str();
         } else if re_trident_caps.is_some() && re_trident_ver_caps.is_some() {
-            version = re_trident_ver_caps.unwrap().at(1).unwrap();
+            version = re_trident_ver_caps.unwrap().get(1).unwrap().as_str();
         } else if re_ie_mobile_caps.is_some() {
-            version = re_ie_mobile_caps.unwrap().at(1).unwrap();
+            version = re_ie_mobile_caps.unwrap().get(1).unwrap().as_str();
         }
 
         if !self.populate_dataset(result, "MSIE") {
@@ -501,7 +501,7 @@ impl<'a> Parser<'a> {
     fn challenge_vivaldi<'b>(&'b self, agent: &str, result: &mut WootheeResult<'b>) -> bool {
         match RX_VIVALDI_PATTERN.captures(agent) {
             Some(caps) => {
-                result.version = caps.at(1).unwrap().to_string();
+                result.version = caps.get(1).unwrap().as_str().to_string();
             }
             None => {
                 return false;
@@ -518,7 +518,7 @@ impl<'a> Parser<'a> {
     fn challenge_firefox_ios<'b>(&'b self, agent: &str, result: &mut WootheeResult<'b>) -> bool {
         match RX_FIREFOX_IOS_PATTERN.captures(agent) {
             Some(caps) => {
-                result.version = caps.at(1).unwrap().to_string();
+                result.version = caps.get(1).unwrap().as_str().to_string();
             }
             None => {
                 return false;
@@ -540,7 +540,7 @@ impl<'a> Parser<'a> {
         if RX_CHROME_PATTERN.is_match(agent) {
             if RX_OPERA_VERSION_PATTERN3.is_match(agent) {
                 let version = match RX_OPERA_VERSION_PATTERN3.captures(agent) {
-                    Some(caps) => caps.at(1).unwrap(),
+                    Some(caps) => caps.get(1).unwrap().as_str(),
                     None => "",
                 };
                 if !self.populate_dataset(result, "Opera") {
@@ -557,7 +557,7 @@ impl<'a> Parser<'a> {
             }
 
             let version = match RX_CHROME_PATTERN.captures(agent) {
-                Some(caps) => caps.at(1).unwrap(),
+                Some(caps) => caps.get(1).unwrap().as_str(),
                 None => "",
             };
             if !version.is_empty() {
@@ -567,7 +567,7 @@ impl<'a> Parser<'a> {
         }
 
         let version = match RX_SAFARI_PATTERN.captures(agent) {
-            Some(caps) => caps.at(1).unwrap(),
+            Some(caps) => caps.get(1).unwrap().as_str(),
             None => VALUE_UNKNOWN,
         };
 
@@ -586,7 +586,7 @@ impl<'a> Parser<'a> {
         }
 
         let version = match RX_FIREFOX_PATTERN.captures(agent) {
-            Some(caps) => caps.at(1).unwrap(),
+            Some(caps) => caps.get(1).unwrap().as_str(),
             None => VALUE_UNKNOWN,
         };
 
@@ -605,10 +605,10 @@ impl<'a> Parser<'a> {
         }
 
         let version = match RX_OPERA_VERSION_PATTERN1.captures(agent) {
-            Some(caps) => caps.at(1).unwrap(),
+            Some(caps) => caps.get(1).unwrap().as_str(),
             None => {
                 match RX_OPERA_VERSION_PATTERN2.captures(agent) {
-                    Some(caps2) => caps2.at(1).unwrap(),
+                    Some(caps2) => caps2.get(1).unwrap().as_str(),
                     None => VALUE_UNKNOWN,
                 }
             }
@@ -633,7 +633,7 @@ impl<'a> Parser<'a> {
         }
 
         let version = match RX_WEBVIEW_VERSION_PATTERN.captures(agent) {
-            Some(caps) => caps.at(1).unwrap(),
+            Some(caps) => caps.get(1).unwrap().as_str(),
             None => "",
         };
         if !version.is_empty() {
@@ -652,9 +652,9 @@ impl<'a> Parser<'a> {
         let docomo_caps = RX_DOCOMO_VERSION_PATTERN.captures(agent);
         let foma_caps = RX_FOMA_VERSION_PATTERN.captures(agent);
         if docomo_caps.is_some() {
-            version = docomo_caps.unwrap().at(1).unwrap();
+            version = docomo_caps.unwrap().get(1).unwrap().as_str();
         } else if foma_caps.is_some() {
-            version = foma_caps.unwrap().at(1).unwrap();
+            version = foma_caps.unwrap().get(1).unwrap().as_str();
         }
 
         if !self.populate_dataset(result, "docomo") {
@@ -673,7 +673,7 @@ impl<'a> Parser<'a> {
         let mut version = VALUE_UNKNOWN;
         let caps = RX_KDDI_PATTERN.captures(agent);
         if caps.is_some() {
-            version = caps.unwrap().at(1).unwrap();
+            version = caps.unwrap().get(1).unwrap().as_str();
         }
 
         if !self.populate_dataset(result, "au") {
@@ -693,7 +693,7 @@ impl<'a> Parser<'a> {
         let mut version = VALUE_UNKNOWN;
         let caps = RX_SOFTBANK_PATTERN.captures(agent);
         if caps.is_some() {
-            version = caps.unwrap().at(1).unwrap();
+            version = caps.unwrap().get(1).unwrap().as_str();
         }
 
         if !self.populate_dataset(result, "SoftBank") {
@@ -712,7 +712,7 @@ impl<'a> Parser<'a> {
         let mut version = VALUE_UNKNOWN;
         let caps = RX_WILLCOM_PATTERN.captures(agent);
         if caps.is_some() {
-            version = caps.unwrap().at(1).unwrap();
+            version = caps.unwrap().get(1).unwrap().as_str();
         }
 
         if !self.populate_dataset(result, "willcom") {
@@ -734,7 +734,7 @@ impl<'a> Parser<'a> {
 
             let caps = RX_JIG_PATTERN.captures(agent);
             if caps.is_some() {
-                result.version = caps.unwrap().at(1).unwrap().to_string();
+                result.version = caps.unwrap().get(1).unwrap().as_str().to_string();
             }
             return true;
         }
@@ -778,25 +778,25 @@ impl<'a> Parser<'a> {
 
         let d = if agent.contains("PSP (PlayStation Portable)") {
             os_version = match RX_PSP_OS_VERSION.captures(agent) {
-                Some(caps) => caps.at(1).unwrap(),
+                Some(caps) => caps.get(1).unwrap().as_str(),
                 None => "",
             };
             self.lookup_dataset("PSP")
         } else if agent.contains("PlayStation Vita") {
             os_version = match RX_PSVITA_OS_VERSION.captures(agent) {
-                Some(caps) => caps.at(1).unwrap(),
+                Some(caps) => caps.get(1).unwrap().as_str(),
                 None => "",
             };
             self.lookup_dataset("PSVita")
         } else if agent.contains("PLAYSTATION 3 ") || agent.contains("PLAYSTATION 3;") {
             os_version = match RX_PS3_OS_VERSION.captures(agent) {
-                Some(caps) => caps.at(1).unwrap(),
+                Some(caps) => caps.get(1).unwrap().as_str(),
                 None => "",
             };
             self.lookup_dataset("PS3")
         } else if agent.contains("PlayStation 4 ") {
             os_version = match RX_PS4_OS_VERSION.captures(agent) {
-                Some(caps) => caps.at(1).unwrap(),
+                Some(caps) => caps.get(1).unwrap().as_str(),
                 None => "",
             };
             self.lookup_dataset("PS4")
@@ -871,7 +871,7 @@ impl<'a> Parser<'a> {
             return true;
         }
 
-        let mut version = caps.unwrap().at(1).unwrap();
+        let mut version = caps.unwrap().get(1).unwrap().as_str();
         w = match version {
             "NT 10.0" => self.lookup_dataset("Win10"),
             "NT 6.3" => self.lookup_dataset("Win8.1"),
@@ -887,7 +887,7 @@ impl<'a> Parser<'a> {
             _ => {
                 let caps = RX_WIN_PHONE.captures(version);
                 if caps.is_some() {
-                    version = caps.unwrap().at(1).unwrap();
+                    version = caps.unwrap().get(1).unwrap().as_str();
                     self.lookup_dataset("WinPhone")
                 } else {
                     None
@@ -936,13 +936,13 @@ impl<'a> Parser<'a> {
 
             let caps = RE_OSX_IPHONE_OS_VERSION.captures(agent);
             if caps.is_some() {
-                let v = caps.unwrap().at(1).unwrap();
+                let v = caps.unwrap().get(1).unwrap().as_str();
                 version = v.replace("_", ".");
             }
         } else {
             let caps = RE_OSX_OS_VERSION.captures(agent);
             if caps.is_some() {
-                let v = caps.unwrap().at(1).unwrap();
+                let v = caps.unwrap().get(1).unwrap().as_str();
                 version = v.replace("_", ".");
             }
         }
@@ -965,7 +965,7 @@ impl<'a> Parser<'a> {
         let d = if agent.contains("Android") {
             let caps = RX_ANDROIDOS_OS_VERSION.captures(agent);
             if caps.is_some() {
-                os_version = caps.unwrap().at(1).unwrap().to_string();
+                os_version = caps.unwrap().get(1).unwrap().as_str().to_string();
             }
             self.lookup_dataset("Android")
         } else {
@@ -1002,14 +1002,14 @@ impl<'a> Parser<'a> {
         } else if agent.contains("BB10") {
             let caps = RX_BLACKBERRY10_OS_VERSION.captures(agent);
             if caps.is_some() {
-                os_version = caps.unwrap().at(1).unwrap();
+                os_version = caps.unwrap().get(1).unwrap().as_str();
             }
             result.version = VALUE_UNKNOWN.to_string();
             self.lookup_dataset("BlackBerry10")
         } else if agent.contains("BlackBerry") {
             let caps = RX_BLACKBERRY_OS_VERSION.captures(agent);
             if caps.is_some() {
-                os_version = caps.unwrap().at(1).unwrap();
+                os_version = caps.unwrap().get(1).unwrap().as_str();
             }
             self.lookup_dataset("BlackBerry")
         } else {
@@ -1031,7 +1031,7 @@ impl<'a> Parser<'a> {
                 let c = caps.unwrap();
                 if c.len() > 1 {
                     d = self.lookup_dataset("FirefoxOS");
-                    os_version = c.at(1).unwrap();
+                    os_version = c.get(1).unwrap().as_str();
                 }
             }
         }
@@ -1054,7 +1054,7 @@ impl<'a> Parser<'a> {
         if agent.contains("KDDI-") {
             let caps = RX_KDDI_PATTERN.captures(agent);
             if caps.is_some() {
-                let term = caps.unwrap().at(1).unwrap();
+                let term = caps.unwrap().get(1).unwrap().as_str();
                 let d = self.lookup_dataset("au");
                 if d.is_none() {
                     return false;
@@ -1070,7 +1070,7 @@ impl<'a> Parser<'a> {
         if agent.contains("WILLCOM") || agent.contains("DDIPOCKET") {
             let caps = RX_WILLCOM_PATTERN.captures(agent);
             if caps.is_some() {
-                let term = caps.unwrap().at(1).unwrap();
+                let term = caps.unwrap().get(1).unwrap().as_str();
                 let d = self.lookup_dataset("willcom");
                 if d.is_none() {
                     return false;
@@ -1153,7 +1153,7 @@ impl<'a> Parser<'a> {
         }
 
         let version = match Regex::new(r"Sleipnir/([.0-9]+)").unwrap().captures(agent) {
-            Some(caps) => caps.at(1).unwrap(),
+            Some(caps) => caps.get(1).unwrap().as_str(),
             None => VALUE_UNKNOWN,
         };
 
@@ -1262,19 +1262,19 @@ impl<'a> Parser<'a> {
         } else if agent.contains("Macintosh; U; PPC;") || agent.contains("Mac_PowerPC") {
             let caps = RX_PPC_OS_VERSION.captures(agent);
             if caps.is_some() {
-                result.os_version = caps.unwrap().at(1).unwrap().to_string();
+                result.os_version = caps.unwrap().get(1).unwrap().as_str().to_string();
             }
             self.lookup_dataset("MacOS")
         } else if agent.contains("X11; FreeBSD ") {
             let caps = RX_FREEBSD_OS_VERSION.captures(agent);
             if caps.is_some() {
-                result.os_version = caps.unwrap().at(1).unwrap().to_string();
+                result.os_version = caps.unwrap().get(1).unwrap().as_str().to_string();
             }
             self.lookup_dataset("BSD")
         } else if agent.contains("X11; CrOS ") {
             let caps = RX_CHROMEOS_OS_VERSION.captures(agent);
             if caps.is_some() {
-                result.os_version = caps.unwrap().at(1).unwrap().to_string();
+                result.os_version = caps.unwrap().get(1).unwrap().as_str().to_string();
             }
             self.lookup_dataset("ChromeOS")
         } else {
