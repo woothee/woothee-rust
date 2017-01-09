@@ -1,3 +1,8 @@
+#[cfg_attr(feature = "generate", feature(proc_macro))]
+#[cfg(feature = "generate")]
+#[macro_use]
+extern crate serde_derive;
+
 #[cfg(feature = "generate")]
 mod inner {
     extern crate yaml_rust;
@@ -5,14 +10,16 @@ mod inner {
     extern crate tera;
     extern crate serde;
     extern crate glob;
+    extern crate serde_json;
     use std::env;
     use std::fs::File;
     use std::io::{Write, Read};
     use std::path::{Path, PathBuf};
     use std::process::Command;
     use self::yaml_rust::YamlLoader;
+    use self::tera::{Tera, Context};
 
-    #[derive(Debug)]
+    #[derive(Serialize, Deserialize, Debug)]
     struct Data {
         label: String,
         name: String,
@@ -24,6 +31,7 @@ mod inner {
         vendor: String,
         target: String,
     }
+
     impl Data {
         pub fn new(label: &str,
                    name: &str,
@@ -49,72 +57,6 @@ mod inner {
         }
     }
 
-    impl serde::Serialize for Data {
-        fn serialize<S>(&self, serializer: &mut S) -> Result<(), S::Error>
-            where S: serde::Serializer
-        {
-            serializer.serialize_struct("Data",
-                                        DataMapVisitor {
-                                            value: self,
-                                            state: 0,
-                                        })
-        }
-    }
-
-    struct DataMapVisitor<'a> {
-        value: &'a Data,
-        state: u8,
-    }
-
-    impl<'a> serde::ser::MapVisitor for DataMapVisitor<'a> {
-        fn visit<S>(&mut self, serializer: &mut S) -> Result<Option<()>, S::Error>
-            where S: serde::Serializer
-        {
-            match self.state {
-                0 => {
-                    self.state += 1;
-                    Ok(Some(try!(serializer.serialize_struct_elt("label", &self.value.label))))
-                }
-                1 => {
-                    self.state += 1;
-                    Ok(Some(try!(serializer.serialize_struct_elt("name", &self.value.name))))
-                }
-                2 => {
-                    self.state += 1;
-                    Ok(Some(try!(serializer.serialize_struct_elt("category",
-                                                                 &self.value.category))))
-                }
-                3 => {
-                    self.state += 1;
-                    Ok(Some(try!(serializer.serialize_struct_elt("os", &self.value.os))))
-                }
-                4 => {
-                    self.state += 1;
-                    Ok(Some(try!(serializer.serialize_struct_elt("os_version",
-                                                                 &self.value.os_version))))
-                }
-                5 => {
-                    self.state += 1;
-                    Ok(Some(try!(serializer.serialize_struct_elt("browser_type",
-                                                                 &self.value.browser_type))))
-                }
-                6 => {
-                    self.state += 1;
-                    Ok(Some(try!(serializer.serialize_struct_elt("version", &self.value.version))))
-                }
-                7 => {
-                    self.state += 1;
-                    Ok(Some(try!(serializer.serialize_struct_elt("vendor", &self.value.vendor))))
-                }
-                8 => {
-                    self.state += 1;
-                    Ok(Some(try!(serializer.serialize_struct_elt("target", &self.value.target))))
-                }
-                _ => Ok(None),
-            }
-        }
-    }
-
     fn gen_dataset(woothee_dir: PathBuf, root: PathBuf) {
         let dest = root.join("./src/dataset.rs");
         let template_dir = root.join("templates/*.tmpl");
@@ -135,8 +77,8 @@ mod inner {
         }
 
         // render dataset.rs
-        let template_engine = tera::Tera::new(template_dir.to_str().unwrap());
-        let mut context = tera::Context::new();
+        let template_engine = Tera::new(template_dir.to_str().unwrap()).unwrap();
+        let mut context = Context::new();
         let mut woothee_results = vec![];
 
         let docs = YamlLoader::load_from_str(s.as_str()).unwrap();
@@ -202,8 +144,8 @@ mod inner {
     fn gen_testsets(woothee_dir: PathBuf, root: PathBuf) {
         let woothee_tests_glob = woothee_dir.join("testsets/*.yaml");
         let template_dir = root.join("templates/*.tmpl");
-        let template_engine = tera::Tera::new(template_dir.to_str().unwrap());
-        let mut context = tera::Context::new();
+        let template_engine = Tera::new(template_dir.to_str().unwrap()).unwrap();
+        let mut context = Context::new();
 
         for entry in glob::glob(woothee_tests_glob.to_str().unwrap()).unwrap() {
             let filename = match entry {
@@ -215,8 +157,8 @@ mod inner {
             let testname = v[0];
             context.add("test_fnname", &testname);
 
-            let yaml_file = woothee_dir.join(Path::new(format!("testsets/{}", filename.as_str())
-                                                           .as_str()));
+            let yaml_file =
+                woothee_dir.join(Path::new(format!("testsets/{}", filename.as_str()).as_str()));
             let path = Path::new(&yaml_file);
             let mut y = match File::open(&path) {
                 Ok(f) => f,
@@ -314,11 +256,11 @@ mod inner {
         }
 
         let _ = Command::new("git")
-                    .arg("clone")
-                    .arg("-q")
-                    .arg("https://github.com/woothee/woothee.git")
-                    .output()
-                    .unwrap();
+            .arg("clone")
+            .arg("-q")
+            .arg("https://github.com/woothee/woothee.git")
+            .output()
+            .unwrap();
 
         let woothee_dir = curdir.join(Path::new("woothee"));
         gen_dataset(woothee_dir.to_owned(), root_path.to_owned());
