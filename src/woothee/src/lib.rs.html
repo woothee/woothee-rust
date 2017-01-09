@@ -11,6 +11,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../../main.css">
+    
 
     
     
@@ -95,34 +96,37 @@
 <span id="52">52</span>
 <span id="53">53</span>
 <span id="54">54</span>
-<span id="55">55</span>
-<span id="56">56</span>
-<span id="57">57</span>
-<span id="58">58</span>
 </pre><pre class='rust '>
+<span class='attribute'>#<span class='op'>!</span>[<span class='ident'>cfg_attr</span>(<span class='ident'>feature</span><span class='op'>=</span><span class='string'>&quot;clippy&quot;</span>, <span class='ident'>feature</span>(<span class='ident'>plugin</span>))]</span>
+<span class='attribute'>#<span class='op'>!</span>[<span class='ident'>cfg_attr</span>(<span class='ident'>feature</span><span class='op'>=</span><span class='string'>&quot;clippy&quot;</span>, <span class='ident'>plugin</span>(<span class='ident'>clippy</span>))]</span>
+
+<span class='attribute'>#<span class='op'>!</span>[<span class='ident'>recursion_limit</span><span class='op'>=</span><span class='string'>&quot;100&quot;</span>]</span>
 <span class='doccomment'>//! # Woothee</span>
 <span class='doccomment'>//!</span>
 <span class='doccomment'>//! Woothee is a user-agent strings parser.</span>
 <span class='doccomment'>//!</span>
 <span class='doccomment'>//! ## Usage</span>
 <span class='doccomment'>//!</span>
-<span class='doccomment'>//! ```</span>
+<span class='doccomment'>//! ```toml</span>
 <span class='doccomment'>//! [dependencies]</span>
 <span class='doccomment'>//! woothee = &quot;*&quot;</span>
 <span class='doccomment'>//! ```</span>
 <span class='doccomment'>//!</span>
-<span class='doccomment'>//! ```</span>
+<span class='doccomment'>//! ```rust</span>
 <span class='doccomment'>//! extern crate woothee;</span>
 <span class='doccomment'>//!</span>
-<span class='doccomment'>//! use woothee::parse;</span>
+<span class='doccomment'>//! use woothee::parser::Parser;</span>
 <span class='doccomment'>//!</span>
 <span class='doccomment'>//! fn main() {</span>
-<span class='doccomment'>//!     let result = parse(&quot;Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.1; Trident/4.0)&quot;);</span>
+<span class='doccomment'>//!     let parser = Parser::new();</span>
+<span class='doccomment'>//!     let result = parser.parse(&quot;Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.1; Trident/4.0)&quot;);</span>
 <span class='doccomment'>//!     println!(&quot;{:?}&quot;, result);</span>
 <span class='doccomment'>//! }</span>
 <span class='doccomment'>//! ```</span>
 <span class='doccomment'>//!</span>
 
+<span class='attribute'>#[<span class='ident'>macro_use</span>]</span>
+<span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>lazy_static</span>;
 <span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>regex</span>;
 
 <span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>woothee</span>;
@@ -131,25 +135,14 @@
 
 <span class='kw'>use</span> <span class='ident'>parser</span>::{<span class='ident'>Parser</span>, <span class='ident'>WootheeResult</span>};
 
-<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>parse</span>(<span class='ident'>agent</span>: <span class='kw-2'>&amp;</span><span class='ident'>str</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='ident'>WootheeResult</span><span class='op'>&gt;</span> {
-    <span class='kw'>let</span> <span class='ident'>parser</span> <span class='op'>=</span> <span class='ident'>Parser</span>::<span class='ident'>new</span>();
-    <span class='ident'>parser</span>.<span class='ident'>parse</span>(<span class='ident'>agent</span>)
-}
-
 <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>is_crawler</span>(<span class='ident'>agent</span>: <span class='kw-2'>&amp;</span><span class='ident'>str</span>) <span class='op'>-&gt;</span> <span class='ident'>bool</span> {
     <span class='kw'>if</span> <span class='ident'>agent</span>.<span class='ident'>is_empty</span>() <span class='op'>||</span> <span class='ident'>agent</span> <span class='op'>==</span> <span class='string'>&quot;-&quot;</span> {
-        <span class='kw'>return</span> <span class='boolval'>false</span>;
+        <span class='kw'>return</span> <span class='bool-val'>false</span>;
     }
 
     <span class='kw'>let</span> <span class='ident'>parser</span> <span class='op'>=</span> <span class='ident'>Parser</span>::<span class='ident'>new</span>();
     <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>result</span> <span class='op'>=</span> <span class='ident'>WootheeResult</span>::<span class='ident'>new</span>();
     <span class='ident'>parser</span>.<span class='ident'>try_crawler</span>(<span class='ident'>agent</span>, <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>result</span>)
-}
-
-<span class='attribute'>#[<span class='ident'>test</span>]</span>
-<span class='kw'>fn</span> <span class='ident'>test_parse_smoke</span>() {
-    <span class='kw'>let</span> <span class='ident'>result</span> <span class='op'>=</span> <span class='ident'>parse</span>(<span class='string'>&quot;Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.1; Trident/4.0)&quot;</span>).<span class='ident'>unwrap</span>();
-    <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>result</span>.<span class='ident'>name</span>, <span class='string'>&quot;Internet Explorer&quot;</span>.<span class='ident'>to_string</span>());
 }
 
 <span class='attribute'>#[<span class='ident'>test</span>]</span>
@@ -182,6 +175,8 @@
                     <dd>Move down in search results</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 
@@ -213,11 +208,9 @@
     <script>
         window.rootPath = "../../../";
         window.currentCrate = "woothee";
-        window.playgroundUrl = "";
     </script>
     <script src="../../../jquery.js"></script>
     <script src="../../../main.js"></script>
-    
     <script defer src="../../../search-index.js"></script>
 </body>
 </html>
