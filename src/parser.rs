@@ -377,7 +377,7 @@ impl<'a> Parser<'a> {
         }
 
         if agent.contains("BingPreview") {
-            return self.populate_dataset(result, "BingPreview")
+            return self.populate_dataset(result, "BingPreview");
         }
 
         if agent.contains("Baidu") &&
