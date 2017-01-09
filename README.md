@@ -39,7 +39,7 @@ test bench_woothee    ... bench:      20,553 ns/iter (+/- 2,068)
 
 ## for Maintainer
 generate code from woothee/woothee dataset & testsets.
-only use nightly build, now.
+require nightly build, now.
 
 ```
 $ rustup run nightly cargo build --features=generate && cargo fmt
