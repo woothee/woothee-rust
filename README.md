@@ -1,4 +1,4 @@
-# woothee-rust [![](https://travis-ci.org/hhatto/woothee-rust.svg?branch=master)](https://travis-ci.org/hhatto/woothee-rust)
+# woothee-rust [![](https://travis-ci.org/hhatto/woothee-rust.svg?branch=master)](https://travis-ci.org/hhatto/woothee-rust) [![Latest Version](https://img.shields.io/crates/v/woothee.svg)](https://crates.io/crates/woothh)
 
 The Rust implementation of [Project Woothee](https://github.com/woothee/woothee),
 which is multi-language user-agent strings parsers.
@@ -39,9 +39,10 @@ test bench_woothee    ... bench:      20,553 ns/iter (+/- 2,068)
 
 ## for Maintainer
 generate code from woothee/woothee dataset & testsets.
+require nightly build, now.
 
 ```
-$ cargo build --features=generate && cargo fmt
+$ rustup run nightly cargo build --features=generate && cargo fmt
 $ cargo test    # and code review!!!
 ```
 

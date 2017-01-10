@@ -1,6 +1,6 @@
 [package]
 name = "woothee"
-version = "0.5.0"
+version = "0.5.1"
 authors = ["hhatto <hhatto.jp@gmail.com>"]
 license = "Apache-2.0"
 repository = "https://github.com/hhatto/woothee-rust"
@@ -10,7 +10,7 @@ documentation = "http://hhatto.github.io/woothee-rust/woothee/"
 build = "build.rs"
 
 [dependencies]
-regex = "0.1"
+regex = "^0.2"
 lazy_static = "0.2.1"
 clippy = { version = "0.0.79", optional = true }
 
@@ -23,11 +23,13 @@ path = "benches/benchmark.rs"
 
 [features]
 default = []
-generate = ["yaml-rust", "tera", "tempdir", "glob", "serde"]
+generate = ["yaml-rust", "tera", "tempdir", "glob", "serde", "serde_json", "serde_derive"]
 
 [build-dependencies]
-tera = { version = "0.1.1", optional = true }
-yaml-rust = { version = "0.3.2", optional = true }
+tera = { version = "0.6.2", optional = true }
+yaml-rust = { version = "0.3.5", optional = true }
 tempdir = { version = "0.3", optional = true }
 glob = { version = "0.2.11", optional = true }
-serde = { version = "0.7", optional = true }
+serde = { version = "0.8", optional = true }
+serde_json = { version = "0.8", optional = true }
+serde_derive = { version = "0.8", optional = true }
