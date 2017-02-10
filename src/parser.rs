@@ -1181,6 +1181,8 @@ impl<'a> Parser<'a> {
             version = "python";
         } else if RX_PHP.is_match(agent) || RX_PEAR.is_match(agent) {
             version = "php";
+        } else if agent.starts_with("curl/") {
+            version = "curl";
         }
 
         if version.is_empty() {
