@@ -348,5 +348,15 @@ mod tests {
                 assert_eq!(result.version, "php".to_string());
             }
         }
+        match parser.parse(r#"curl/7.19.7 (x86_64-redhat-linux-gnu) libcurl/7.19.7 NSS/3.19.1 Basic ECC zlib/1.2.3 libidn/1.18 libssh2/1.4.2"#) {
+            None => panic!(r#"invalid parse. "curl/7.19.7 (x86_64-redhat-linux-gnu) libcurl/7.19.7 NSS/3.19.1 Basic ECC zlib/1.2.3 libidn/1.18 libssh2/1.4.2""#),
+            Some(result) => {
+                assert_eq!(result.category, "misc".to_string());
+                assert_eq!(result.name, "HTTP Library".to_string());
+                assert_eq!(result.os, "UNKNOWN".to_string());
+                assert_eq!(result.os_version, "UNKNOWN".to_string());
+                assert_eq!(result.version, "curl".to_string());
+            }
+        }
     }
 }
