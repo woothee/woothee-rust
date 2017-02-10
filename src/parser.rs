@@ -531,6 +531,10 @@ impl<'a> Parser<'a> {
     }
 
     fn challenge_safari_chrome<'b>(&'b self, agent: &str, result: &mut WootheeResult<'b>) -> bool {
+        if agent.contains("Chrome") && agent.contains("wv") {
+            return false;
+        }
+
         if !agent.contains("Safari/") {
             return false;
         }
@@ -622,6 +626,21 @@ impl<'a> Parser<'a> {
     }
 
     fn challenge_webview<'b>(&'b self, agent: &str, result: &mut WootheeResult<'b>) -> bool {
+        let version = if RX_WEBVIEW_VERSION_PATTERN.is_match(agent) {
+            match RX_WEBVIEW_VERSION_PATTERN.captures(agent) {
+                Some(caps) => caps.get(1).unwrap().as_str(),
+                None => "",
+            }
+        } else {
+            VALUE_UNKNOWN
+        };
+
+        if agent.contains("Chrome") && agent.contains("wv") {
+            result.version = version.to_string();
+            self.populate_dataset(result, "Webview");
+            return true;
+        }
+
         if !RX_WEBVIEW_PATTERN.is_match(agent) || agent.contains("Safari/") {
             return false;
         }
