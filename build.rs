@@ -1,4 +1,3 @@
-#[cfg_attr(feature = "generate", feature(proc_macro))]
 #[cfg(feature = "generate")]
 #[macro_use]
 extern crate serde_derive;

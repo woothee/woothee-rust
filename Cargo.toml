@@ -12,7 +12,7 @@ build = "build.rs"
 [dependencies]
 regex = "^0.2"
 lazy_static = "0.2.1"
-clippy = { version = "0.0.79", optional = true }
+clippy = { version = "0.0.114", optional = true }
 
 [dev-dependencies]
 uap-rust = "0.0.4"
@@ -26,10 +26,10 @@ default = []
 generate = ["yaml-rust", "tera", "tempdir", "glob", "serde", "serde_json", "serde_derive"]
 
 [build-dependencies]
-tera = { version = "0.6.2", optional = true }
+tera = { version = "0.7", optional = true }
 yaml-rust = { version = "0.3.5", optional = true }
 tempdir = { version = "0.3", optional = true }
 glob = { version = "0.2.11", optional = true }
-serde = { version = "0.8", optional = true }
-serde_json = { version = "0.8", optional = true }
-serde_derive = { version = "0.8", optional = true }
+serde = { version = "0.9", optional = true }
+serde_json = { version = "0.9", optional = true }
+serde_derive = { version = "0.9", optional = true }
