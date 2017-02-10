@@ -10,12 +10,9 @@ use woothee::parser as woo;
 
 fn b_uap() {
     let parser = uap::Parser::new().unwrap();
-    let _ =
-        parser.parse("Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.1; Trident/4.0)".to_string());
+    let _ = parser.parse("Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.1; Trident/4.0)".to_string());
     let _ = parser.parse("Twitterbot/1.0".to_string());
-    let _ =
-        parser.parse("Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Trident/5.0; Xbox)"
-            .to_string());
+    let _ = parser.parse("Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Trident/5.0; Xbox)".to_string());
 }
 
 fn b_woothee() {

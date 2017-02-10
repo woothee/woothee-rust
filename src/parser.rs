@@ -358,10 +358,10 @@ impl<'a> Parser<'a> {
             if agent.contains("compatible; Yahoo! Slurp") {
                 return self.populate_dataset(result, "YahooSlurp");
             } else if agent.contains("YahooFeedSeekerJp") || agent.contains("YahooFeedSeekerBetaJp") ||
-               agent.contains("crawler (http://listing.yahoo.co.jp/support/faq/") ||
-               agent.contains("crawler (http://help.yahoo.co.jp/help/jp/") ||
-               agent.contains("Y!J-BRZ/YATSHA crawler") ||
-               agent.contains("Y!J-BRY/YATSH crawler") {
+                      agent.contains("crawler (http://listing.yahoo.co.jp/support/faq/") ||
+                      agent.contains("crawler (http://help.yahoo.co.jp/help/jp/") ||
+                      agent.contains("Y!J-BRZ/YATSHA crawler") ||
+                      agent.contains("Y!J-BRY/YATSH crawler") {
                 return self.populate_dataset(result, "YahooJP");
             } else if agent.contains("Yahoo Pipes") {
                 return self.populate_dataset(result, "YahooPipes");
@@ -445,8 +445,7 @@ impl<'a> Parser<'a> {
             return self.populate_dataset(result, "Hatena");
         }
 
-        if agent.contains("mixi-check") || agent.contains("mixi-crawler") ||
-           agent.contains("mixi-news-crawler") {
+        if agent.contains("mixi-check") || agent.contains("mixi-crawler") || agent.contains("mixi-news-crawler") {
             return self.populate_dataset(result, "mixi");
         }
 
@@ -458,8 +457,7 @@ impl<'a> Parser<'a> {
     }
 
     fn challenge_msie<'b>(&'b self, agent: &str, result: &mut WootheeResult<'b>) -> bool {
-        if !agent.contains("compatible; MSIE") && !agent.contains("Trident/") &&
-           !agent.contains("IEMobile") {
+        if !agent.contains("compatible; MSIE") && !agent.contains("Trident/") && !agent.contains("IEMobile") {
             return false;
         }
 
@@ -685,8 +683,7 @@ impl<'a> Parser<'a> {
     }
 
     fn challenge_softbank<'b>(&'b self, agent: &str, result: &mut WootheeResult<'b>) -> bool {
-        if !agent.contains("SoftBank") && !agent.contains("Vodafone") &&
-           !agent.contains("J-PHONE") {
+        if !agent.contains("SoftBank") && !agent.contains("Vodafone") && !agent.contains("J-PHONE") {
             return false;
         }
 
@@ -723,10 +720,7 @@ impl<'a> Parser<'a> {
         true
     }
 
-    fn challenge_misc_mobilephone<'b>(&'b self,
-                                      agent: &str,
-                                      result: &mut WootheeResult<'b>)
-                                      -> bool {
+    fn challenge_misc_mobilephone<'b>(&'b self, agent: &str, result: &mut WootheeResult<'b>) -> bool {
         if agent.contains("jig browser") {
             if !self.populate_dataset(result, "jig") {
                 return false;
@@ -739,8 +733,7 @@ impl<'a> Parser<'a> {
             return true;
         }
 
-        if agent.contains("emobile/") || agent.contains("OpenBrowser") ||
-           agent.contains("Browser/Obigo-Browser") {
+        if agent.contains("emobile/") || agent.contains("OpenBrowser") || agent.contains("Browser/Obigo-Browser") {
             if !self.populate_dataset(result, "emobile") {
                 return false;
             }
@@ -1127,10 +1120,7 @@ impl<'a> Parser<'a> {
         false
     }
 
-    fn challenge_smartphone_patterns<'b>(&'b self,
-                                         agent: &str,
-                                         result: &mut WootheeResult<'b>)
-                                         -> bool {
+    fn challenge_smartphone_patterns<'b>(&'b self, agent: &str, result: &mut WootheeResult<'b>) -> bool {
         if agent.contains("CFNetwork/") {
             // This is like iPhone, but only Category and Name are filled
             let d = self.lookup_dataset("iOS");
@@ -1182,11 +1172,10 @@ impl<'a> Parser<'a> {
         } else if agent.starts_with("Wget/") {
             version = "wget";
         } else if agent.starts_with("libwww-perl") || agent.starts_with("WWW-Mechanize") ||
-           agent.starts_with("LWP::Simple") || agent.starts_with("LWP ") ||
-           agent.starts_with("lwp-trivial") {
+                  agent.starts_with("LWP::Simple") || agent.starts_with("LWP ") ||
+                  agent.starts_with("lwp-trivial") {
             version = "perl";
-        } else if agent.starts_with("Ruby") || agent.starts_with("feedzirra") ||
-           agent.starts_with("Typhoeus") {
+        } else if agent.starts_with("Ruby") || agent.starts_with("feedzirra") || agent.starts_with("Typhoeus") {
             version = "ruby"
         } else if agent.starts_with("Python-urllib/") || agent.starts_with("Twisted ") {
             version = "python";
@@ -1206,12 +1195,9 @@ impl<'a> Parser<'a> {
         true
     }
 
-    fn challenge_maybe_rss_reader<'b>(&'b self,
-                                      agent: &str,
-                                      result: &mut WootheeResult<'b>)
-                                      -> bool {
-        if RX_MAYBE_RSS_PATTERN.is_match(agent) ||
-           agent.to_lowercase().contains("headline-reader") || agent.contains("cococ/") {
+    fn challenge_maybe_rss_reader<'b>(&'b self, agent: &str, result: &mut WootheeResult<'b>) -> bool {
+        if RX_MAYBE_RSS_PATTERN.is_match(agent) || agent.to_lowercase().contains("headline-reader") ||
+           agent.contains("cococ/") {
             return self.populate_dataset(result, "VariousRSSReader");
         }
 
@@ -1220,8 +1206,7 @@ impl<'a> Parser<'a> {
 
     fn challenge_maybe_crawler<'b>(&'b self, agent: &str, result: &mut WootheeResult<'b>) -> bool {
         if RX_MAYBE_CRAWLER_PATTERN.is_match(agent) || RX_MAYBE_CRAWLER_OTHER.is_match(agent) ||
-           agent.contains("ASP-Ranker Feed Crawler") ||
-           RX_MAYBE_FEED_PARSER_PATTERN.is_match(agent) ||
+           agent.contains("ASP-Ranker Feed Crawler") || RX_MAYBE_FEED_PARSER_PATTERN.is_match(agent) ||
            RX_MAYBE_WATCHDOG_PATTERN.is_match(agent) {
             return self.populate_dataset(result, "VariousCrawler");
         }
