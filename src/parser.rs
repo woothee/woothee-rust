@@ -82,15 +82,15 @@ impl<'a> WootheeResult<'a> {
         }
 
         if !ds.category.is_empty() {
-            self.category = ds.category.clone();
+            self.category = ds.category;
         }
 
         if !ds.os.is_empty() {
-            self.os = ds.os.clone();
+            self.os = ds.os;
         }
 
         if !ds.browser_type.is_empty() {
-            self.browser_type = ds.browser_type.clone();
+            self.browser_type = ds.browser_type;
         }
 
         if !ds.version.is_empty() {
@@ -98,7 +98,7 @@ impl<'a> WootheeResult<'a> {
         }
 
         if !ds.vendor.is_empty() {
-            self.vendor = ds.vendor.clone();
+            self.vendor = ds.vendor;
         }
     }
 }
@@ -878,8 +878,8 @@ impl<'a> Parser<'a> {
 
         let caps = RX_WINDOWS_VERSION_PATTERN.captures(agent);
         if caps.is_none() {
-            result.category = win.category.clone();
-            result.os = win.name.clone();
+            result.category = win.category;
+            result.os = win.name;
             return true;
         }
 
@@ -912,8 +912,8 @@ impl<'a> Parser<'a> {
         }
         win = w.unwrap();
 
-        result.category = win.category.clone();
-        result.os = win.name.clone();
+        result.category = win.category;
+        result.os = win.name;
         if !version.is_empty() {
             result.os_version = version.to_string();
         }
@@ -959,8 +959,8 @@ impl<'a> Parser<'a> {
             }
         }
 
-        result.category = data.category.clone();
-        result.os = data.name.clone();
+        result.category = data.category;
+        result.os = data.name;
         if !version.is_empty() {
             result.os_version = version.to_string();
         }
@@ -989,8 +989,8 @@ impl<'a> Parser<'a> {
         }
         let data = d.unwrap();
 
-        result.category = data.category.clone();
-        result.os = data.name.clone();
+        result.category = data.category;
+        result.os = data.name;
         if !os_version.is_empty() {
             result.os_version = os_version;
         }
@@ -1053,8 +1053,8 @@ impl<'a> Parser<'a> {
         }
         let data = d.unwrap();
 
-        result.category = data.category.clone();
-        result.os = data.name.clone();
+        result.category = data.category;
+        result.os = data.name;
         if !os_version.is_empty() {
             result.os_version = os_version.to_string();
         }
@@ -1072,8 +1072,8 @@ impl<'a> Parser<'a> {
                     return false;
                 }
                 let data = d.unwrap();
-                result.category = data.category.clone();
-                result.os = data.os.clone();
+                result.category = data.category;
+                result.os = data.os;
                 result.version = term.to_string();
                 return true;
             }
@@ -1088,8 +1088,8 @@ impl<'a> Parser<'a> {
                     return false;
                 }
                 let data = d.unwrap();
-                result.category = data.category.clone();
-                result.os = data.os.clone();
+                result.category = data.category;
+                result.os = data.os;
                 result.version = term.to_string();
                 return true;
             }
@@ -1101,8 +1101,8 @@ impl<'a> Parser<'a> {
                 return false;
             }
             let data = d.unwrap();
-            result.category = data.category.clone();
-            result.os = data.os.clone();
+            result.category = data.category;
+            result.os = data.os;
             return true;
         }
 
@@ -1148,8 +1148,8 @@ impl<'a> Parser<'a> {
             }
             let data = d.unwrap();
 
-            result.os = data.name.clone();
-            result.category = data.category.clone();
+            result.os = data.name;
+            result.category = data.category;
             return true;
         }
 
@@ -1175,8 +1175,8 @@ impl<'a> Parser<'a> {
         let win = w.unwrap();
 
         result.version = version.to_string();
-        result.category = win.category.clone();
-        result.os = win.name.clone();
+        result.category = win.category;
+        result.os = win.name;
 
         true
     }
@@ -1242,8 +1242,8 @@ impl<'a> Parser<'a> {
                 return false;
             }
             let data = d.unwrap();
-            result.category = data.category.clone();
-            result.os = data.os.clone();
+            result.category = data.category;
+            result.os = data.os;
             return true;
         }
 
@@ -1253,8 +1253,8 @@ impl<'a> Parser<'a> {
                 return false;
             }
             let data = d.unwrap();
-            result.category = data.category.clone();
-            result.os = data.os.clone();
+            result.category = data.category;
+            result.os = data.os;
             return true;
         }
 
@@ -1292,8 +1292,8 @@ impl<'a> Parser<'a> {
         }
         let data = d.unwrap();
 
-        result.category = data.category.clone();
-        result.os = data.name.clone();
+        result.category = data.category;
+        result.os = data.name;
 
         true
     }
