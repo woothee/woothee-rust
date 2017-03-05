@@ -132,7 +132,7 @@ mod inner {
         }
 
         context.add("results", &woothee_results);
-        let output = match template_engine.render("dataset.tmpl", context) {
+        let output = match template_engine.render("dataset.tmpl", &context) {
             Ok(ret) => ret,
             Err(e) => panic!("tera.render() error. {}", e),
         };
@@ -234,7 +234,7 @@ mod inner {
                 context.add("tests", &tests);
             }
 
-            let output = match template_engine.render("tests.tmpl", context.to_owned()) {
+            let output = match template_engine.render("tests.tmpl", &context) {
                 Ok(ret) => ret,
                 Err(e) => panic!("tera.render() error. {}", e),
             };
