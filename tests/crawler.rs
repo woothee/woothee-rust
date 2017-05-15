@@ -218,6 +218,26 @@ mod tests {
                 assert_eq!(result.version, "UNKNOWN".to_string());
             }
         }
+        match parser.parse(r#"Mozilla/5.0 (compatible; Yeti/1.1; +http://help.naver.com/support/robots.html)"#) {
+            None => panic!(r#"invalid parse. "Mozilla/5.0 (compatible; Yeti/1.1; +http://help.naver.com/support/robots.html)""#),
+            Some(result) => {
+                assert_eq!(result.category, "crawler".to_string());
+                assert_eq!(result.name, "Naver Yeti".to_string());
+                assert_eq!(result.os, "UNKNOWN".to_string());
+                assert_eq!(result.os_version, "UNKNOWN".to_string());
+                assert_eq!(result.version, "UNKNOWN".to_string());
+            }
+        }
+        match parser.parse(r#"Mozilla/5.0 (compatible; Yeti/1.1; +http://naver.me/bot)"#) {
+            None => panic!(r#"invalid parse. "Mozilla/5.0 (compatible; Yeti/1.1; +http://naver.me/bot)""#),
+            Some(result) => {
+                assert_eq!(result.category, "crawler".to_string());
+                assert_eq!(result.name, "Naver Yeti".to_string());
+                assert_eq!(result.os, "UNKNOWN".to_string());
+                assert_eq!(result.os_version, "UNKNOWN".to_string());
+                assert_eq!(result.version, "UNKNOWN".to_string());
+            }
+        }
         match parser.parse(r#"Mozilla/3.0 (compatible; Indy Library)"#) {
             None => panic!(r#"invalid parse. "Mozilla/3.0 (compatible; Indy Library)""#),
             Some(result) => {
@@ -433,6 +453,16 @@ mod tests {
             Some(result) => {
                 assert_eq!(result.category, "crawler".to_string());
                 assert_eq!(result.name, "mixi".to_string());
+                assert_eq!(result.os, "UNKNOWN".to_string());
+                assert_eq!(result.os_version, "UNKNOWN".to_string());
+                assert_eq!(result.version, "UNKNOWN".to_string());
+            }
+        }
+        match parser.parse(r#"Mozilla/5.0 (Windows; U; Windows NT 6.0; en-GB; rv:1.0; trendictionbot0.5.0; trendiction search; http://www.trendiction.de/bot; please let us know of any problems; web at trendiction.com) Gecko/20071127 Firefox/3.0.0.11"#) {
+            None => panic!(r#"invalid parse. "Mozilla/5.0 (Windows; U; Windows NT 6.0; en-GB; rv:1.0; trendictionbot0.5.0; trendiction search; http://www.trendiction.de/bot; please let us know of any problems; web at trendiction.com) Gecko/20071127 Firefox/3.0.0.11""#),
+            Some(result) => {
+                assert_eq!(result.category, "crawler".to_string());
+                assert_eq!(result.name, "trendiction".to_string());
                 assert_eq!(result.os, "UNKNOWN".to_string());
                 assert_eq!(result.os_version, "UNKNOWN".to_string());
                 assert_eq!(result.version, "UNKNOWN".to_string());

@@ -386,7 +386,10 @@ impl<'a> Parser<'a> {
             return self.populate_dataset(result, "Baiduspider");
         }
 
-        if agent.contains("Yeti") && agent.contains("http://help.naver.com/robots") {
+        if agent.contains("Yeti") &&
+           (agent.contains("http://help.naver.com/robots") ||
+            agent.contains("http://help.naver.com/support/robots.html") ||
+            agent.contains("http://naver.me/bot")) {
             return self.populate_dataset(result, "Yeti");
         }
 
@@ -451,6 +454,10 @@ impl<'a> Parser<'a> {
 
         if agent.contains("Indy Library") && agent.contains("compatible; Indy Library") {
             return self.populate_dataset(result, "IndyLibrary");
+        }
+
+        if agent.contains("trendictionbot") {
+            return self.populate_dataset(result, "trendictionbot");
         }
 
         false
