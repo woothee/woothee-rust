@@ -9,9 +9,7 @@ mod tests {
         let parser = Parser::new();
 
         match parser.parse(r#"Mozilla/5.0 (Mobile; rv:18.0) Gecko/18.0 Firefox/18.0"#) {
-            None => {
-                panic!(r#"invalid parse. "Mozilla/5.0 (Mobile; rv:18.0) Gecko/18.0 Firefox/18.0""#)
-            }
+            None => panic!(r#"invalid parse. "Mozilla/5.0 (Mobile; rv:18.0) Gecko/18.0 Firefox/18.0""#),
             Some(result) => {
                 assert_eq!(result.category, "smartphone".to_string());
                 assert_eq!(result.name, "Firefox".to_string());
@@ -22,9 +20,7 @@ mod tests {
             }
         }
         match parser.parse(r#"Mozilla/5.0 (Tablet; rv:26.0) Gecko/18.0 Firefox/26.0"#) {
-            None => {
-                panic!(r#"invalid parse. "Mozilla/5.0 (Tablet; rv:26.0) Gecko/18.0 Firefox/26.0""#)
-            }
+            None => panic!(r#"invalid parse. "Mozilla/5.0 (Tablet; rv:26.0) Gecko/18.0 Firefox/26.0""#),
             Some(result) => {
                 assert_eq!(result.category, "smartphone".to_string());
                 assert_eq!(result.name, "Firefox".to_string());
