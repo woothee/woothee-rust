@@ -386,12 +386,11 @@ impl<'a> Parser<'a> {
             return self.populate_dataset(result, "Baiduspider");
         }
 
-        if agent.contains("Yeti") {
-            if agent.contains("http://help.naver.com/robots") ||
-               agent.contains("http://help.naver.com/support/robots.html") ||
-               agent.contains("http://naver.me/bot") {
-                return self.populate_dataset(result, "Yeti");
-            }
+        if agent.contains("Yeti") &&
+           (agent.contains("http://help.naver.com/robots") ||
+            agent.contains("http://help.naver.com/support/robots.html") ||
+            agent.contains("http://naver.me/bot")) {
+            return self.populate_dataset(result, "Yeti");
         }
 
         if agent.contains("FeedBurner/") {
