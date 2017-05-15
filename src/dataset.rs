@@ -775,6 +775,16 @@ pub fn get_default_dataset<'a>() -> HashMap<&'a str, WootheeResult<'a>> {
                        vendor: "",
                        version: "".to_string(),
                    });
+    dataset.insert("trendictionbot",
+                   WootheeResult {
+                       name: "trendiction",
+                       browser_type: "full",
+                       category: "crawler",
+                       os: "",
+                       os_version: "".to_string(),
+                       vendor: "",
+                       version: "".to_string(),
+                   });
     dataset.insert("mixi",
                    WootheeResult {
                        name: "mixi",
