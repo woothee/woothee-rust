@@ -457,6 +457,10 @@ impl<'a> Parser<'a> {
             return self.populate_dataset(result, "IndyLibrary");
         }
 
+        if agent.contains("trendictionbot") {
+            return self.populate_dataset(result, "trendictionbot");
+        }
+
         false
     }
 
