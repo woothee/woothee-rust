@@ -24,12 +24,12 @@ fn b_woothee() {
 
 #[bench]
 fn smoke_uap(b: &mut Bencher) {
-    b.iter(|| b_uap());
+    b.iter(b_uap);
 }
 
 #[bench]
 fn smoke_woothee(b: &mut Bencher) {
-    b.iter(|| b_woothee());
+    b.iter(b_woothee);
 }
 
 #[bench]
