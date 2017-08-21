@@ -1,4 +1,4 @@
-# woothee-rust [![](https://travis-ci.org/hhatto/woothee-rust.svg?branch=master)](https://travis-ci.org/hhatto/woothee-rust) [![Latest Version](https://img.shields.io/crates/v/woothee.svg)](https://crates.io/crates/woothee)
+# woothee-rust [![](https://travis-ci.org/woothee/woothee-rust.svg?branch=master)](https://travis-ci.org/woothee/woothee-rust) [![Latest Version](https://img.shields.io/crates/v/woothee.svg)](https://crates.io/crates/woothee)
 
 The Rust implementation of [Project Woothee](https://github.com/woothee/woothee),
 which is multi-language user-agent strings parsers.
@@ -34,7 +34,7 @@ test bench_stabilizer ... bench:          14 ns/iter (+/- 1)
 test bench_uap        ... bench: 210,071,986 ns/iter (+/- 27,302,537)
 test bench_woothee    ... bench:      20,553 ns/iter (+/- 2,068)
 ```
-[benchmark script](https://github.com/hhatto/woothee-rust/blob/master/benches/benchmark.rs)
+[benchmark script](https://github.com/woothee/woothee-rust/blob/master/benches/benchmark.rs)
 
 
 ## for Maintainer
@@ -55,4 +55,4 @@ $ rustup run nightly cargo build --features clippy
 
 ## Links
 * [on crates.io](https://crates.io/crates/woothee)
-* [Documentation](https://hhatto.github.com/woothee-rust/woothee)
+* [Documentation](https://woothee.github.com/woothee-rust/woothee)

@@ -3,10 +3,11 @@ name = "woothee"
 version = "0.7.1"
 authors = ["hhatto <hhatto.jp@gmail.com>"]
 license = "Apache-2.0"
-repository = "https://github.com/hhatto/woothee-rust"
+repository = "https://github.com/woothee/woothee-rust"
 keywords = ["useragent", "ua"]
+readme = "README.md"
 description = "user-agent strings parser"
-documentation = "http://hhatto.github.io/woothee-rust/woothee/"
+documentation = "http://woothee.github.io/woothee-rust/woothee/"
 build = "build.rs"
 
 [dependencies]
