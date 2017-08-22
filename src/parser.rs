@@ -1,4 +1,3 @@
-use std::collections::HashMap;
 use regex::Regex;
 use dataset;
 use woothee::VALUE_UNKNOWN;
@@ -104,14 +103,12 @@ impl<'a> WootheeResult<'a> {
     }
 }
 
-#[derive(Default)]
-pub struct Parser<'a> {
-    agent_dataset: HashMap<&'a str, WootheeResult<'a>>,
+pub struct Parser {
 }
 
-impl<'a> Parser<'a> {
-    pub fn new() -> Parser<'a> {
-        Parser { agent_dataset: dataset::get_default_dataset() }
+impl Parser {
+    pub fn new() -> Parser {
+        Parser { }
     }
 
     pub fn parse(&self, agent: &str) -> Option<WootheeResult> {
@@ -163,7 +160,7 @@ impl<'a> Parser<'a> {
     }
 
     fn lookup_dataset(&self, label: &str) -> Option<&WootheeResult> {
-        self.agent_dataset.get(label)
+        dataset::DATASET.get(label)
     }
 
     pub fn try_crawler<'b>(&'b self, agent: &str, result: &mut WootheeResult<'b>) -> bool {
