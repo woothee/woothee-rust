@@ -50,6 +50,7 @@ lazy_static! {
     static ref RX_PHP: Regex = Regex::new(r"^(?:PHP|WordPress|CakePHP|PukiWiki|PECL::HTTP)(?:/| |$)").unwrap();
     static ref RX_PEAR: Regex = Regex::new(r"(?:PEAR HTTP_Request|HTTP_Request)(?: class|2)").unwrap();
     static ref RX_MAYBE_CRAWLER_OTHER: Regex = Regex::new(r"(?:Rome Client |UnwindFetchor/|ia_archiver |Summify |PostRank/)").unwrap();
+    static ref RE_SLEIPNIR_VERSION: Regex = Regex::new(r"Sleipnir/([.0-9]+)").unwrap();
 }
 
 #[derive(Debug, Default)]
@@ -1168,7 +1169,7 @@ impl<'a> Parser<'a> {
             return false;
         }
 
-        let version = match Regex::new(r"Sleipnir/([.0-9]+)").unwrap().captures(agent) {
+        let version = match RE_SLEIPNIR_VERSION.captures(agent) {
             Some(caps) => caps.get(1).unwrap().as_str(),
             None => VALUE_UNKNOWN,
         };
