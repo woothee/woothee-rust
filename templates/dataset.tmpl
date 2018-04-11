@@ -3,18 +3,18 @@ use std::collections::HashMap;
 use parser::WootheeResult;
 
 lazy_static! {
-    pub static ref DATASET: HashMap<&'static str, WootheeResult> = {
+    pub static ref DATASET: HashMap<&'static str, WootheeResult<'static>> = {
         let mut dataset = HashMap::new();
 
         {% for result in results %}
         dataset.insert("{{result.label}}",
                        WootheeResult {
-                           name: "{{result.name}}".to_string(),
-                           browser_type: "{{result.browser_type}}".to_string(),
-                           category: "{{result.category}}".to_string(),
-                           os: "{{result.os}}".to_string(),
+                           name: "{{result.name}}",
+                           browser_type: "{{result.browser_type}}",
+                           category: "{{result.category}}",
+                           os: "{{result.os}}",
                            os_version: "{{result.os_version}}".to_string(),
-                           vendor: "{{result.vendor}}".to_string(),
+                           vendor: "{{result.vendor}}",
                            version: "{{result.version}}".to_string(),
                        });
         {% endfor %}

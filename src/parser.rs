@@ -53,44 +53,44 @@ lazy_static! {
 }
 
 #[derive(Debug, Default)]
-pub struct WootheeResult {
-    pub name: String,
-    pub category: String,
-    pub os: String,
+pub struct WootheeResult<'a> {
+    pub name: &'a str,
+    pub category: &'a str,
+    pub os: &'a str,
     pub os_version: String,
-    pub browser_type: String,
+    pub browser_type: &'a str,
     pub version: String,
-    pub vendor: String,
+    pub vendor: &'a str,
 }
 
-impl WootheeResult {
-    pub fn new() -> WootheeResult {
+impl<'a> WootheeResult<'a> {
+    pub fn new() -> WootheeResult<'a> {
         WootheeResult {
-            name: VALUE_UNKNOWN.to_string(),
-            category: VALUE_UNKNOWN.to_string(),
-            os: VALUE_UNKNOWN.to_string(),
+            name: VALUE_UNKNOWN,
+            category: VALUE_UNKNOWN,
+            os: VALUE_UNKNOWN,
             os_version: VALUE_UNKNOWN.to_string(),
-            browser_type: VALUE_UNKNOWN.to_string(),
+            browser_type: VALUE_UNKNOWN,
             version: VALUE_UNKNOWN.to_string(),
-            vendor: VALUE_UNKNOWN.to_string(),
+            vendor: VALUE_UNKNOWN,
         }
     }
 
-    fn populate_with(&mut self, ds: &WootheeResult) {
+    fn populate_with(&mut self, ds: &WootheeResult<'a>) {
         if !ds.name.is_empty() {
-            self.name = ds.name.clone();
+            self.name = ds.name;
         }
 
         if !ds.category.is_empty() {
-            self.category = ds.category.clone();
+            self.category = ds.category;
         }
 
         if !ds.os.is_empty() {
-            self.os = ds.os.clone();
+            self.os = ds.os;
         }
 
         if !ds.browser_type.is_empty() {
-            self.browser_type = ds.browser_type.clone();
+            self.browser_type = ds.browser_type;
         }
 
         if !ds.version.is_empty() {
@@ -98,7 +98,7 @@ impl WootheeResult {
         }
 
         if !ds.vendor.is_empty() {
-            self.vendor = ds.vendor.clone();
+            self.vendor = ds.vendor;
         }
     }
 }
@@ -111,7 +111,7 @@ impl Parser {
         Parser { }
     }
 
-    pub fn parse(&self, agent: &str) -> Option<WootheeResult> {
+    pub fn parse<'a>(&self, agent: &str) -> Option<WootheeResult<'a>> {
         let mut result = WootheeResult::new();
         if agent == "" || agent == "-" {
             return Some(result);
@@ -159,11 +159,12 @@ impl Parser {
         }
     }
 
-    fn lookup_dataset(&self, label: &str) -> Option<&WootheeResult> {
+    fn lookup_dataset(&self, label: &str) -> Option<&WootheeResult<'static>> {
         dataset::DATASET.get(label)
     }
 
-    pub fn try_crawler(&self, agent: &str, result: &mut WootheeResult) -> bool {
+    pub fn try_crawler(&self, agent: &str, result: &mut WootheeResult) -> bool
+    {
         if self.challenge_google(agent, result) {
             return true;
         }
@@ -883,8 +884,8 @@ impl Parser {
 
         let caps = RX_WINDOWS_VERSION_PATTERN.captures(agent);
         if caps.is_none() {
-            result.category = win.category.clone();
-            result.os = win.name.clone();
+            result.category = win.category;
+            result.os = win.name;
             return true;
         }
 
@@ -917,8 +918,8 @@ impl Parser {
         }
         win = w.unwrap();
 
-        result.category = win.category.clone();
-        result.os = win.name.clone();
+        result.category = win.category;
+        result.os = win.name;
         if !version.is_empty() {
             result.os_version = version.to_string();
         }
@@ -964,8 +965,8 @@ impl Parser {
             }
         }
 
-        result.category = data.category.clone();
-        result.os = data.name.clone();
+        result.category = data.category;
+        result.os = data.name;
         if !version.is_empty() {
             result.os_version = version.to_string();
         }
@@ -994,8 +995,8 @@ impl Parser {
         }
         let data = d.unwrap();
 
-        result.category = data.category.clone();
-        result.os = data.name.clone();
+        result.category = data.category;
+        result.os = data.name;
         if !os_version.is_empty() {
             result.os_version = os_version;
         }
@@ -1058,8 +1059,8 @@ impl Parser {
         }
         let data = d.unwrap();
 
-        result.category = data.category.clone();
-        result.os = data.name.clone();
+        result.category = data.category;
+        result.os = data.name;
         if !os_version.is_empty() {
             result.os_version = os_version.to_string();
         }
@@ -1077,8 +1078,8 @@ impl Parser {
                     return false;
                 }
                 let data = d.unwrap();
-                result.category = data.category.clone();
-                result.os = data.os.clone();
+                result.category = data.category;
+                result.os = data.os;
                 result.version = term.to_string();
                 return true;
             }
@@ -1093,8 +1094,8 @@ impl Parser {
                     return false;
                 }
                 let data = d.unwrap();
-                result.category = data.category.clone();
-                result.os = data.os.clone();
+                result.category = data.category;
+                result.os = data.os;
                 result.version = term.to_string();
                 return true;
             }
@@ -1106,8 +1107,8 @@ impl Parser {
                 return false;
             }
             let data = d.unwrap();
-            result.category = data.category.clone();
-            result.os = data.os.clone();
+            result.category = data.category;
+            result.os = data.os;
             return true;
         }
 
@@ -1153,8 +1154,8 @@ impl Parser {
             }
             let data = d.unwrap();
 
-            result.os = data.name.clone();
-            result.category = data.category.clone();
+            result.os = data.name;
+            result.category = data.category;
             return true;
         }
 
@@ -1180,8 +1181,8 @@ impl Parser {
         let win = w.unwrap();
 
         result.version = version.to_string();
-        result.category = win.category.clone();
-        result.os = win.name.clone();
+        result.category = win.category;
+        result.os = win.name;
 
         true
     }
@@ -1247,8 +1248,8 @@ impl Parser {
                 return false;
             }
             let data = d.unwrap();
-            result.category = data.category.clone();
-            result.os = data.os.clone();
+            result.category = data.category;
+            result.os = data.os;
             return true;
         }
 
@@ -1258,8 +1259,8 @@ impl Parser {
                 return false;
             }
             let data = d.unwrap();
-            result.category = data.category.clone();
-            result.os = data.os.clone();
+            result.category = data.category;
+            result.os = data.os;
             return true;
         }
 
@@ -1297,8 +1298,8 @@ impl Parser {
         }
         let data = d.unwrap();
 
-        result.category = data.category.clone();
-        result.os = data.name.clone();
+        result.category = data.category;
+        result.os = data.name;
 
         true
     }
