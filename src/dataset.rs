@@ -14,7 +14,7 @@ lazy_static! {
                            os: "",
                            os_version: "".to_string(),
                            vendor: "Microsoft",
-                           version: "".to_string(),
+                           version: "",
                        });
         dataset.insert("Edge",
                        WootheeResult {
@@ -24,7 +24,7 @@ lazy_static! {
                            os: "",
                            os_version: "".to_string(),
                            vendor: "Microsoft",
-                           version: "".to_string(),
+                           version: "",
                        });
         dataset.insert("Chrome",
                        WootheeResult {
@@ -34,7 +34,7 @@ lazy_static! {
                            os: "",
                            os_version: "".to_string(),
                            vendor: "Google",
-                           version: "".to_string(),
+                           version: "",
                        });
         dataset.insert("Safari",
                        WootheeResult {
@@ -44,7 +44,7 @@ lazy_static! {
                            os: "",
                            os_version: "".to_string(),
                            vendor: "Apple",
-                           version: "".to_string(),
+                           version: "",
                        });
         dataset.insert("Firefox",
                        WootheeResult {
@@ -54,7 +54,7 @@ lazy_static! {
                            os: "",
                            os_version: "".to_string(),
                            vendor: "Mozilla",
-                           version: "".to_string(),
+                           version: "",
                        });
         dataset.insert("Opera",
                        WootheeResult {
@@ -64,7 +64,7 @@ lazy_static! {
                            os: "",
                            os_version: "".to_string(),
                            vendor: "Opera",
-                           version: "".to_string(),
+                           version: "",
                        });
         dataset.insert("Vivaldi",
                        WootheeResult {
@@ -74,7 +74,7 @@ lazy_static! {
                            os: "",
                            os_version: "".to_string(),
                            vendor: "Vivaldi Technologies",
-                           version: "".to_string(),
+                           version: "",
                        });
         dataset.insert("Sleipnir",
                        WootheeResult {
@@ -84,7 +84,7 @@ lazy_static! {
                            os: "",
                            os_version: "".to_string(),
                            vendor: "Fenrir Inc.",
-                           version: "".to_string(),
+                           version: "",
                        });
         dataset.insert("Webview",
                        WootheeResult {
@@ -94,7 +94,7 @@ lazy_static! {
                            os: "",
                            os_version: "".to_string(),
                            vendor: "OS vendor",
-                           version: "".to_string(),
+                           version: "",
                        });
         dataset.insert("Win",
                        WootheeResult {
@@ -104,7 +104,7 @@ lazy_static! {
                            os: "",
                            os_version: "".to_string(),
                            vendor: "",
-                           version: "".to_string(),
+                           version: "",
                        });
         dataset.insert("Win10",
                        WootheeResult {
@@ -114,7 +114,7 @@ lazy_static! {
                            os: "",
                            os_version: "".to_string(),
                            vendor: "",
-                           version: "".to_string(),
+                           version: "",
                        });
         dataset.insert("Win8.1",
                        WootheeResult {
@@ -124,7 +124,7 @@ lazy_static! {
                            os: "",
                            os_version: "".to_string(),
                            vendor: "",
-                           version: "".to_string(),
+                           version: "",
                        });
         dataset.insert("Win8",
                        WootheeResult {
@@ -134,7 +134,7 @@ lazy_static! {
                            os: "",
                            os_version: "".to_string(),
                            vendor: "",
-                           version: "".to_string(),
+                           version: "",
                        });
         dataset.insert("Win7",
                        WootheeResult {
@@ -144,7 +144,7 @@ lazy_static! {
                            os: "",
                            os_version: "".to_string(),
                            vendor: "",
-                           version: "".to_string(),
+                           version: "",
                        });
         dataset.insert("WinVista",
                        WootheeResult {
@@ -154,7 +154,7 @@ lazy_static! {
                            os: "",
                            os_version: "".to_string(),
                            vendor: "",
-                           version: "".to_string(),
+                           version: "",
                        });
         dataset.insert("WinXP",
                        WootheeResult {
@@ -164,7 +164,7 @@ lazy_static! {
                            os: "",
                            os_version: "".to_string(),
                            vendor: "",
-                           version: "".to_string(),
+                           version: "",
                        });
         dataset.insert("Win2000",
                        WootheeResult {
@@ -174,7 +174,7 @@ lazy_static! {
                            os: "",
                            os_version: "".to_string(),
                            vendor: "",
-                           version: "".to_string(),
+                           version: "",
                        });
         dataset.insert("WinNT4",
                        WootheeResult {
@@ -184,7 +184,7 @@ lazy_static! {
                            os: "",
                            os_version: "".to_string(),
                            vendor: "",
-                           version: "".to_string(),
+                           version: "",
                        });
         dataset.insert("WinMe",
                        WootheeResult {
@@ -194,7 +194,7 @@ lazy_static! {
                            os: "",
                            os_version: "".to_string(),
                            vendor: "",
-                           version: "".to_string(),
+                           version: "",
                        });
         dataset.insert("Win98",
                        WootheeResult {
@@ -204,7 +204,7 @@ lazy_static! {
                            os: "",
                            os_version: "".to_string(),
                            vendor: "",
-                           version: "".to_string(),
+                           version: "",
                        });
         dataset.insert("Win95",
                        WootheeResult {
@@ -214,7 +214,7 @@ lazy_static! {
                            os: "",
                            os_version: "".to_string(),
                            vendor: "",
-                           version: "".to_string(),
+                           version: "",
                        });
         dataset.insert("WinPhone",
                        WootheeResult {
@@ -224,7 +224,7 @@ lazy_static! {
                            os: "",
                            os_version: "".to_string(),
                            vendor: "",
-                           version: "".to_string(),
+                           version: "",
                        });
         dataset.insert("WinCE",
                        WootheeResult {
@@ -234,7 +234,7 @@ lazy_static! {
                            os: "",
                            os_version: "".to_string(),
                            vendor: "",
-                           version: "".to_string(),
+                           version: "",
                        });
         dataset.insert("OSX",
                        WootheeResult {
@@ -244,7 +244,7 @@ lazy_static! {
                            os: "",
                            os_version: "".to_string(),
                            vendor: "",
-                           version: "".to_string(),
+                           version: "",
                        });
         dataset.insert("MacOS",
                        WootheeResult {
@@ -254,7 +254,7 @@ lazy_static! {
                            os: "",
                            os_version: "".to_string(),
                            vendor: "",
-                           version: "".to_string(),
+                           version: "",
                        });
         dataset.insert("Linux",
                        WootheeResult {
@@ -264,7 +264,7 @@ lazy_static! {
                            os: "",
                            os_version: "".to_string(),
                            vendor: "",
-                           version: "".to_string(),
+                           version: "",
                        });
         dataset.insert("BSD",
                        WootheeResult {
@@ -274,7 +274,7 @@ lazy_static! {
                            os: "",
                            os_version: "".to_string(),
                            vendor: "",
-                           version: "".to_string(),
+                           version: "",
                        });
         dataset.insert("ChromeOS",
                        WootheeResult {
@@ -284,7 +284,7 @@ lazy_static! {
                            os: "",
                            os_version: "".to_string(),
                            vendor: "",
-                           version: "".to_string(),
+                           version: "",
                        });
         dataset.insert("Android",
                        WootheeResult {
@@ -294,7 +294,7 @@ lazy_static! {
                            os: "",
                            os_version: "".to_string(),
                            vendor: "",
-                           version: "".to_string(),
+                           version: "",
                        });
         dataset.insert("iPhone",
                        WootheeResult {
@@ -304,7 +304,7 @@ lazy_static! {
                            os: "",
                            os_version: "".to_string(),
                            vendor: "",
-                           version: "".to_string(),
+                           version: "",
                        });
         dataset.insert("iPad",
                        WootheeResult {
@@ -314,7 +314,7 @@ lazy_static! {
                            os: "",
                            os_version: "".to_string(),
                            vendor: "",
-                           version: "".to_string(),
+                           version: "",
                        });
         dataset.insert("iPod",
                        WootheeResult {
@@ -324,7 +324,7 @@ lazy_static! {
                            os: "",
                            os_version: "".to_string(),
                            vendor: "",
-                           version: "".to_string(),
+                           version: "",
                        });
         dataset.insert("iOS",
                        WootheeResult {
@@ -334,7 +334,7 @@ lazy_static! {
                            os: "",
                            os_version: "".to_string(),
                            vendor: "",
-                           version: "".to_string(),
+                           version: "",
                        });
         dataset.insert("FirefoxOS",
                        WootheeResult {
@@ -344,7 +344,7 @@ lazy_static! {
                            os: "",
                            os_version: "".to_string(),
                            vendor: "",
-                           version: "".to_string(),
+                           version: "",
                        });
         dataset.insert("BlackBerry",
                        WootheeResult {
@@ -354,7 +354,7 @@ lazy_static! {
                            os: "",
                            os_version: "".to_string(),
                            vendor: "",
-                           version: "".to_string(),
+                           version: "",
                        });
         dataset.insert("BlackBerry10",
                        WootheeResult {
@@ -364,7 +364,7 @@ lazy_static! {
                            os: "",
                            os_version: "".to_string(),
                            vendor: "",
-                           version: "".to_string(),
+                           version: "",
                        });
         dataset.insert("docomo",
                        WootheeResult {
@@ -374,7 +374,7 @@ lazy_static! {
                            os: "docomo",
                            os_version: "".to_string(),
                            vendor: "docomo",
-                           version: "".to_string(),
+                           version: "",
                        });
         dataset.insert("au",
                        WootheeResult {
@@ -384,7 +384,7 @@ lazy_static! {
                            os: "au",
                            os_version: "".to_string(),
                            vendor: "au",
-                           version: "".to_string(),
+                           version: "",
                        });
         dataset.insert("SoftBank",
                        WootheeResult {
@@ -394,7 +394,7 @@ lazy_static! {
                            os: "SoftBank",
                            os_version: "".to_string(),
                            vendor: "SoftBank",
-                           version: "".to_string(),
+                           version: "",
                        });
         dataset.insert("willcom",
                        WootheeResult {
@@ -404,7 +404,7 @@ lazy_static! {
                            os: "WILLCOM",
                            os_version: "".to_string(),
                            vendor: "WILLCOM",
-                           version: "".to_string(),
+                           version: "",
                        });
         dataset.insert("jig",
                        WootheeResult {
@@ -414,7 +414,7 @@ lazy_static! {
                            os: "jig",
                            os_version: "".to_string(),
                            vendor: "",
-                           version: "".to_string(),
+                           version: "",
                        });
         dataset.insert("emobile",
                        WootheeResult {
@@ -424,7 +424,7 @@ lazy_static! {
                            os: "emobile",
                            os_version: "".to_string(),
                            vendor: "",
-                           version: "".to_string(),
+                           version: "",
                        });
         dataset.insert("SymbianOS",
                        WootheeResult {
@@ -434,7 +434,7 @@ lazy_static! {
                            os: "SymbianOS",
                            os_version: "".to_string(),
                            vendor: "",
-                           version: "".to_string(),
+                           version: "",
                        });
         dataset.insert("MobileTranscoder",
                        WootheeResult {
@@ -444,7 +444,7 @@ lazy_static! {
                            os: "Mobile Transcoder",
                            os_version: "".to_string(),
                            vendor: "",
-                           version: "".to_string(),
+                           version: "",
                        });
         dataset.insert("Nintendo3DS",
                        WootheeResult {
@@ -454,7 +454,7 @@ lazy_static! {
                            os: "Nintendo 3DS",
                            os_version: "".to_string(),
                            vendor: "Nintendo",
-                           version: "".to_string(),
+                           version: "",
                        });
         dataset.insert("NintendoDSi",
                        WootheeResult {
@@ -464,7 +464,7 @@ lazy_static! {
                            os: "Nintendo DSi",
                            os_version: "".to_string(),
                            vendor: "Nintendo",
-                           version: "".to_string(),
+                           version: "",
                        });
         dataset.insert("NintendoWii",
                        WootheeResult {
@@ -474,7 +474,7 @@ lazy_static! {
                            os: "Nintendo Wii",
                            os_version: "".to_string(),
                            vendor: "Nintendo",
-                           version: "".to_string(),
+                           version: "",
                        });
         dataset.insert("NintendoWiiU",
                        WootheeResult {
@@ -484,7 +484,7 @@ lazy_static! {
                            os: "Nintendo Wii U",
                            os_version: "".to_string(),
                            vendor: "Nintendo",
-                           version: "".to_string(),
+                           version: "",
                        });
         dataset.insert("PSP",
                        WootheeResult {
@@ -494,7 +494,7 @@ lazy_static! {
                            os: "PlayStation Portable",
                            os_version: "".to_string(),
                            vendor: "Sony",
-                           version: "".to_string(),
+                           version: "",
                        });
         dataset.insert("PSVita",
                        WootheeResult {
@@ -504,7 +504,7 @@ lazy_static! {
                            os: "PlayStation Vita",
                            os_version: "".to_string(),
                            vendor: "Sony",
-                           version: "".to_string(),
+                           version: "",
                        });
         dataset.insert("PS3",
                        WootheeResult {
@@ -514,7 +514,7 @@ lazy_static! {
                            os: "PlayStation 3",
                            os_version: "".to_string(),
                            vendor: "Sony",
-                           version: "".to_string(),
+                           version: "",
                        });
         dataset.insert("PS4",
                        WootheeResult {
@@ -524,7 +524,7 @@ lazy_static! {
                            os: "PlayStation 4",
                            os_version: "".to_string(),
                            vendor: "Sony",
-                           version: "".to_string(),
+                           version: "",
                        });
         dataset.insert("Xbox360",
                        WootheeResult {
@@ -534,7 +534,7 @@ lazy_static! {
                            os: "Xbox 360",
                            os_version: "".to_string(),
                            vendor: "Microsoft",
-                           version: "".to_string(),
+                           version: "",
                        });
         dataset.insert("XboxOne",
                        WootheeResult {
@@ -544,7 +544,7 @@ lazy_static! {
                            os: "Xbox One",
                            os_version: "".to_string(),
                            vendor: "Microsoft",
-                           version: "".to_string(),
+                           version: "",
                        });
         dataset.insert("DigitalTV",
                        WootheeResult {
@@ -554,7 +554,7 @@ lazy_static! {
                            os: "DigitalTV",
                            os_version: "".to_string(),
                            vendor: "",
-                           version: "".to_string(),
+                           version: "",
                        });
         dataset.insert("SafariRSSReader",
                        WootheeResult {
@@ -564,7 +564,7 @@ lazy_static! {
                            os: "",
                            os_version: "".to_string(),
                            vendor: "Apple",
-                           version: "".to_string(),
+                           version: "",
                        });
         dataset.insert("GoogleDesktop",
                        WootheeResult {
@@ -574,7 +574,7 @@ lazy_static! {
                            os: "",
                            os_version: "".to_string(),
                            vendor: "Google",
-                           version: "".to_string(),
+                           version: "",
                        });
         dataset.insert("WindowsRSSReader",
                        WootheeResult {
@@ -584,7 +584,7 @@ lazy_static! {
                            os: "",
                            os_version: "".to_string(),
                            vendor: "Microsoft",
-                           version: "".to_string(),
+                           version: "",
                        });
         dataset.insert("VariousRSSReader",
                        WootheeResult {
@@ -594,7 +594,7 @@ lazy_static! {
                            os: "",
                            os_version: "".to_string(),
                            vendor: "",
-                           version: "".to_string(),
+                           version: "",
                        });
         dataset.insert("HTTPLibrary",
                        WootheeResult {
@@ -604,7 +604,7 @@ lazy_static! {
                            os: "",
                            os_version: "".to_string(),
                            vendor: "",
-                           version: "".to_string(),
+                           version: "",
                        });
         dataset.insert("GoogleBot",
                        WootheeResult {
@@ -614,7 +614,7 @@ lazy_static! {
                            os: "",
                            os_version: "".to_string(),
                            vendor: "",
-                           version: "".to_string(),
+                           version: "",
                        });
         dataset.insert("GoogleBotMobile",
                        WootheeResult {
@@ -624,7 +624,7 @@ lazy_static! {
                            os: "",
                            os_version: "".to_string(),
                            vendor: "",
-                           version: "".to_string(),
+                           version: "",
                        });
         dataset.insert("GoogleMediaPartners",
                        WootheeResult {
@@ -634,7 +634,7 @@ lazy_static! {
                            os: "",
                            os_version: "".to_string(),
                            vendor: "",
-                           version: "".to_string(),
+                           version: "",
                        });
         dataset.insert("GoogleFeedFetcher",
                        WootheeResult {
@@ -644,7 +644,7 @@ lazy_static! {
                            os: "",
                            os_version: "".to_string(),
                            vendor: "",
-                           version: "".to_string(),
+                           version: "",
                        });
         dataset.insert("GoogleAppEngine",
                        WootheeResult {
@@ -654,7 +654,7 @@ lazy_static! {
                            os: "",
                            os_version: "".to_string(),
                            vendor: "",
-                           version: "".to_string(),
+                           version: "",
                        });
         dataset.insert("GoogleWebPreview",
                        WootheeResult {
@@ -664,7 +664,7 @@ lazy_static! {
                            os: "",
                            os_version: "".to_string(),
                            vendor: "",
-                           version: "".to_string(),
+                           version: "",
                        });
         dataset.insert("YahooSlurp",
                        WootheeResult {
@@ -674,7 +674,7 @@ lazy_static! {
                            os: "",
                            os_version: "".to_string(),
                            vendor: "",
-                           version: "".to_string(),
+                           version: "",
                        });
         dataset.insert("YahooJP",
                        WootheeResult {
@@ -684,7 +684,7 @@ lazy_static! {
                            os: "",
                            os_version: "".to_string(),
                            vendor: "",
-                           version: "".to_string(),
+                           version: "",
                        });
         dataset.insert("YahooPipes",
                        WootheeResult {
@@ -694,7 +694,7 @@ lazy_static! {
                            os: "",
                            os_version: "".to_string(),
                            vendor: "",
-                           version: "".to_string(),
+                           version: "",
                        });
         dataset.insert("Baiduspider",
                        WootheeResult {
@@ -704,7 +704,7 @@ lazy_static! {
                            os: "",
                            os_version: "".to_string(),
                            vendor: "",
-                           version: "".to_string(),
+                           version: "",
                        });
         dataset.insert("msnbot",
                        WootheeResult {
@@ -714,7 +714,7 @@ lazy_static! {
                            os: "",
                            os_version: "".to_string(),
                            vendor: "",
-                           version: "".to_string(),
+                           version: "",
                        });
         dataset.insert("bingbot",
                        WootheeResult {
@@ -724,7 +724,7 @@ lazy_static! {
                            os: "",
                            os_version: "".to_string(),
                            vendor: "",
-                           version: "".to_string(),
+                           version: "",
                        });
         dataset.insert("BingPreview",
                        WootheeResult {
@@ -734,7 +734,7 @@ lazy_static! {
                            os: "",
                            os_version: "".to_string(),
                            vendor: "",
-                           version: "".to_string(),
+                           version: "",
                        });
         dataset.insert("Yeti",
                        WootheeResult {
@@ -744,7 +744,7 @@ lazy_static! {
                            os: "",
                            os_version: "".to_string(),
                            vendor: "",
-                           version: "".to_string(),
+                           version: "",
                        });
         dataset.insert("FeedBurner",
                        WootheeResult {
@@ -754,7 +754,7 @@ lazy_static! {
                            os: "",
                            os_version: "".to_string(),
                            vendor: "",
-                           version: "".to_string(),
+                           version: "",
                        });
         dataset.insert("facebook",
                        WootheeResult {
@@ -764,7 +764,7 @@ lazy_static! {
                            os: "",
                            os_version: "".to_string(),
                            vendor: "",
-                           version: "".to_string(),
+                           version: "",
                        });
         dataset.insert("twitter",
                        WootheeResult {
@@ -774,7 +774,7 @@ lazy_static! {
                            os: "",
                            os_version: "".to_string(),
                            vendor: "",
-                           version: "".to_string(),
+                           version: "",
                        });
         dataset.insert("trendictionbot",
                        WootheeResult {
@@ -784,7 +784,7 @@ lazy_static! {
                            os: "",
                            os_version: "".to_string(),
                            vendor: "",
-                           version: "".to_string(),
+                           version: "",
                        });
         dataset.insert("mixi",
                        WootheeResult {
@@ -794,7 +794,7 @@ lazy_static! {
                            os: "",
                            os_version: "".to_string(),
                            vendor: "",
-                           version: "".to_string(),
+                           version: "",
                        });
         dataset.insert("IndyLibrary",
                        WootheeResult {
@@ -804,7 +804,7 @@ lazy_static! {
                            os: "",
                            os_version: "".to_string(),
                            vendor: "",
-                           version: "".to_string(),
+                           version: "",
                        });
         dataset.insert("ApplePubSub",
                        WootheeResult {
@@ -814,7 +814,7 @@ lazy_static! {
                            os: "",
                            os_version: "".to_string(),
                            vendor: "",
-                           version: "".to_string(),
+                           version: "",
                        });
         dataset.insert("Genieo",
                        WootheeResult {
@@ -824,7 +824,7 @@ lazy_static! {
                            os: "",
                            os_version: "".to_string(),
                            vendor: "",
-                           version: "".to_string(),
+                           version: "",
                        });
         dataset.insert("topsyButterfly",
                        WootheeResult {
@@ -834,7 +834,7 @@ lazy_static! {
                            os: "",
                            os_version: "".to_string(),
                            vendor: "",
-                           version: "".to_string(),
+                           version: "",
                        });
         dataset.insert("rogerbot",
                        WootheeResult {
@@ -844,7 +844,7 @@ lazy_static! {
                            os: "",
                            os_version: "".to_string(),
                            vendor: "",
-                           version: "".to_string(),
+                           version: "",
                        });
         dataset.insert("AhrefsBot",
                        WootheeResult {
@@ -854,7 +854,7 @@ lazy_static! {
                            os: "",
                            os_version: "".to_string(),
                            vendor: "",
-                           version: "".to_string(),
+                           version: "",
                        });
         dataset.insert("radian6",
                        WootheeResult {
@@ -864,7 +864,7 @@ lazy_static! {
                            os: "",
                            os_version: "".to_string(),
                            vendor: "",
-                           version: "".to_string(),
+                           version: "",
                        });
         dataset.insert("Hatena",
                        WootheeResult {
@@ -874,7 +874,7 @@ lazy_static! {
                            os: "",
                            os_version: "".to_string(),
                            vendor: "",
-                           version: "".to_string(),
+                           version: "",
                        });
         dataset.insert("goo",
                        WootheeResult {
@@ -884,7 +884,7 @@ lazy_static! {
                            os: "",
                            os_version: "".to_string(),
                            vendor: "",
-                           version: "".to_string(),
+                           version: "",
                        });
         dataset.insert("livedoorFeedFetcher",
                        WootheeResult {
@@ -894,7 +894,7 @@ lazy_static! {
                            os: "",
                            os_version: "".to_string(),
                            vendor: "",
-                           version: "".to_string(),
+                           version: "",
                        });
         dataset.insert("VariousCrawler",
                        WootheeResult {
@@ -904,7 +904,7 @@ lazy_static! {
                            os: "",
                            os_version: "".to_string(),
                            vendor: "",
-                           version: "".to_string(),
+                           version: "",
                        });
 
         dataset

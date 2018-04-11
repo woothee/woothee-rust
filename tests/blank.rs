@@ -11,31 +11,31 @@ mod tests {
         match parser.parse(r#""#) {
             None => panic!(r#"invalid parse. """#),
             Some(result) => {
-                assert_eq!(result.category, "UNKNOWN".to_string());
-                assert_eq!(result.name, "UNKNOWN".to_string());
-                assert_eq!(result.os, "UNKNOWN".to_string());
+                assert_eq!(result.category, "UNKNOWN");
+                assert_eq!(result.name, "UNKNOWN");
+                assert_eq!(result.os, "UNKNOWN");
                 assert_eq!(result.os_version, "UNKNOWN".to_string());
-                assert_eq!(result.version, "UNKNOWN".to_string());
+                assert_eq!(result.version, "UNKNOWN");
             }
         }
         match parser.parse(r#""#) {
             None => panic!(r#"invalid parse. """#),
             Some(result) => {
-                assert_eq!(result.category, "UNKNOWN".to_string());
-                assert_eq!(result.name, "UNKNOWN".to_string());
-                assert_eq!(result.os, "UNKNOWN".to_string());
+                assert_eq!(result.category, "UNKNOWN");
+                assert_eq!(result.name, "UNKNOWN");
+                assert_eq!(result.os, "UNKNOWN");
                 assert_eq!(result.os_version, "UNKNOWN".to_string());
-                assert_eq!(result.version, "UNKNOWN".to_string());
+                assert_eq!(result.version, "UNKNOWN");
             }
         }
         match parser.parse(r#"-"#) {
             None => panic!(r#"invalid parse. "-""#),
             Some(result) => {
-                assert_eq!(result.category, "UNKNOWN".to_string());
-                assert_eq!(result.name, "UNKNOWN".to_string());
-                assert_eq!(result.os, "UNKNOWN".to_string());
+                assert_eq!(result.category, "UNKNOWN");
+                assert_eq!(result.name, "UNKNOWN");
+                assert_eq!(result.os, "UNKNOWN");
                 assert_eq!(result.os_version, "UNKNOWN".to_string());
-                assert_eq!(result.version, "UNKNOWN".to_string());
+                assert_eq!(result.version, "UNKNOWN");
             }
         }
     }

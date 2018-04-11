@@ -59,7 +59,7 @@ pub struct WootheeResult<'a> {
     pub os: &'a str,
     pub os_version: String,
     pub browser_type: &'a str,
-    pub version: String,
+    pub version: &'a str,
     pub vendor: &'a str,
 }
 
@@ -71,7 +71,7 @@ impl<'a> WootheeResult<'a> {
             os: VALUE_UNKNOWN,
             os_version: VALUE_UNKNOWN.to_string(),
             browser_type: VALUE_UNKNOWN,
-            version: VALUE_UNKNOWN.to_string(),
+            version: VALUE_UNKNOWN,
             vendor: VALUE_UNKNOWN,
         }
     }
@@ -111,7 +111,7 @@ impl Parser {
         Parser { }
     }
 
-    pub fn parse<'a>(&self, agent: &str) -> Option<WootheeResult<'a>> {
+    pub fn parse<'a>(&self, agent: &'a str) -> Option<WootheeResult<'a>> {
         let mut result = WootheeResult::new();
         if agent == "" || agent == "-" {
             return Some(result);
@@ -176,7 +176,7 @@ impl Parser {
         false
     }
 
-    fn try_os(&self, agent: &str, result: &mut WootheeResult) -> bool {
+    fn try_os<'a>(&self, agent: &'a str, result: &mut WootheeResult<'a>) -> bool {
         if self.challenge_windows(agent, result) {
             return true;
         }
@@ -208,7 +208,7 @@ impl Parser {
         false
     }
 
-    fn try_browser(&self, agent: &str, result: &mut WootheeResult) -> bool {
+    fn try_browser<'a>(&self, agent: &'a str, result: &mut WootheeResult<'a>) -> bool {
         if self.challenge_msie(agent, result) {
             return true;
         }
@@ -244,7 +244,7 @@ impl Parser {
         false
     }
 
-    fn try_mobilephone(&self, agent: &str, result: &mut WootheeResult) -> bool {
+    fn try_mobilephone<'a>(&self, agent: &'a str, result: &mut WootheeResult<'a>) -> bool {
         if self.challenge_docomo(agent, result) {
             return true;
         }
@@ -268,7 +268,7 @@ impl Parser {
         false
     }
 
-    fn try_appliance(&self, agent: &str, result: &mut WootheeResult) -> bool {
+    fn try_appliance<'a>(&self, agent: &'a str, result: &mut WootheeResult<'a>) -> bool {
         if self.challenge_playstation(agent, result) {
             return true;
         }
@@ -291,7 +291,7 @@ impl Parser {
         false
     }
 
-    fn try_rare_cases(&self, agent: &str, result: &mut WootheeResult) -> bool {
+    fn try_rare_cases<'a>(&self, agent: &'a str, result: &mut WootheeResult<'a>) -> bool {
         if self.challenge_smartphone_patterns(agent, result) {
             return true;
         }
@@ -462,30 +462,29 @@ impl Parser {
         false
     }
 
-    fn challenge_msie(&self, agent: &str, result: &mut WootheeResult) -> bool {
+    fn challenge_msie<'a>(&self, agent: &'a str, result: &mut WootheeResult<'a>) -> bool {
         if !agent.contains("compatible; MSIE") && !agent.contains("Trident/") && !agent.contains("IEMobile") {
             return false;
         }
 
-        let mut version = VALUE_UNKNOWN;
         let re_msie_caps = RX_MSIE_PATTERN.captures(agent);
         let re_trident_caps = RX_TRIDENT_PATTERN.captures(agent);
         let re_trident_ver_caps = RX_TRIDENT_VERSION_PATTERN.captures(agent);
         let re_ie_mobile_caps = RX_IEMOBILE_PATTERN.captures(agent);
 
-        if re_msie_caps.is_some() {
-            version = re_msie_caps.unwrap().get(1).unwrap().as_str();
+        result.version = if re_msie_caps.is_some() {
+            re_msie_caps.unwrap().get(1).unwrap().as_str()
         } else if re_trident_caps.is_some() && re_trident_ver_caps.is_some() {
-            version = re_trident_ver_caps.unwrap().get(1).unwrap().as_str();
+            re_trident_ver_caps.unwrap().get(1).unwrap().as_str()
         } else if re_ie_mobile_caps.is_some() {
-            version = re_ie_mobile_caps.unwrap().get(1).unwrap().as_str();
-        }
+            re_ie_mobile_caps.unwrap().get(1).unwrap().as_str()
+        } else {
+            VALUE_UNKNOWN
+        };
 
         if !self.populate_dataset(result, "MSIE") {
             return false;
         }
-
-        result.version = version.to_string();
 
         true
     }
@@ -502,10 +501,10 @@ impl Parser {
         true
     }
 
-    fn challenge_vivaldi(&self, agent: &str, result: &mut WootheeResult) -> bool {
+    fn challenge_vivaldi<'a>(&self, agent: &'a str, result: &mut WootheeResult<'a>) -> bool {
         match RX_VIVALDI_PATTERN.captures(agent) {
             Some(caps) => {
-                result.version = caps.get(1).unwrap().as_str().to_string();
+                result.version = caps.get(1).unwrap().as_str();
             }
             None => {
                 return false;
@@ -519,10 +518,10 @@ impl Parser {
         true
     }
 
-    fn challenge_firefox_ios(&self, agent: &str, result: &mut WootheeResult) -> bool {
+    fn challenge_firefox_ios<'a>(&self, agent: &'a str, result: &mut WootheeResult<'a>) -> bool {
         match RX_FIREFOX_IOS_PATTERN.captures(agent) {
             Some(caps) => {
-                result.version = caps.get(1).unwrap().as_str().to_string();
+                result.version = caps.get(1).unwrap().as_str();
             }
             None => {
                 return false;
@@ -536,7 +535,7 @@ impl Parser {
         true
     }
 
-    fn challenge_safari_chrome(&self, agent: &str, result: &mut WootheeResult) -> bool {
+    fn challenge_safari_chrome<'a>(&self, agent: &'a str, result: &mut WootheeResult<'a>) -> bool {
         if agent.contains("Chrome") && agent.contains("wv") {
             return false;
         }
@@ -555,7 +554,7 @@ impl Parser {
                     return false;
                 }
                 if !version.is_empty() {
-                    result.version = version.to_string();
+                    result.version = version;
                 }
                 return true;
             }
@@ -569,7 +568,7 @@ impl Parser {
                 None => "",
             };
             if !version.is_empty() {
-                result.version = version.to_string();
+                result.version = version;
             }
             return true;
         }
@@ -583,12 +582,12 @@ impl Parser {
             return false;
         }
 
-        result.version = version.to_string();
+        result.version = version;
 
         true
     }
 
-    fn challenge_firefox(&self, agent: &str, result: &mut WootheeResult) -> bool {
+    fn challenge_firefox<'a>(&self, agent: &'a str, result: &mut WootheeResult<'a>) -> bool {
         if !agent.contains("Firefox/") {
             return false;
         }
@@ -602,12 +601,12 @@ impl Parser {
             return false;
         }
 
-        result.version = version.to_string();
+        result.version = version;
 
         true
     }
 
-    fn challenge_opera(&self, agent: &str, result: &mut WootheeResult) -> bool {
+    fn challenge_opera<'a>(&self, agent: &'a str, result: &mut WootheeResult<'a>) -> bool {
         if !agent.contains("Opera") {
             return false;
         }
@@ -626,12 +625,12 @@ impl Parser {
             return false;
         }
 
-        result.version = version.to_string();
+        result.version = version;
 
         true
     }
 
-    fn challenge_webview(&self, agent: &str, result: &mut WootheeResult) -> bool {
+    fn challenge_webview<'a>(&self, agent: &'a str, result: &mut WootheeResult<'a>) -> bool {
         let version = if RX_WEBVIEW_VERSION_PATTERN.is_match(agent) {
             match RX_WEBVIEW_VERSION_PATTERN.captures(agent) {
                 Some(caps) => caps.get(1).unwrap().as_str(),
@@ -642,7 +641,7 @@ impl Parser {
         };
 
         if agent.contains("Chrome") && agent.contains("wv") {
-            result.version = version.to_string();
+            result.version = version;
             self.populate_dataset(result, "Webview");
             return true;
         }
@@ -660,13 +659,13 @@ impl Parser {
             None => "",
         };
         if !version.is_empty() {
-            result.version = version.to_string();
+            result.version = version;
         }
 
         true
     }
 
-    fn challenge_docomo(&self, agent: &str, result: &mut WootheeResult) -> bool {
+    fn challenge_docomo<'a>(&self, agent: &'a str, result: &mut WootheeResult<'a>) -> bool {
         if !agent.contains("DoCoMo") && !agent.contains(";FOMA;") {
             return false;
         }
@@ -683,12 +682,12 @@ impl Parser {
         if !self.populate_dataset(result, "docomo") {
             return false;
         }
-        result.version = version.to_string();
+        result.version = version;
 
         true
     }
 
-    fn challenge_au(&self, agent: &str, result: &mut WootheeResult) -> bool {
+    fn challenge_au<'a>(&self, agent: &'a str, result: &mut WootheeResult<'a>) -> bool {
         if !agent.contains("KDDI-") {
             return false;
         }
@@ -702,12 +701,12 @@ impl Parser {
         if !self.populate_dataset(result, "au") {
             return false;
         }
-        result.version = version.to_string();
+        result.version = version;
 
         true
     }
 
-    fn challenge_softbank(&self, agent: &str, result: &mut WootheeResult) -> bool {
+    fn challenge_softbank<'a>(&self, agent: &'a str, result: &mut WootheeResult<'a>) -> bool {
         if !agent.contains("SoftBank") && !agent.contains("Vodafone") && !agent.contains("J-PHONE") {
             return false;
         }
@@ -721,12 +720,12 @@ impl Parser {
         if !self.populate_dataset(result, "SoftBank") {
             return false;
         }
-        result.version = version.to_string();
+        result.version = version;
 
         true
     }
 
-    fn challenge_willcom(&self, agent: &str, result: &mut WootheeResult) -> bool {
+    fn challenge_willcom<'a>(&self, agent: &'a str, result: &mut WootheeResult<'a>) -> bool {
         if !agent.contains("WILLCOM") && !agent.contains("DDIPOCKET") {
             return false;
         }
@@ -740,12 +739,12 @@ impl Parser {
         if !self.populate_dataset(result, "willcom") {
             return false;
         }
-        result.version = version.to_string();
+        result.version = version;
 
         true
     }
 
-    fn challenge_misc_mobilephone(&self, agent: &str, result: &mut WootheeResult) -> bool {
+    fn challenge_misc_mobilephone<'a>(&self, agent: &'a str, result: &mut WootheeResult<'a>) -> bool {
         if agent.contains("jig browser") {
             if !self.populate_dataset(result, "jig") {
                 return false;
@@ -753,7 +752,7 @@ impl Parser {
 
             let caps = RX_JIG_PATTERN.captures(agent);
             if caps.is_some() {
-                result.version = caps.unwrap().get(1).unwrap().as_str().to_string();
+                result.version = caps.unwrap().get(1).unwrap().as_str();
             }
             return true;
         }
@@ -776,7 +775,7 @@ impl Parser {
             if !self.populate_dataset(result, "MobileTranscoder") {
                 return false;
             }
-            result.version = "Hatena".to_string();
+            result.version = "Hatena";
             return true;
         }
 
@@ -784,14 +783,14 @@ impl Parser {
             if !self.populate_dataset(result, "MobileTranscoder") {
                 return false;
             }
-            result.version = "livedoor".to_string();
+            result.version = "livedoor";
             return true;
         }
 
         false
     }
 
-    fn challenge_playstation(&self, agent: &str, result: &mut WootheeResult) -> bool {
+    fn challenge_playstation<'a>(&self, agent: &'a str, result: &mut WootheeResult<'a>) -> bool {
         let mut os_version = "";
 
         let d = if agent.contains("PSP (PlayStation Portable)") {
@@ -864,7 +863,7 @@ impl Parser {
         false
     }
 
-    fn challenge_windows(&self, agent: &str, result: &mut WootheeResult) -> bool {
+    fn challenge_windows<'a>(&self, agent: &'a str, result: &mut WootheeResult<'a>) -> bool {
         if !agent.contains("Windows") {
             return false;
         }
@@ -968,22 +967,22 @@ impl Parser {
         result.category = data.category;
         result.os = data.name;
         if !version.is_empty() {
-            result.os_version = version.to_string();
+            result.os_version = version;
         }
 
         true
     }
 
-    fn challenge_linux(&self, agent: &str, result: &mut WootheeResult) -> bool {
+    fn challenge_linux<'a>(&self, agent: &'a str, result: &mut WootheeResult<'a>) -> bool {
         if !agent.contains("Linux") {
             return false;
         }
 
-        let mut os_version = String::new();
+        let mut os_version = "";
         let d = if agent.contains("Android") {
             let caps = RX_ANDROIDOS_OS_VERSION.captures(agent);
             if caps.is_some() {
-                os_version = caps.unwrap().get(1).unwrap().as_str().to_string();
+                os_version = caps.unwrap().get(1).unwrap().as_str();
             }
             self.lookup_dataset("Android")
         } else {
@@ -998,13 +997,13 @@ impl Parser {
         result.category = data.category;
         result.os = data.name;
         if !os_version.is_empty() {
-            result.os_version = os_version;
+            result.os_version = os_version.to_string();
         }
 
         true
     }
 
-    fn challenge_smartphone(&self, agent: &str, result: &mut WootheeResult) -> bool {
+    fn challenge_smartphone<'a>(&self, agent: &'a str, result: &mut WootheeResult<'a>) -> bool {
         let mut os_version = "";
 
         let mut d = if agent.contains("iPhone") {
@@ -1022,7 +1021,7 @@ impl Parser {
             if caps.is_some() {
                 os_version = caps.unwrap().get(1).unwrap().as_str();
             }
-            result.version = VALUE_UNKNOWN.to_string();
+            result.version = VALUE_UNKNOWN;
             self.lookup_dataset("BlackBerry10")
         } else if agent.contains("BlackBerry") {
             let caps = RX_BLACKBERRY_OS_VERSION.captures(agent);
@@ -1068,7 +1067,7 @@ impl Parser {
         true
     }
 
-    fn challenge_mobilephone(&self, agent: &str, result: &mut WootheeResult) -> bool {
+    fn challenge_mobilephone<'a>(&self, agent: &'a str, result: &mut WootheeResult<'a>) -> bool {
         if agent.contains("KDDI-") {
             let caps = RX_KDDI_PATTERN.captures(agent);
             if caps.is_some() {
@@ -1080,7 +1079,7 @@ impl Parser {
                 let data = d.unwrap();
                 result.category = data.category;
                 result.os = data.os;
-                result.version = term.to_string();
+                result.version = term;
                 return true;
             }
         }
@@ -1096,7 +1095,7 @@ impl Parser {
                 let data = d.unwrap();
                 result.category = data.category;
                 result.os = data.os;
-                result.version = term.to_string();
+                result.version = term;
                 return true;
             }
         }
@@ -1116,14 +1115,14 @@ impl Parser {
             if !self.populate_dataset(result, "MobileTranscoder") {
                 return false;
             }
-            result.version = "Google".to_string();
+            result.version = "Google";
         }
 
         if agent.contains("Naver Transcoder") {
             if !self.populate_dataset(result, "MobileTranscoder") {
                 return false;
             }
-            result.version = "Naver".to_string();
+            result.version = "Naver";
         }
 
         false
@@ -1162,7 +1161,7 @@ impl Parser {
         false
     }
 
-    fn challenge_sleipnir(&self, agent: &str, result: &mut WootheeResult) -> bool {
+    fn challenge_sleipnir<'a>(&self, agent: &'a str, result: &mut WootheeResult<'a>) -> bool {
         if !agent.contains("Sleipnir/") {
             return false;
         }
@@ -1180,7 +1179,7 @@ impl Parser {
         }
         let win = w.unwrap();
 
-        result.version = version.to_string();
+        result.version = version;
         result.category = win.category;
         result.os = win.name;
 
@@ -1217,7 +1216,7 @@ impl Parser {
         if !self.populate_dataset(result, "HTTPLibrary") {
             return false;
         }
-        result.version = version.to_string();
+        result.version = version;
 
         true
     }
@@ -1267,7 +1266,7 @@ impl Parser {
         false
     }
 
-    fn challenge_misc_os(&self, agent: &str, result: &mut WootheeResult) -> bool {
+    fn challenge_misc_os<'a>(&self, agent: &'a str, result: &mut WootheeResult<'a>) -> bool {
         let d = if agent.contains("(Win98;") {
             result.os_version = "98".to_string();
             self.lookup_dataset("Win98")

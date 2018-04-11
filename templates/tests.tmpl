@@ -13,25 +13,25 @@ mod tests {
             None => panic!(r#"invalid parse. "{{test.target}}""#),
             Some(result) => {
                 {% if test.category %}
-                    assert_eq!(result.category, "{{test.category}}".to_string());
+                    assert_eq!(result.category, "{{test.category}}");
                 {% else %}
-                  assert_eq!(result.category, "UNKNOWN".to_string());
+                  assert_eq!(result.category, "UNKNOWN");
                 {% endif %}
                 {% if test.name %}
-                    assert_eq!(result.name, "{{test.name}}".to_string());
-                {% else %}assert_eq!(result.name, "UNKNOWN".to_string());
+                    assert_eq!(result.name, "{{test.name}}");
+                {% else %}assert_eq!(result.name, "UNKNOWN");
                 {% endif %}
                 {% if test.os %}
-                    assert_eq!(result.os, "{{test.os}}".to_string());
-                {% else %}assert_eq!(result.os, "UNKNOWN".to_string());
+                    assert_eq!(result.os, "{{test.os}}");
+                {% else %}assert_eq!(result.os, "UNKNOWN");
                 {% endif %}
                 {% if test.os_version %}
                     assert_eq!(result.os_version, "{{test.os_version}}".to_string());
                 {% else %}assert_eq!(result.os_version, "UNKNOWN".to_string());
                 {% endif %}
                 {% if test.version %}
-                    assert_eq!(result.version, "{{test.version}}".to_string());
-                {% else %}assert_eq!(result.version, "UNKNOWN".to_string());
+                    assert_eq!(result.version, "{{test.version}}");
+                {% else %}assert_eq!(result.version, "UNKNOWN");
                 {% endif %}
             }
         }
