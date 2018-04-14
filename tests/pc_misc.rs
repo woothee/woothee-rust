@@ -200,5 +200,15 @@ mod tests {
                 assert_eq!(result.version, "33.0.1750.152");
             }
         }
+        match parser.parse(r#"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.94 YaBrowser/17.11.1.1087 (beta) Yowser/2.5 Safari/537.36"#) {
+            None => panic!(r#"invalid parse. "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.94 YaBrowser/17.11.1.1087 (beta) Yowser/2.5 Safari/537.36""#),
+            Some(result) => {
+                assert_eq!(result.category, "pc");
+                assert_eq!(result.name, "Yandex Browser");
+                assert_eq!(result.os, "Linux");
+                assert_eq!(result.os_version, "UNKNOWN".to_string());
+                assert_eq!(result.version, "17.11.1.1087");
+            }
+        }
     }
 }
