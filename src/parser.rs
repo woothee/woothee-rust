@@ -50,6 +50,7 @@ lazy_static! {
     static ref RX_PEAR: Regex = Regex::new(r"(?:PEAR HTTP_Request|HTTP_Request)(?: class|2)").unwrap();
     static ref RX_MAYBE_CRAWLER_OTHER: Regex = Regex::new(r"(?:Rome Client |UnwindFetchor/|ia_archiver |Summify |PostRank/)").unwrap();
     static ref RE_SLEIPNIR_VERSION: Regex = Regex::new(r"Sleipnir/([.0-9]+)").unwrap();
+    static ref RX_YABROWSER_VERSION: Regex = Regex::new(r"YaBrowser/(\d+\.\d+\.\d+\.\d+)").unwrap();
 }
 
 #[derive(Debug, Default)]
@@ -222,6 +223,10 @@ impl Parser {
         }
 
         if self.challenge_firefox_ios(agent, result) {
+            return true;
+        }
+
+        if self.challenge_yandexbrowser(agent, result) {
             return true;
         }
 
@@ -529,6 +534,27 @@ impl Parser {
         };
 
         if !self.populate_dataset(result, "Firefox") {
+            return false;
+        }
+
+        true
+    }
+
+    fn challenge_yandexbrowser<'a>(&self, agent: &'a str, result: &mut WootheeResult<'a>) -> bool {
+        if !agent.contains("YaBrowser/") {
+            return false;
+        }
+
+        match RX_YABROWSER_VERSION.captures(agent) {
+            Some(caps) => {
+                result.version = caps.get(1).unwrap().as_str();
+            }
+            None => {
+                return false;
+            }
+        }
+
+        if !self.populate_dataset(result, "YaBrowser") {
             return false;
         }
 
