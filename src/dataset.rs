@@ -96,6 +96,16 @@ lazy_static! {
                            vendor: "OS vendor",
                            version: "",
                        });
+        dataset.insert("YaBrowser",
+                       WootheeResult {
+                           name: "Yandex Browser",
+                           browser_type: "browser",
+                           category: "",
+                           os: "",
+                           os_version: "".to_string(),
+                           vendor: "Yandex",
+                           version: "",
+                       });
         dataset.insert("Win",
                        WootheeResult {
                            name: "Windows UNKNOWN Ver",

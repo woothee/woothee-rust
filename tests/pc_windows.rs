@@ -268,5 +268,15 @@ mod tests {
                 assert_eq!(result.version, "UNKNOWN");
             }
         }
+        match parser.parse(r#"Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 YaBrowser/18.1.1.839 Yowser/2.5 Safari/537.36"#) {
+            None => panic!(r#"invalid parse. "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 YaBrowser/18.1.1.839 Yowser/2.5 Safari/537.36""#),
+            Some(result) => {
+                assert_eq!(result.category, "pc");
+                assert_eq!(result.name, "Yandex Browser");
+                assert_eq!(result.os, "Windows 7");
+                assert_eq!(result.os_version, "NT 6.1".to_string());
+                assert_eq!(result.version, "18.1.1.839");
+            }
+        }
     }
 }
