@@ -275,7 +275,7 @@ mod tests {
                 assert_eq!(result.name, "Yandex Browser");
                 assert_eq!(result.os, "Windows 7");
                 assert_eq!(result.os_version, "NT 6.1".to_string());
-                assert_eq!(result.version, "UNKNOWN");
+                assert_eq!(result.version, "18.1.1.839");
             }
         }
     }
