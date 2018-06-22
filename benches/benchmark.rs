@@ -6,7 +6,7 @@ extern crate test;
 extern crate uap_rust;
 extern crate woothee;
 
-use test::Bencher;
+use test::{Bencher, black_box};
 use uap_rust::parser as uap;
 use woothee::parser as woo;
 
@@ -16,15 +16,15 @@ lazy_static! {
 }
 
 fn b_uap() {
-    let _ = UAP_PARSER.parse("Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.1; Trident/4.0)".to_string());
-    let _ = UAP_PARSER.parse("Twitterbot/1.0".to_string());
-    let _ = UAP_PARSER.parse("Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Trident/5.0; Xbox)".to_string());
+    black_box(UAP_PARSER.parse("Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.1; Trident/4.0)".to_string()));
+    black_box(UAP_PARSER.parse("Twitterbot/1.0".to_string()));
+    black_box(UAP_PARSER.parse("Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Trident/5.0; Xbox)".to_string()));
 }
 
 fn b_woothee() {
-    let _ = WOO_PARSER.parse("Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.1; Trident/4.0)");
-    let _ = WOO_PARSER.parse("Twitterbot/1.0");
-    let _ = WOO_PARSER.parse("Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Trident/5.0; Xbox)");
+    black_box(WOO_PARSER.parse("Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.1; Trident/4.0)"));
+    black_box(WOO_PARSER.parse("Twitterbot/1.0"));
+    black_box(WOO_PARSER.parse("Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Trident/5.0; Xbox)"));
 }
 
 #[bench]
