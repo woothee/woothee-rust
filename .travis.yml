@@ -4,6 +4,7 @@ rust:
     - beta
     - stable
 
+cache: cargo
 sudo: false
 
 script:
