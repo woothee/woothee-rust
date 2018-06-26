@@ -1,4 +1,7 @@
+use std::borrow::Cow;
+
 use regex::Regex;
+
 use dataset;
 use woothee::VALUE_UNKNOWN;
 
@@ -58,7 +61,7 @@ pub struct WootheeResult<'a> {
     pub name: &'a str,
     pub category: &'a str,
     pub os: &'a str,
-    pub os_version: String,
+    pub os_version: Cow<'a, str>,
     pub browser_type: &'a str,
     pub version: &'a str,
     pub vendor: &'a str,
@@ -70,7 +73,7 @@ impl<'a> WootheeResult<'a> {
             name: VALUE_UNKNOWN,
             category: VALUE_UNKNOWN,
             os: VALUE_UNKNOWN,
-            os_version: VALUE_UNKNOWN.to_string(),
+            os_version: VALUE_UNKNOWN.into(),
             browser_type: VALUE_UNKNOWN,
             version: VALUE_UNKNOWN,
             vendor: VALUE_UNKNOWN,
@@ -855,7 +858,7 @@ impl Parser {
         result.populate_with(data);
 
         if !os_version.is_empty() {
-            result.os_version = os_version.to_string();
+            result.os_version = os_version.into();
         }
 
         true
@@ -946,13 +949,13 @@ impl Parser {
         result.category = win.category;
         result.os = win.name;
         if !version.is_empty() {
-            result.os_version = version.to_string();
+            result.os_version = version.into();
         }
 
         true
     }
 
-    fn challenge_osx(&self, agent: &str, result: &mut WootheeResult) -> bool {
+    fn challenge_osx<'a>(&self, agent: &'a str, result: &mut WootheeResult<'a>) -> bool {
         if !agent.contains("Mac OS X") {
             return false;
         }
@@ -962,7 +965,7 @@ impl Parser {
             return false;
         }
         let mut data = d.unwrap();
-        let mut version = String::new();
+        let mut version: Cow<'a, str> = "".into();
 
         if agent.contains("like Mac OS X") {
             if agent.contains("iPhone;") {
@@ -980,13 +983,13 @@ impl Parser {
             let caps = RE_OSX_IPHONE_OS_VERSION.captures(agent);
             if caps.is_some() {
                 let v = caps.unwrap().get(1).unwrap().as_str();
-                version = v.replace("_", ".");
+                version = v.replace("_", ".").into();
             }
         } else {
             let caps = RE_OSX_OS_VERSION.captures(agent);
             if caps.is_some() {
                 let v = caps.unwrap().get(1).unwrap().as_str();
-                version = v.replace("_", ".");
+                version = v.replace("_", ".").into();
             }
         }
 
@@ -1023,7 +1026,7 @@ impl Parser {
         result.category = data.category;
         result.os = data.name;
         if !os_version.is_empty() {
-            result.os_version = os_version.to_string();
+            result.os_version = os_version.into();
         }
 
         true
@@ -1087,7 +1090,7 @@ impl Parser {
         result.category = data.category;
         result.os = data.name;
         if !os_version.is_empty() {
-            result.os_version = os_version.to_string();
+            result.os_version = os_version.into();
         }
 
         true
@@ -1294,24 +1297,24 @@ impl Parser {
 
     fn challenge_misc_os<'a>(&self, agent: &'a str, result: &mut WootheeResult<'a>) -> bool {
         let d = if agent.contains("(Win98;") {
-            result.os_version = "98".to_string();
+            result.os_version = "98".into();
             self.lookup_dataset("Win98")
         } else if agent.contains("Macintosh; U; PPC;") || agent.contains("Mac_PowerPC") {
             let caps = RX_PPC_OS_VERSION.captures(agent);
             if caps.is_some() {
-                result.os_version = caps.unwrap().get(1).unwrap().as_str().to_string();
+                result.os_version = caps.unwrap().get(1).unwrap().as_str().into();
             }
             self.lookup_dataset("MacOS")
         } else if agent.contains("X11; FreeBSD ") {
             let caps = RX_FREEBSD_OS_VERSION.captures(agent);
             if caps.is_some() {
-                result.os_version = caps.unwrap().get(1).unwrap().as_str().to_string();
+                result.os_version = caps.unwrap().get(1).unwrap().as_str().into();
             }
             self.lookup_dataset("BSD")
         } else if agent.contains("X11; CrOS ") {
             let caps = RX_CHROMEOS_OS_VERSION.captures(agent);
             if caps.is_some() {
-                result.os_version = caps.unwrap().get(1).unwrap().as_str().to_string();
+                result.os_version = caps.unwrap().get(1).unwrap().as_str().into();
             }
             self.lookup_dataset("ChromeOS")
         } else {
