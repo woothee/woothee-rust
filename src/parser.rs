@@ -98,7 +98,7 @@ impl<'a> WootheeResult<'a> {
         }
 
         if !ds.version.is_empty() {
-            self.version = ds.version.clone();
+            self.version = ds.version;
         }
 
         if !ds.vendor.is_empty() {
@@ -107,11 +107,12 @@ impl<'a> WootheeResult<'a> {
     }
 }
 
+#[derive(Default)]
 pub struct Parser {
 }
 
 impl Parser {
-    pub fn new() -> Parser {
+    pub fn new() -> Self {
         Parser { }
     }
 

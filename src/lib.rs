@@ -59,6 +59,7 @@ mod tests {
         let agent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.7; rv:21.0) Gecko/20100101 Firefox/21.0";
         let result = get_woothee_result(agent);
         assert_eq!(result.name, "Firefox");
+        assert_eq!(result.version, "21.0");
     }
 
     #[test]
