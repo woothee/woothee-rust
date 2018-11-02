@@ -28,7 +28,7 @@ generate = ["yaml-rust", "tera", "tempdir", "glob", "serde", "serde_json", "serd
 
 [build-dependencies]
 tera = { version = "0.8", optional = true }
-yaml-rust = { version = "0.3.5", optional = true }
+yaml-rust = { version = "0.4", optional = true }
 tempdir = { version = "0.3", optional = true }
 glob = { version = "0.2.11", optional = true }
 serde = { version = "0.9", optional = true }
