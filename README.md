@@ -51,7 +51,7 @@ $ cargo test    # and code review!!!
 with clippy lints (optional)
 
 ```
-$ rustup run nightly cargo build --features clippy
+$ rustup component add clippy-preview && cargo clippy
 ```
 
 

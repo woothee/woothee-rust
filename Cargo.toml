@@ -13,7 +13,6 @@ build = "build.rs"
 [dependencies]
 regex = "1"
 lazy_static = "1.2.0"
-clippy = { version = "0.0.133", optional = true }
 
 [dev-dependencies]
 uap-rust = "0.0.4"
