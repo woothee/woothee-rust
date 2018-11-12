@@ -131,7 +131,7 @@ mod inner {
                                            ""));
         }
 
-        context.add("results", &woothee_results);
+        context.insert("results", &woothee_results);
         let output = match template_engine.render("dataset.tmpl", &context) {
             Ok(ret) => ret,
             Err(e) => panic!("tera.render() error. {}", e),
@@ -154,7 +154,7 @@ mod inner {
 
             let v: Vec<&str> = filename.split('.').collect();
             let testname = v[0];
-            context.add("test_fnname", &testname);
+            context.insert("test_fnname", &testname);
 
             let yaml_file =
                 woothee_dir.join(Path::new(format!("testsets/{}", filename.as_str()).as_str()));
@@ -231,7 +231,7 @@ mod inner {
                                      version,
                                      vendor,
                                      target));
-                context.add("tests", &tests);
+                context.insert("tests", &tests);
             }
 
             let output = match template_engine.render("tests.tmpl", &context) {

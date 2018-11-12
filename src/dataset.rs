@@ -916,7 +916,6 @@ lazy_static! {
                            vendor: "",
                            version: "",
                        });
-
         dataset
     };
 }

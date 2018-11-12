@@ -8,33 +8,32 @@ mod tests {
     fn test_{{test_fnname}}() {
         let parser = Parser::new();
 
-        {% for test in tests %}
+        {% for test in tests -%}
         match parser.parse(r#"{{test.target}}"#) {
             None => panic!(r#"invalid parse. "{{test.target}}""#),
             Some(result) => {
-                {% if test.category %}
+                {% if test.category -%}
                     assert_eq!(result.category, "{{test.category}}");
-                {% else %}
+                {% else -%}
                   assert_eq!(result.category, "UNKNOWN");
-                {% endif %}
-                {% if test.name %}
+                {% endif -%}
+                {% if test.name -%}
                     assert_eq!(result.name, "{{test.name}}");
-                {% else %}assert_eq!(result.name, "UNKNOWN");
-                {% endif %}
-                {% if test.os %}
+                {% else -%}assert_eq!(result.name, "UNKNOWN");
+                {% endif -%}
+                {% if test.os -%}
                     assert_eq!(result.os, "{{test.os}}");
-                {% else %}assert_eq!(result.os, "UNKNOWN");
-                {% endif %}
-                {% if test.os_version %}
+                {% else -%}assert_eq!(result.os, "UNKNOWN");
+                {% endif -%}
+                {% if test.os_version -%}
                     assert_eq!(result.os_version, "{{test.os_version}}".to_string());
-                {% else %}assert_eq!(result.os_version, "UNKNOWN".to_string());
-                {% endif %}
-                {% if test.version %}
+                {% else -%}assert_eq!(result.os_version, "UNKNOWN".to_string());
+                {% endif -%}
+                {% if test.version -%}
                     assert_eq!(result.version, "{{test.version}}");
-                {% else %}assert_eq!(result.version, "UNKNOWN");
-                {% endif %}
-            }
+                {% else -%}assert_eq!(result.version, "UNKNOWN");
+                {% endif %}}
         }
-        {% endfor %}
+        {% endfor -%}
     }
 }
