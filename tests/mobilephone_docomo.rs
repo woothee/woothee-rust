@@ -15,7 +15,7 @@ mod tests {
                 assert_eq!(result.name, "docomo");
                 assert_eq!(result.os, "docomo");
                 assert_eq!(result.os_version, "UNKNOWN".to_string());
-                assert_eq!(result.version, "SH01A");
+            assert_eq!(result.version, "SH01A");
             }
         }
         match parser.parse(r#"DoCoMo/2.0 N07B(c500;TB;W24H16)"#) {
@@ -25,7 +25,7 @@ mod tests {
                 assert_eq!(result.name, "docomo");
                 assert_eq!(result.os, "docomo");
                 assert_eq!(result.os_version, "UNKNOWN".to_string());
-                assert_eq!(result.version, "N07B");
+            assert_eq!(result.version, "N07B");
             }
         }
         match parser.parse(r#"Mozilla/5.0 (compatible; DoCoMo/1.0/D505i/c20/TB/W20H10; http://www.rcdtokyo.com/pc2m/)"#) {
@@ -35,7 +35,7 @@ mod tests {
                 assert_eq!(result.name, "docomo");
                 assert_eq!(result.os, "docomo");
                 assert_eq!(result.os_version, "UNKNOWN".to_string());
-                assert_eq!(result.version, "D505i");
+            assert_eq!(result.version, "D505i");
             }
         }
         match parser.parse(r#"DoCoMo/1.0/N505i/c20/TB/W24H12"#) {
@@ -45,7 +45,7 @@ mod tests {
                 assert_eq!(result.name, "docomo");
                 assert_eq!(result.os, "docomo");
                 assert_eq!(result.os_version, "UNKNOWN".to_string());
-                assert_eq!(result.version, "N505i");
+            assert_eq!(result.version, "N505i");
             }
         }
         match parser.parse(r#"Mozilla/4.08 (N905imyu_W;FOMA;c500;TB)"#) {
@@ -55,7 +55,7 @@ mod tests {
                 assert_eq!(result.name, "docomo");
                 assert_eq!(result.os, "docomo");
                 assert_eq!(result.os_version, "UNKNOWN".to_string());
-                assert_eq!(result.version, "N905imyu_W");
+            assert_eq!(result.version, "N905imyu_W");
             }
         }
         match parser.parse(r#"Mozilla/5.0 (F02B;FOMA;like Gecko)"#) {
@@ -65,8 +65,8 @@ mod tests {
                 assert_eq!(result.name, "docomo");
                 assert_eq!(result.os, "docomo");
                 assert_eq!(result.os_version, "UNKNOWN".to_string());
-                assert_eq!(result.version, "F02B");
+            assert_eq!(result.version, "F02B");
             }
         }
-    }
+        }
 }

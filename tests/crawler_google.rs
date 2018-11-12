@@ -15,7 +15,7 @@ mod tests {
                 assert_eq!(result.name, "Googlebot");
                 assert_eq!(result.os, "UNKNOWN");
                 assert_eq!(result.os_version, "UNKNOWN".to_string());
-                assert_eq!(result.version, "UNKNOWN");
+            assert_eq!(result.version, "UNKNOWN");
             }
         }
         match parser.parse(r#"Googlebot-Image/1.0"#) {
@@ -25,7 +25,7 @@ mod tests {
                 assert_eq!(result.name, "Googlebot");
                 assert_eq!(result.os, "UNKNOWN");
                 assert_eq!(result.os_version, "UNKNOWN".to_string());
-                assert_eq!(result.version, "UNKNOWN");
+            assert_eq!(result.version, "UNKNOWN");
             }
         }
         match parser.parse(r#"DoCoMo/2.0 N905i(c100;TB;W24H16) (compatible; Googlebot-Mobile/2.1; +http://www.google.com/bot.html)"#) {
@@ -35,7 +35,7 @@ mod tests {
                 assert_eq!(result.name, "Googlebot Mobile");
                 assert_eq!(result.os, "UNKNOWN");
                 assert_eq!(result.os_version, "UNKNOWN".to_string());
-                assert_eq!(result.version, "UNKNOWN");
+            assert_eq!(result.version, "UNKNOWN");
             }
         }
         match parser.parse(r#"SAMSUNG-SGH-E250/1.0 Profile/MIDP-2.0 Configuration/CLDC-1.1 UP.Browser/6.2.3.3.c.1.101 (GUI) MMP/2.0 (compatible; Googlebot-Mobile/2.1; +http://www.google.com/bot.html)"#) {
@@ -45,7 +45,7 @@ mod tests {
                 assert_eq!(result.name, "Googlebot Mobile");
                 assert_eq!(result.os, "UNKNOWN");
                 assert_eq!(result.os_version, "UNKNOWN".to_string());
-                assert_eq!(result.version, "UNKNOWN");
+            assert_eq!(result.version, "UNKNOWN");
             }
         }
         match parser.parse(r#"DoCoMo/2.0 SH905i(c100;TB;W24H16) (compatible; Mediapartners-Google/2.1; +http://www.google.com/bot.html)"#) {
@@ -55,7 +55,7 @@ mod tests {
                 assert_eq!(result.name, "Google Mediapartners");
                 assert_eq!(result.os, "UNKNOWN");
                 assert_eq!(result.os_version, "UNKNOWN".to_string());
-                assert_eq!(result.version, "UNKNOWN");
+            assert_eq!(result.version, "UNKNOWN");
             }
         }
         match parser.parse(r#"Mediapartners-Google"#) {
@@ -65,7 +65,7 @@ mod tests {
                 assert_eq!(result.name, "Google Mediapartners");
                 assert_eq!(result.os, "UNKNOWN");
                 assert_eq!(result.os_version, "UNKNOWN".to_string());
-                assert_eq!(result.version, "UNKNOWN");
+            assert_eq!(result.version, "UNKNOWN");
             }
         }
         match parser.parse(r#"Feedfetcher-Google; (+http://www.google.com/feedfetcher.html; feed-id=000000000000000000)"#) {
@@ -75,7 +75,7 @@ mod tests {
                 assert_eq!(result.name, "Google Feedfetcher");
                 assert_eq!(result.os, "UNKNOWN");
                 assert_eq!(result.os_version, "UNKNOWN".to_string());
-                assert_eq!(result.version, "UNKNOWN");
+            assert_eq!(result.version, "UNKNOWN");
             }
         }
         match parser.parse(r#"AppEngine-Google"#) {
@@ -85,7 +85,7 @@ mod tests {
                 assert_eq!(result.name, "Google AppEngine");
                 assert_eq!(result.os, "UNKNOWN");
                 assert_eq!(result.os_version, "UNKNOWN".to_string());
-                assert_eq!(result.version, "UNKNOWN");
+            assert_eq!(result.version, "UNKNOWN");
             }
         }
         match parser.parse(r#"Mozilla/5.0 (en-us) AppleWebKit/525.13 (KHTML, like Gecko; Google Web Preview) Version/3.1 Safari/525.13"#) {
@@ -95,7 +95,7 @@ mod tests {
                 assert_eq!(result.name, "Google Web Preview");
                 assert_eq!(result.os, "UNKNOWN");
                 assert_eq!(result.os_version, "UNKNOWN".to_string());
-                assert_eq!(result.version, "UNKNOWN");
+            assert_eq!(result.version, "UNKNOWN");
             }
         }
         match parser.parse(r#"FeedBurner/1.0 (http://www.FeedBurner.com)"#) {
@@ -105,8 +105,8 @@ mod tests {
                 assert_eq!(result.name, "Google FeedBurner");
                 assert_eq!(result.os, "UNKNOWN");
                 assert_eq!(result.os_version, "UNKNOWN".to_string());
-                assert_eq!(result.version, "UNKNOWN");
+            assert_eq!(result.version, "UNKNOWN");
             }
         }
-    }
+        }
 }

@@ -15,8 +15,11 @@ mod inner {
     use std::io::{Write, Read};
     use std::path::{Path, PathBuf};
     use std::process::Command;
+    use std::collections::HashMap;
     use self::yaml_rust::YamlLoader;
-    use self::tera::{Tera, Context};
+    use self::tera::{Tera, Context, try_get_value};
+    use self::tera::Result;
+    use self::serde_json::value::{to_value, Value};
 
     #[derive(Serialize, Deserialize, Debug)]
     struct Data {
@@ -54,6 +57,41 @@ mod inner {
                 target: target.to_owned(),
             }
         }
+    }
+
+    fn is_skip_test_for_version(value: Value, _: HashMap<String, Value>) -> Result<Value> {
+        let name = try_get_value!("is_skip_test_for_version", "value", String, value);
+        let mut is_skip = false;
+        for test_name in vec![
+            r#"Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Trident/5.0; Xbox)"#,
+            r#"Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.2; Trident/6.0; Xbox; Xbox One)"#,
+        ] {
+            if test_name == name {
+                is_skip = true;
+                break;
+            }
+        }
+
+        Ok(to_value(is_skip).unwrap())
+    }
+
+    fn is_skip_test_for_os_version(value: Value, _: HashMap<String, Value>) -> Result<Value> {
+        let name = try_get_value!("is_skip_test_for_os_version", "value", String, value);
+        let mut is_skip = false;
+        for test_name in vec![
+            r#"Mozilla/5.0 (Windows; U; Windows NT 6.0; en-US; aggregator VocusBot 0.4; +http://www.vocus.com/vnhs.html)"#,
+            r#"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_6_8) AppleWebKit/534.50 (KHTML, like Gecko) Version/5.1 Instapaper/4.0 (+http://www.instapaper.com/)"#,
+            r#"Mozilla/5.0 (X11; FreeBSD amd64; rv:8.0) Gecko/20100101 Firefox/8.0"#,
+            r#"Mozilla/5.0 (Mobile; rv:18.0) Gecko/18.0 Firefox/18.0"#,
+            r#"Mozilla/4.0 (compatible; MSIE 6.0; Windows CE; IEMobile 7.7) S12HT"#,
+        ] {
+            if test_name == name {
+                is_skip = true;
+                break;
+            }
+        }
+
+        Ok(to_value(is_skip).unwrap())
     }
 
     fn gen_dataset(woothee_dir: PathBuf, root: PathBuf) {
@@ -143,7 +181,7 @@ mod inner {
     fn gen_testsets(woothee_dir: PathBuf, root: PathBuf) {
         let woothee_tests_glob = woothee_dir.join("testsets/*.yaml");
         let template_dir = root.join("templates/*.tmpl");
-        let template_engine = Tera::new(template_dir.to_str().unwrap()).unwrap();
+        let mut template_engine = Tera::new(template_dir.to_str().unwrap()).unwrap();
         let mut context = Context::new();
 
         for entry in glob::glob(woothee_tests_glob.to_str().unwrap()).unwrap() {
@@ -234,6 +272,8 @@ mod inner {
                 context.insert("tests", &tests);
             }
 
+            template_engine.register_filter("is_skip_test_for_version", is_skip_test_for_version);
+            template_engine.register_filter("is_skip_test_for_os_version", is_skip_test_for_os_version);
             let output = match template_engine.render("tests.tmpl", &context) {
                 Ok(ret) => ret,
                 Err(e) => panic!("tera.render() error. {}", e),
