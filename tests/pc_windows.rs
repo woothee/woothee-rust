@@ -15,17 +15,19 @@ mod tests {
                 assert_eq!(result.name, "Internet Explorer");
                 assert_eq!(result.os, "Windows 2000");
                 assert_eq!(result.os_version, "NT 5.0".to_string());
-            assert_eq!(result.version, "6.0");
+                assert_eq!(result.version, "6.0");
             }
         }
         match parser.parse(r#"Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1; SV1; .NET CLR 1.1.4322)"#) {
-            None => panic!(r#"invalid parse. "Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1; SV1; .NET CLR 1.1.4322)""#),
+            None => {
+                panic!(r#"invalid parse. "Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1; SV1; .NET CLR 1.1.4322)""#)
+            }
             Some(result) => {
                 assert_eq!(result.category, "pc");
                 assert_eq!(result.name, "Internet Explorer");
                 assert_eq!(result.os, "Windows XP");
                 assert_eq!(result.os_version, "NT 5.1".to_string());
-            assert_eq!(result.version, "7.0");
+                assert_eq!(result.version, "7.0");
             }
         }
         match parser.parse(r#"Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 5.1; Trident/4.0; 2004/11/08; GoogleT5; .NET CLR 1.1.4322; .NET CLR 2.0.50727; InfoPath.1; .NET CLR 3.0.4506.2152; .NET CLR 3.5.30729)"#) {
@@ -55,7 +57,7 @@ mod tests {
                 assert_eq!(result.name, "Internet Explorer");
                 assert_eq!(result.os, "Windows Vista");
                 assert_eq!(result.os_version, "NT 6.0".to_string());
-            assert_eq!(result.version, "8.0");
+                assert_eq!(result.version, "8.0");
             }
         }
         match parser.parse(r#"Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.1; Trident/4.0)"#) {
@@ -65,7 +67,7 @@ mod tests {
                 assert_eq!(result.name, "Internet Explorer");
                 assert_eq!(result.os, "Windows 7");
                 assert_eq!(result.os_version, "NT 6.1".to_string());
-            assert_eq!(result.version, "8.0");
+                assert_eq!(result.version, "8.0");
             }
         }
         match parser.parse(r#"Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Trident/5.0)"#) {
@@ -75,27 +77,31 @@ mod tests {
                 assert_eq!(result.name, "Internet Explorer");
                 assert_eq!(result.os, "Windows 7");
                 assert_eq!(result.os_version, "NT 6.1".to_string());
-            assert_eq!(result.version, "9.0");
+                assert_eq!(result.version, "9.0");
             }
         }
         match parser.parse(r#"Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.2; Win64; x64; Trident/6.0)"#) {
-            None => panic!(r#"invalid parse. "Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.2; Win64; x64; Trident/6.0)""#),
+            None => panic!(
+                r#"invalid parse. "Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.2; Win64; x64; Trident/6.0)""#
+            ),
             Some(result) => {
                 assert_eq!(result.category, "pc");
                 assert_eq!(result.name, "Internet Explorer");
                 assert_eq!(result.os, "Windows 8");
                 assert_eq!(result.os_version, "NT 6.2".to_string());
-            assert_eq!(result.version, "10.0");
+                assert_eq!(result.version, "10.0");
             }
         }
         match parser.parse(r#"Mozilla/5.0 (Windows NT 6.1; Trident/7.0; BOIE9;JAJP; rv:11.0) like Gecko"#) {
-            None => panic!(r#"invalid parse. "Mozilla/5.0 (Windows NT 6.1; Trident/7.0; BOIE9;JAJP; rv:11.0) like Gecko""#),
+            None => {
+                panic!(r#"invalid parse. "Mozilla/5.0 (Windows NT 6.1; Trident/7.0; BOIE9;JAJP; rv:11.0) like Gecko""#)
+            }
             Some(result) => {
                 assert_eq!(result.category, "pc");
                 assert_eq!(result.name, "Internet Explorer");
                 assert_eq!(result.os, "Windows 7");
                 assert_eq!(result.os_version, "NT 6.1".to_string());
-            assert_eq!(result.version, "11.0");
+                assert_eq!(result.version, "11.0");
             }
         }
         match parser.parse(r#"Mozilla/5.0 (Windows NT 6.3; Trident/7.0; rv:11.0) like Gecko"#) {
@@ -105,7 +111,7 @@ mod tests {
                 assert_eq!(result.name, "Internet Explorer");
                 assert_eq!(result.os, "Windows 8.1");
                 assert_eq!(result.os_version, "NT 6.3".to_string());
-            assert_eq!(result.version, "11.0");
+                assert_eq!(result.version, "11.0");
             }
         }
         match parser.parse(r#"Mozilla/5.0 (Windows NT 6.1; Trident/7.0; MALCJS; rv:11.0) like Gecko"#) {
@@ -115,37 +121,43 @@ mod tests {
                 assert_eq!(result.name, "Internet Explorer");
                 assert_eq!(result.os, "Windows 7");
                 assert_eq!(result.os_version, "NT 6.1".to_string());
-            assert_eq!(result.version, "11.0");
+                assert_eq!(result.version, "11.0");
             }
         }
         match parser.parse(r#"Mozilla/5.0 (Windows NT 6.1; Win64; x64; Trident/7.0; MASPJS; rv:11.0) like Gecko"#) {
-            None => panic!(r#"invalid parse. "Mozilla/5.0 (Windows NT 6.1; Win64; x64; Trident/7.0; MASPJS; rv:11.0) like Gecko""#),
+            None => panic!(
+                r#"invalid parse. "Mozilla/5.0 (Windows NT 6.1; Win64; x64; Trident/7.0; MASPJS; rv:11.0) like Gecko""#
+            ),
             Some(result) => {
                 assert_eq!(result.category, "pc");
                 assert_eq!(result.name, "Internet Explorer");
                 assert_eq!(result.os, "Windows 7");
                 assert_eq!(result.os_version, "NT 6.1".to_string());
-            assert_eq!(result.version, "11.0");
+                assert_eq!(result.version, "11.0");
             }
         }
         match parser.parse(r#"Mozilla/5.0 (Windows NT 6.3; WOW64; Trident/7.0; Touch; rv:11.0) like Gecko"#) {
-            None => panic!(r#"invalid parse. "Mozilla/5.0 (Windows NT 6.3; WOW64; Trident/7.0; Touch; rv:11.0) like Gecko""#),
+            None => panic!(
+                r#"invalid parse. "Mozilla/5.0 (Windows NT 6.3; WOW64; Trident/7.0; Touch; rv:11.0) like Gecko""#
+            ),
             Some(result) => {
                 assert_eq!(result.category, "pc");
                 assert_eq!(result.name, "Internet Explorer");
                 assert_eq!(result.os, "Windows 8.1");
                 assert_eq!(result.os_version, "NT 6.3".to_string());
-            assert_eq!(result.version, "11.0");
+                assert_eq!(result.version, "11.0");
             }
         }
         match parser.parse(r#"Mozilla/5.0 (Windows NT 6.3; Win64; x64; Trident/7.0; Touch; rv:11.0) like Gecko"#) {
-            None => panic!(r#"invalid parse. "Mozilla/5.0 (Windows NT 6.3; Win64; x64; Trident/7.0; Touch; rv:11.0) like Gecko""#),
+            None => panic!(
+                r#"invalid parse. "Mozilla/5.0 (Windows NT 6.3; Win64; x64; Trident/7.0; Touch; rv:11.0) like Gecko""#
+            ),
             Some(result) => {
                 assert_eq!(result.category, "pc");
                 assert_eq!(result.name, "Internet Explorer");
                 assert_eq!(result.os, "Windows 8.1");
                 assert_eq!(result.os_version, "NT 6.3".to_string());
-            assert_eq!(result.version, "11.0");
+                assert_eq!(result.version, "11.0");
             }
         }
         match parser.parse(r#"Mozilla/4.78 [ja] (Win98; U)"#) {
@@ -155,17 +167,19 @@ mod tests {
                 assert_eq!(result.name, "UNKNOWN");
                 assert_eq!(result.os, "Windows 98");
                 assert_eq!(result.os_version, "98".to_string());
-            assert_eq!(result.version, "UNKNOWN");
+                assert_eq!(result.version, "UNKNOWN");
             }
         }
         match parser.parse(r#"Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/534+ (KHTML, like Gecko)"#) {
-            None => panic!(r#"invalid parse. "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/534+ (KHTML, like Gecko)""#),
+            None => {
+                panic!(r#"invalid parse. "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/534+ (KHTML, like Gecko)""#)
+            }
             Some(result) => {
                 assert_eq!(result.category, "pc");
                 assert_eq!(result.name, "UNKNOWN");
                 assert_eq!(result.os, "Windows 7");
                 assert_eq!(result.os_version, "NT 6.1".to_string());
-            assert_eq!(result.version, "UNKNOWN");
+                assert_eq!(result.version, "UNKNOWN");
             }
         }
         match parser.parse(r#"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.135 Safari/537.36 Edge/12.10240"#) {
@@ -195,7 +209,7 @@ mod tests {
                 assert_eq!(result.name, "Firefox");
                 assert_eq!(result.os, "Windows Vista");
                 assert_eq!(result.os_version, "NT 6.0".to_string());
-            assert_eq!(result.version, "9.0.1");
+                assert_eq!(result.version, "9.0.1");
             }
         }
         match parser.parse(r#"Mozilla/5.0 (Windows NT 5.1) AppleWebKit/534.52.7 (KHTML, like Gecko) Version/5.1.2 Safari/534.52.7"#) {
@@ -215,7 +229,7 @@ mod tests {
                 assert_eq!(result.name, "Opera");
                 assert_eq!(result.os, "Windows XP");
                 assert_eq!(result.os_version, "NT 5.1".to_string());
-            assert_eq!(result.version, "9.52");
+                assert_eq!(result.version, "9.52");
             }
         }
         match parser.parse(r#"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/48.0.2564.88 Safari/537.36 Vivaldi/1.0.380.2"#) {
@@ -265,7 +279,7 @@ mod tests {
                 assert_eq!(result.name, "UNKNOWN");
                 assert_eq!(result.os, "Windows XP");
                 assert_eq!(result.os_version, "NT 5.1".to_string());
-            assert_eq!(result.version, "UNKNOWN");
+                assert_eq!(result.version, "UNKNOWN");
             }
         }
         match parser.parse(r#"Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 YaBrowser/18.1.1.839 Yowser/2.5 Safari/537.36"#) {
@@ -278,5 +292,5 @@ mod tests {
             assert_eq!(result.version, "18.1.1.839");
             }
         }
-        }
+    }
 }

@@ -15,8 +15,8 @@ mod tests {
                 assert_eq!(result.name, "Sleipnir");
                 assert_eq!(result.os, "Windows UNKNOWN Ver");
                 assert_eq!(result.os_version, "UNKNOWN".to_string());
-            assert_eq!(result.version, "2.9.9");
+                assert_eq!(result.version, "2.9.9");
             }
         }
-        }
+    }
 }

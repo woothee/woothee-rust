@@ -15,7 +15,7 @@ mod tests {
                 assert_eq!(result.name, "misc crawler");
                 assert_eq!(result.os, "UNKNOWN");
                 assert_eq!(result.os_version, "UNKNOWN".to_string());
-            assert_eq!(result.version, "UNKNOWN");
+                assert_eq!(result.version, "UNKNOWN");
             }
         }
         match parser.parse(r#"Mozilla/5.0 (Windows; U; Windows NT 6.0; en-US; aggregator VocusBot 0.4; +http://www.vocus.com/vnhs.html)"#) {
@@ -36,17 +36,19 @@ mod tests {
                 assert_eq!(result.name, "misc crawler");
                 assert_eq!(result.os, "UNKNOWN");
                 assert_eq!(result.os_version, "UNKNOWN".to_string());
-            assert_eq!(result.version, "UNKNOWN");
+                assert_eq!(result.version, "UNKNOWN");
             }
         }
         match parser.parse(r#"Mozilla/5.0 (compatible; Rakutenbot/1.0; +http://dynamic.rakuten.co.jp/bot.html)"#) {
-            None => panic!(r#"invalid parse. "Mozilla/5.0 (compatible; Rakutenbot/1.0; +http://dynamic.rakuten.co.jp/bot.html)""#),
+            None => panic!(
+                r#"invalid parse. "Mozilla/5.0 (compatible; Rakutenbot/1.0; +http://dynamic.rakuten.co.jp/bot.html)""#
+            ),
             Some(result) => {
                 assert_eq!(result.category, "crawler");
                 assert_eq!(result.name, "misc crawler");
                 assert_eq!(result.os, "UNKNOWN");
                 assert_eq!(result.os_version, "UNKNOWN".to_string());
-            assert_eq!(result.version, "UNKNOWN");
+                assert_eq!(result.version, "UNKNOWN");
             }
         }
         match parser.parse(r#"Flamingo_SearchEngine (+http://www.flamingosearch.com/bot)"#) {
@@ -56,7 +58,7 @@ mod tests {
                 assert_eq!(result.name, "misc crawler");
                 assert_eq!(result.os, "UNKNOWN");
                 assert_eq!(result.os_version, "UNKNOWN".to_string());
-            assert_eq!(result.version, "UNKNOWN");
+                assert_eq!(result.version, "UNKNOWN");
             }
         }
         match parser.parse(r#""mapion-news-bot/1.0 (http://www.mapion.co.jp/news/)""#) {
@@ -66,17 +68,19 @@ mod tests {
                 assert_eq!(result.name, "misc crawler");
                 assert_eq!(result.os, "UNKNOWN");
                 assert_eq!(result.os_version, "UNKNOWN".to_string());
-            assert_eq!(result.version, "UNKNOWN");
+                assert_eq!(result.version, "UNKNOWN");
             }
         }
         match parser.parse(r#"Mozilla/5.0 (compatible; MJ12bot/v1.4.0; http://www.majestic12.co.uk/bot.php?+)"#) {
-            None => panic!(r#"invalid parse. "Mozilla/5.0 (compatible; MJ12bot/v1.4.0; http://www.majestic12.co.uk/bot.php?+)""#),
+            None => panic!(
+                r#"invalid parse. "Mozilla/5.0 (compatible; MJ12bot/v1.4.0; http://www.majestic12.co.uk/bot.php?+)""#
+            ),
             Some(result) => {
                 assert_eq!(result.category, "crawler");
                 assert_eq!(result.name, "misc crawler");
                 assert_eq!(result.os, "UNKNOWN");
                 assert_eq!(result.os_version, "UNKNOWN".to_string());
-            assert_eq!(result.version, "UNKNOWN");
+                assert_eq!(result.version, "UNKNOWN");
             }
         }
         match parser.parse(r#"Mozilla/5.0 (compatible; TweetmemeBot/2.11; +http://tweetmeme.com/)"#) {
@@ -86,7 +90,7 @@ mod tests {
                 assert_eq!(result.name, "misc crawler");
                 assert_eq!(result.os, "UNKNOWN");
                 assert_eq!(result.os_version, "UNKNOWN".to_string());
-            assert_eq!(result.version, "UNKNOWN");
+                assert_eq!(result.version, "UNKNOWN");
             }
         }
         match parser.parse(r#"Mozilla/5.0 (compatible; PaperLiBot/2.1; http://support.paper.li/entries/20023257-what-is-paper-li)"#) {
@@ -106,7 +110,7 @@ mod tests {
                 assert_eq!(result.name, "misc crawler");
                 assert_eq!(result.os, "UNKNOWN");
                 assert_eq!(result.os_version, "UNKNOWN".to_string());
-            assert_eq!(result.version, "UNKNOWN");
+                assert_eq!(result.version, "UNKNOWN");
             }
         }
         match parser.parse(r#"Mozilla/5.0 (compatible; ADJUSTbot/2.0; +http://www.ad-just.jp/)"#) {
@@ -116,7 +120,7 @@ mod tests {
                 assert_eq!(result.name, "misc crawler");
                 assert_eq!(result.os, "UNKNOWN");
                 assert_eq!(result.os_version, "UNKNOWN".to_string());
-            assert_eq!(result.version, "UNKNOWN");
+                assert_eq!(result.version, "UNKNOWN");
             }
         }
         match parser.parse(r#"FTRF: Friendly robot/1.3"#) {
@@ -126,7 +130,7 @@ mod tests {
                 assert_eq!(result.name, "misc crawler");
                 assert_eq!(result.os, "UNKNOWN");
                 assert_eq!(result.os_version, "UNKNOWN".to_string());
-            assert_eq!(result.version, "UNKNOWN");
+                assert_eq!(result.version, "UNKNOWN");
             }
         }
         match parser.parse(r#"kizasi-spider/1.0 (+http://kizasi.jp/)"#) {
@@ -136,7 +140,7 @@ mod tests {
                 assert_eq!(result.name, "misc crawler");
                 assert_eq!(result.os, "UNKNOWN");
                 assert_eq!(result.os_version, "UNKNOWN".to_string());
-            assert_eq!(result.version, "UNKNOWN");
+                assert_eq!(result.version, "UNKNOWN");
             }
         }
         match parser.parse(r#"BlogramCrawler/1.0.1(+http://blogram.jp/)"#) {
@@ -146,7 +150,7 @@ mod tests {
                 assert_eq!(result.name, "misc crawler");
                 assert_eq!(result.os, "UNKNOWN");
                 assert_eq!(result.os_version, "UNKNOWN".to_string());
-            assert_eq!(result.version, "UNKNOWN");
+                assert_eq!(result.version, "UNKNOWN");
             }
         }
         match parser.parse(r#"www2.apserver.net ASP-Ranker Feed Crawler"#) {
@@ -156,7 +160,7 @@ mod tests {
                 assert_eq!(result.name, "misc crawler");
                 assert_eq!(result.os, "UNKNOWN");
                 assert_eq!(result.os_version, "UNKNOWN".to_string());
-            assert_eq!(result.version, "UNKNOWN");
+                assert_eq!(result.version, "UNKNOWN");
             }
         }
         match parser.parse(r#"Rome Client (http://tinyurl.com/64t5n)"#) {
@@ -166,7 +170,7 @@ mod tests {
                 assert_eq!(result.name, "misc crawler");
                 assert_eq!(result.os, "UNKNOWN");
                 assert_eq!(result.os_version, "UNKNOWN".to_string());
-            assert_eq!(result.version, "UNKNOWN");
+                assert_eq!(result.version, "UNKNOWN");
             }
         }
         match parser.parse(r#"UnwindFetchor/1.0 (+http://www.gnip.com/)"#) {
@@ -176,17 +180,19 @@ mod tests {
                 assert_eq!(result.name, "misc crawler");
                 assert_eq!(result.os, "UNKNOWN");
                 assert_eq!(result.os_version, "UNKNOWN".to_string());
-            assert_eq!(result.version, "UNKNOWN");
+                assert_eq!(result.version, "UNKNOWN");
             }
         }
         match parser.parse(r#"ia_archiver (+http://www.alexa.com/site/help/webmasters; crawler@alexa.com)"#) {
-            None => panic!(r#"invalid parse. "ia_archiver (+http://www.alexa.com/site/help/webmasters; crawler@alexa.com)""#),
+            None => panic!(
+                r#"invalid parse. "ia_archiver (+http://www.alexa.com/site/help/webmasters; crawler@alexa.com)""#
+            ),
             Some(result) => {
                 assert_eq!(result.category, "crawler");
                 assert_eq!(result.name, "misc crawler");
                 assert_eq!(result.os, "UNKNOWN");
                 assert_eq!(result.os_version, "UNKNOWN".to_string());
-            assert_eq!(result.version, "UNKNOWN");
+                assert_eq!(result.version, "UNKNOWN");
             }
         }
         match parser.parse(r#"Summify (Summify/1.0.1; +http://summify.com)"#) {
@@ -196,7 +202,7 @@ mod tests {
                 assert_eq!(result.name, "misc crawler");
                 assert_eq!(result.os, "UNKNOWN");
                 assert_eq!(result.os_version, "UNKNOWN".to_string());
-            assert_eq!(result.version, "UNKNOWN");
+                assert_eq!(result.version, "UNKNOWN");
             }
         }
         match parser.parse(r#"PostRank/2.0 (postrank.com; 1 subscribers)"#) {
@@ -206,7 +212,7 @@ mod tests {
                 assert_eq!(result.name, "misc crawler");
                 assert_eq!(result.os, "UNKNOWN");
                 assert_eq!(result.os_version, "UNKNOWN".to_string());
-            assert_eq!(result.version, "UNKNOWN");
+                assert_eq!(result.version, "UNKNOWN");
             }
         }
         match parser.parse(r#"cloudforecastbot"#) {
@@ -216,7 +222,7 @@ mod tests {
                 assert_eq!(result.name, "misc crawler");
                 assert_eq!(result.os, "UNKNOWN");
                 assert_eq!(result.os_version, "UNKNOWN".to_string());
-            assert_eq!(result.version, "UNKNOWN");
+                assert_eq!(result.version, "UNKNOWN");
             }
         }
         match parser.parse(r#"SimplePie/1.3-dev (Feed Parser; http://simplepie.org; Allow like Gecko) Build/20111118194710"#) {
@@ -236,7 +242,7 @@ mod tests {
                 assert_eq!(result.name, "misc crawler");
                 assert_eq!(result.os, "UNKNOWN");
                 assert_eq!(result.os_version, "UNKNOWN".to_string());
-            assert_eq!(result.version, "UNKNOWN");
+                assert_eq!(result.version, "UNKNOWN");
             }
         }
         match parser.parse(r#"Data-Hotel-Watchdog/1.1"#) {
@@ -246,8 +252,8 @@ mod tests {
                 assert_eq!(result.name, "misc crawler");
                 assert_eq!(result.os, "UNKNOWN");
                 assert_eq!(result.os_version, "UNKNOWN".to_string());
-            assert_eq!(result.version, "UNKNOWN");
+                assert_eq!(result.version, "UNKNOWN");
             }
         }
-        }
+    }
 }

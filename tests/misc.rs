@@ -15,7 +15,7 @@ mod tests {
                 assert_eq!(result.name, "Safari RSSReader");
                 assert_eq!(result.os, "UNKNOWN");
                 assert_eq!(result.os_version, "UNKNOWN".to_string());
-            assert_eq!(result.version, "UNKNOWN");
+                assert_eq!(result.version, "UNKNOWN");
             }
         }
         match parser.parse(r#"Mozilla/5.0 (compatible; Google Desktop/5.9.1005.12335; http://desktop.google.com/)"#) {
@@ -35,7 +35,7 @@ mod tests {
                 assert_eq!(result.name, "Windows RSSReader");
                 assert_eq!(result.os, "UNKNOWN");
                 assert_eq!(result.os_version, "UNKNOWN".to_string());
-            assert_eq!(result.version, "UNKNOWN");
+                assert_eq!(result.version, "UNKNOWN");
             }
         }
         match parser.parse(r#"RssBar/1.29 (RssBar for unDonut 1.35)"#) {
@@ -45,7 +45,7 @@ mod tests {
                 assert_eq!(result.name, "RSSReader");
                 assert_eq!(result.os, "UNKNOWN");
                 assert_eq!(result.os_version, "UNKNOWN".to_string());
-            assert_eq!(result.version, "UNKNOWN");
+                assert_eq!(result.version, "UNKNOWN");
             }
         }
         match parser.parse(r#"MagpieRSS/0.61 (+http://magpierss.sf.net)"#) {
@@ -55,7 +55,7 @@ mod tests {
                 assert_eq!(result.name, "RSSReader");
                 assert_eq!(result.os, "UNKNOWN");
                 assert_eq!(result.os_version, "UNKNOWN".to_string());
-            assert_eq!(result.version, "UNKNOWN");
+                assert_eq!(result.version, "UNKNOWN");
             }
         }
         match parser.parse(r#"gooRSSreader3.7 - build20090410"#) {
@@ -65,7 +65,7 @@ mod tests {
                 assert_eq!(result.name, "RSSReader");
                 assert_eq!(result.os, "UNKNOWN");
                 assert_eq!(result.os_version, "UNKNOWN".to_string());
-            assert_eq!(result.version, "UNKNOWN");
+                assert_eq!(result.version, "UNKNOWN");
             }
         }
         match parser.parse(r#"Fenrir Headline-Reader Plugin"#) {
@@ -75,7 +75,7 @@ mod tests {
                 assert_eq!(result.name, "RSSReader");
                 assert_eq!(result.os, "UNKNOWN");
                 assert_eq!(result.os_version, "UNKNOWN".to_string());
-            assert_eq!(result.version, "UNKNOWN");
+                assert_eq!(result.version, "UNKNOWN");
             }
         }
         match parser.parse(r#"jsRSS++/3.15"#) {
@@ -85,7 +85,7 @@ mod tests {
                 assert_eq!(result.name, "RSSReader");
                 assert_eq!(result.os, "UNKNOWN");
                 assert_eq!(result.os_version, "UNKNOWN".to_string());
-            assert_eq!(result.version, "UNKNOWN");
+                assert_eq!(result.version, "UNKNOWN");
             }
         }
         match parser.parse(r#"cococ/1.06"#) {
@@ -95,7 +95,7 @@ mod tests {
                 assert_eq!(result.name, "RSSReader");
                 assert_eq!(result.os, "UNKNOWN");
                 assert_eq!(result.os_version, "UNKNOWN".to_string());
-            assert_eq!(result.version, "UNKNOWN");
+                assert_eq!(result.version, "UNKNOWN");
             }
         }
         match parser.parse(r#"Wget/1.12 (linux-gnu)"#) {
@@ -105,7 +105,7 @@ mod tests {
                 assert_eq!(result.name, "HTTP Library");
                 assert_eq!(result.os, "UNKNOWN");
                 assert_eq!(result.os_version, "UNKNOWN".to_string());
-            assert_eq!(result.version, "wget");
+                assert_eq!(result.version, "wget");
             }
         }
         match parser.parse(r#"Apache-HttpClient/UNAVAILABLE (java 1.4)"#) {
@@ -115,7 +115,7 @@ mod tests {
                 assert_eq!(result.name, "HTTP Library");
                 assert_eq!(result.os, "UNKNOWN");
                 assert_eq!(result.os_version, "UNKNOWN".to_string());
-            assert_eq!(result.version, "Java");
+                assert_eq!(result.version, "Java");
             }
         }
         match parser.parse(r#"livedoor HttpClient"#) {
@@ -125,7 +125,7 @@ mod tests {
                 assert_eq!(result.name, "HTTP Library");
                 assert_eq!(result.os, "UNKNOWN");
                 assert_eq!(result.os_version, "UNKNOWN".to_string());
-            assert_eq!(result.version, "Java");
+                assert_eq!(result.version, "Java");
             }
         }
         match parser.parse(r#"Jakarta Commons-HttpClient/3.0"#) {
@@ -135,7 +135,7 @@ mod tests {
                 assert_eq!(result.name, "HTTP Library");
                 assert_eq!(result.os, "UNKNOWN");
                 assert_eq!(result.os_version, "UNKNOWN".to_string());
-            assert_eq!(result.version, "Java");
+                assert_eq!(result.version, "Java");
             }
         }
         match parser.parse(r#"Java/1.5.0_17"#) {
@@ -145,7 +145,7 @@ mod tests {
                 assert_eq!(result.name, "HTTP Library");
                 assert_eq!(result.os, "UNKNOWN");
                 assert_eq!(result.os_version, "UNKNOWN".to_string());
-            assert_eq!(result.version, "Java");
+                assert_eq!(result.version, "Java");
             }
         }
         match parser.parse(r#"IE6.0,Java(TM) 2 Runtime Environment, Standard Edition"#) {
@@ -155,7 +155,7 @@ mod tests {
                 assert_eq!(result.name, "HTTP Library");
                 assert_eq!(result.os, "UNKNOWN");
                 assert_eq!(result.os_version, "UNKNOWN".to_string());
-            assert_eq!(result.version, "Java");
+                assert_eq!(result.version, "Java");
             }
         }
         match parser.parse(r#"libwww-perl/5.835"#) {
@@ -165,7 +165,7 @@ mod tests {
                 assert_eq!(result.name, "HTTP Library");
                 assert_eq!(result.os, "UNKNOWN");
                 assert_eq!(result.os_version, "UNKNOWN".to_string());
-            assert_eq!(result.version, "perl");
+                assert_eq!(result.version, "perl");
             }
         }
         match parser.parse(r#"WWW-Mechanize/1.64"#) {
@@ -175,7 +175,7 @@ mod tests {
                 assert_eq!(result.name, "HTTP Library");
                 assert_eq!(result.os, "UNKNOWN");
                 assert_eq!(result.os_version, "UNKNOWN".to_string());
-            assert_eq!(result.version, "perl");
+                assert_eq!(result.version, "perl");
             }
         }
         match parser.parse(r#"LWP::Simple/5.800"#) {
@@ -185,7 +185,7 @@ mod tests {
                 assert_eq!(result.name, "HTTP Library");
                 assert_eq!(result.os, "UNKNOWN");
                 assert_eq!(result.os_version, "UNKNOWN".to_string());
-            assert_eq!(result.version, "perl");
+                assert_eq!(result.version, "perl");
             }
         }
         match parser.parse(r#"LWP LDMusicNews::LDNewsAPI"#) {
@@ -195,7 +195,7 @@ mod tests {
                 assert_eq!(result.name, "HTTP Library");
                 assert_eq!(result.os, "UNKNOWN");
                 assert_eq!(result.os_version, "UNKNOWN".to_string());
-            assert_eq!(result.version, "perl");
+                assert_eq!(result.version, "perl");
             }
         }
         match parser.parse(r#"lwp-trivial/1.41"#) {
@@ -205,7 +205,7 @@ mod tests {
                 assert_eq!(result.name, "HTTP Library");
                 assert_eq!(result.os, "UNKNOWN");
                 assert_eq!(result.os_version, "UNKNOWN".to_string());
-            assert_eq!(result.version, "perl");
+                assert_eq!(result.version, "perl");
             }
         }
         match parser.parse(r#"Ruby"#) {
@@ -215,7 +215,7 @@ mod tests {
                 assert_eq!(result.name, "HTTP Library");
                 assert_eq!(result.os, "UNKNOWN");
                 assert_eq!(result.os_version, "UNKNOWN".to_string());
-            assert_eq!(result.version, "ruby");
+                assert_eq!(result.version, "ruby");
             }
         }
         match parser.parse(r#"feedzirra http://github.com/pauldix/feedzirra/tree/master"#) {
@@ -225,7 +225,7 @@ mod tests {
                 assert_eq!(result.name, "HTTP Library");
                 assert_eq!(result.os, "UNKNOWN");
                 assert_eq!(result.os_version, "UNKNOWN".to_string());
-            assert_eq!(result.version, "ruby");
+                assert_eq!(result.version, "ruby");
             }
         }
         match parser.parse(r#"Typhoeus - https://github.com/typhoeus/typhoeus"#) {
@@ -235,7 +235,7 @@ mod tests {
                 assert_eq!(result.name, "HTTP Library");
                 assert_eq!(result.os, "UNKNOWN");
                 assert_eq!(result.os_version, "UNKNOWN".to_string());
-            assert_eq!(result.version, "ruby");
+                assert_eq!(result.version, "ruby");
             }
         }
         match parser.parse(r#"Python-urllib/1.16"#) {
@@ -245,7 +245,7 @@ mod tests {
                 assert_eq!(result.name, "HTTP Library");
                 assert_eq!(result.os, "UNKNOWN");
                 assert_eq!(result.os_version, "UNKNOWN".to_string());
-            assert_eq!(result.version, "python");
+                assert_eq!(result.version, "python");
             }
         }
         match parser.parse(r#"Twisted PageGetter"#) {
@@ -255,7 +255,7 @@ mod tests {
                 assert_eq!(result.name, "HTTP Library");
                 assert_eq!(result.os, "UNKNOWN");
                 assert_eq!(result.os_version, "UNKNOWN".to_string());
-            assert_eq!(result.version, "python");
+                assert_eq!(result.version, "python");
             }
         }
         match parser.parse(r#"PHP/5.2.13"#) {
@@ -265,7 +265,7 @@ mod tests {
                 assert_eq!(result.name, "HTTP Library");
                 assert_eq!(result.os, "UNKNOWN");
                 assert_eq!(result.os_version, "UNKNOWN".to_string());
-            assert_eq!(result.version, "php");
+                assert_eq!(result.version, "php");
             }
         }
         match parser.parse(r#"PHP"#) {
@@ -275,7 +275,7 @@ mod tests {
                 assert_eq!(result.name, "HTTP Library");
                 assert_eq!(result.os, "UNKNOWN");
                 assert_eq!(result.os_version, "UNKNOWN".to_string());
-            assert_eq!(result.version, "php");
+                assert_eq!(result.version, "php");
             }
         }
         match parser.parse(r#"PEAR HTTP_Request class"#) {
@@ -285,7 +285,7 @@ mod tests {
                 assert_eq!(result.name, "HTTP Library");
                 assert_eq!(result.os, "UNKNOWN");
                 assert_eq!(result.os_version, "UNKNOWN".to_string());
-            assert_eq!(result.version, "php");
+                assert_eq!(result.version, "php");
             }
         }
         match parser.parse(r#"HTTP_Request2/2.1.1 (http://pear.php.net/package/http_request2) PHP/5.3.10-1ubuntu3.6"#) {
@@ -305,7 +305,7 @@ mod tests {
                 assert_eq!(result.name, "HTTP Library");
                 assert_eq!(result.os, "UNKNOWN");
                 assert_eq!(result.os_version, "UNKNOWN".to_string());
-            assert_eq!(result.version, "php");
+                assert_eq!(result.version, "php");
             }
         }
         match parser.parse(r#"WordPress/3.2.1; http://www.painlog.jp"#) {
@@ -315,7 +315,7 @@ mod tests {
                 assert_eq!(result.name, "HTTP Library");
                 assert_eq!(result.os, "UNKNOWN");
                 assert_eq!(result.os_version, "UNKNOWN".to_string());
-            assert_eq!(result.version, "php");
+                assert_eq!(result.version, "php");
             }
         }
         match parser.parse(r#"CakePHP"#) {
@@ -325,7 +325,7 @@ mod tests {
                 assert_eq!(result.name, "HTTP Library");
                 assert_eq!(result.os, "UNKNOWN");
                 assert_eq!(result.os_version, "UNKNOWN".to_string());
-            assert_eq!(result.version, "php");
+                assert_eq!(result.version, "php");
             }
         }
         match parser.parse(r#"PukiWiki/1.4.6"#) {
@@ -335,7 +335,7 @@ mod tests {
                 assert_eq!(result.name, "HTTP Library");
                 assert_eq!(result.os, "UNKNOWN");
                 assert_eq!(result.os_version, "UNKNOWN".to_string());
-            assert_eq!(result.version, "php");
+                assert_eq!(result.version, "php");
             }
         }
         match parser.parse(r#"Mozilla/5.0 (compatible; PEAR HTTP_Request class;)"#) {
@@ -345,7 +345,7 @@ mod tests {
                 assert_eq!(result.name, "HTTP Library");
                 assert_eq!(result.os, "UNKNOWN");
                 assert_eq!(result.os_version, "UNKNOWN".to_string());
-            assert_eq!(result.version, "php");
+                assert_eq!(result.version, "php");
             }
         }
         match parser.parse(r#"curl/7.19.7 (x86_64-redhat-linux-gnu) libcurl/7.19.7 NSS/3.19.1 Basic ECC zlib/1.2.3 libidn/1.18 libssh2/1.4.2"#) {
@@ -358,5 +358,5 @@ mod tests {
             assert_eq!(result.version, "curl");
             }
         }
-        }
+    }
 }

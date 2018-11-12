@@ -10,7 +10,9 @@ lazy_static! {
     static ref RX_DOCOMO_VERSION_PATTERN: Regex = Regex::new(r#"DoCoMo/[.0-9]+[ /]([^- /;()"']+)"#).unwrap();
     static ref RX_VIVALDI_PATTERN: Regex = Regex::new(r"Vivaldi/([.0-9]+)").unwrap();
     static ref RX_FIREFOX_PATTERN: Regex = Regex::new(r"Firefox/([.0-9]+)").unwrap();
-    static ref RX_FIREFOX_OS_PATTERN: Regex = Regex::new(r"^Mozilla/[.0-9]+ \((?:Mobile|Tablet);(?:.*;)? rv:([.0-9]+)\) Gecko/[.0-9]+ Firefox/[.0-9]+$").unwrap();
+    static ref RX_FIREFOX_OS_PATTERN: Regex =
+        Regex::new(r"^Mozilla/[.0-9]+ \((?:Mobile|Tablet);(?:.*;)? rv:([.0-9]+)\) Gecko/[.0-9]+ Firefox/[.0-9]+$")
+            .unwrap();
     static ref RX_FIREFOX_IOS_PATTERN: Regex = Regex::new(r"FxiOS/([.0-9]+)").unwrap();
     static ref RX_FOMA_VERSION_PATTERN: Regex = Regex::new(r"\(([^;)]+);FOMA;").unwrap();
     static ref RX_JIG_PATTERN: Regex = Regex::new(r"jig browser[^;]+; ([^);]+)").unwrap();
@@ -44,14 +46,16 @@ lazy_static! {
     static ref RX_PS4_OS_VERSION: Regex = Regex::new(r"PlayStation 4 ([.0-9]+)\)").unwrap();
     static ref RX_BLACKBERRY10_OS_VERSION: Regex = Regex::new(r"BB10(?:.+)Version/([.0-9]+) ").unwrap();
     static ref RX_BLACKBERRY_OS_VERSION: Regex = Regex::new(r"BlackBerry(?:\d+)/([.0-9]+) ").unwrap();
-
-    static ref RE_OSX_IPHONE_OS_VERSION: Regex = Regex::new(r"; CPU(?: iPhone)? OS (\d+_\d+(?:_\d+)?) like Mac OS X").unwrap();
+    static ref RE_OSX_IPHONE_OS_VERSION: Regex =
+        Regex::new(r"; CPU(?: iPhone)? OS (\d+_\d+(?:_\d+)?) like Mac OS X").unwrap();
     static ref RE_OSX_OS_VERSION: Regex = Regex::new(r"Mac OS X (10[._]\d+(?:[._]\d+)?)(?:\)|;)").unwrap();
-    static ref RX_HTTP_CLIENT: Regex = Regex::new(r"^(?:Apache-HttpClient/|Jakarta Commons-HttpClient/|Java/)").unwrap();
+    static ref RX_HTTP_CLIENT: Regex =
+        Regex::new(r"^(?:Apache-HttpClient/|Jakarta Commons-HttpClient/|Java/)").unwrap();
     static ref RX_HTTP_CLIENT_OTHER: Regex = Regex::new(r"[- ]HttpClient(/|$)").unwrap();
     static ref RX_PHP: Regex = Regex::new(r"^(?:PHP|WordPress|CakePHP|PukiWiki|PECL::HTTP)(?:/| |$)").unwrap();
     static ref RX_PEAR: Regex = Regex::new(r"(?:PEAR HTTP_Request|HTTP_Request)(?: class|2)").unwrap();
-    static ref RX_MAYBE_CRAWLER_OTHER: Regex = Regex::new(r"(?:Rome Client |UnwindFetchor/|ia_archiver |Summify |PostRank/)").unwrap();
+    static ref RX_MAYBE_CRAWLER_OTHER: Regex =
+        Regex::new(r"(?:Rome Client |UnwindFetchor/|ia_archiver |Summify |PostRank/)").unwrap();
     static ref RE_SLEIPNIR_VERSION: Regex = Regex::new(r"Sleipnir/([.0-9]+)").unwrap();
     static ref RX_YABROWSER_VERSION: Regex = Regex::new(r"YaBrowser/(\d+\.\d+\.\d+\.\d+)").unwrap();
 }
@@ -108,12 +112,11 @@ impl<'a> WootheeResult<'a> {
 }
 
 #[derive(Default)]
-pub struct Parser {
-}
+pub struct Parser {}
 
 impl Parser {
     pub fn new() -> Self {
-        Parser { }
+        Parser {}
     }
 
     pub fn parse<'a>(&self, agent: &'a str) -> Option<WootheeResult<'a>> {
@@ -168,8 +171,7 @@ impl Parser {
         dataset::DATASET.get(label)
     }
 
-    pub fn try_crawler(&self, agent: &str, result: &mut WootheeResult) -> bool
-    {
+    pub fn try_crawler(&self, agent: &str, result: &mut WootheeResult) -> bool {
         if self.challenge_google(agent, result) {
             return true;
         }
@@ -340,8 +342,9 @@ impl Parser {
             return self.populate_dataset(result, "GoogleBot");
         }
 
-        if agent.contains("Mediapartners-Google") &&
-           (agent.contains("compatible; Mediapartners-Google") || agent == "Mediapartners-Google") {
+        if agent.contains("Mediapartners-Google")
+            && (agent.contains("compatible; Mediapartners-Google") || agent == "Mediapartners-Google")
+        {
             return self.populate_dataset(result, "GoogleMediaPartners");
         }
 
@@ -361,15 +364,19 @@ impl Parser {
     }
 
     fn challenge_crawlers(&self, agent: &str, result: &mut WootheeResult) -> bool {
-        if agent.contains("Yahoo") || agent.contains("help.yahoo.co.jp/help/jp/") ||
-           agent.contains("listing.yahoo.co.jp/support/faq/") {
+        if agent.contains("Yahoo")
+            || agent.contains("help.yahoo.co.jp/help/jp/")
+            || agent.contains("listing.yahoo.co.jp/support/faq/")
+        {
             if agent.contains("compatible; Yahoo! Slurp") {
                 return self.populate_dataset(result, "YahooSlurp");
-            } else if agent.contains("YahooFeedSeekerJp") || agent.contains("YahooFeedSeekerBetaJp") ||
-                      agent.contains("crawler (http://listing.yahoo.co.jp/support/faq/") ||
-                      agent.contains("crawler (http://help.yahoo.co.jp/help/jp/") ||
-                      agent.contains("Y!J-BRZ/YATSHA crawler") ||
-                      agent.contains("Y!J-BRY/YATSH crawler") {
+            } else if agent.contains("YahooFeedSeekerJp")
+                || agent.contains("YahooFeedSeekerBetaJp")
+                || agent.contains("crawler (http://listing.yahoo.co.jp/support/faq/")
+                || agent.contains("crawler (http://help.yahoo.co.jp/help/jp/")
+                || agent.contains("Y!J-BRZ/YATSHA crawler")
+                || agent.contains("Y!J-BRY/YATSH crawler")
+            {
                 return self.populate_dataset(result, "YahooJP");
             } else if agent.contains("Yahoo Pipes") {
                 return self.populate_dataset(result, "YahooPipes");
@@ -388,16 +395,19 @@ impl Parser {
             return self.populate_dataset(result, "BingPreview");
         }
 
-        if agent.contains("Baidu") &&
-           (agent.contains("compatible; Baiduspider") || agent.contains("Baiduspider+") ||
-            agent.contains("Baiduspider-image+")) {
+        if agent.contains("Baidu")
+            && (agent.contains("compatible; Baiduspider")
+                || agent.contains("Baiduspider+")
+                || agent.contains("Baiduspider-image+"))
+        {
             return self.populate_dataset(result, "Baiduspider");
         }
 
-        if agent.contains("Yeti") &&
-           (agent.contains("http://help.naver.com/robots") ||
-            agent.contains("http://help.naver.com/support/robots.html") ||
-            agent.contains("http://naver.me/bot")) {
+        if agent.contains("Yeti")
+            && (agent.contains("http://help.naver.com/robots")
+                || agent.contains("http://help.naver.com/support/robots.html")
+                || agent.contains("http://naver.me/bot"))
+        {
             return self.populate_dataset(result, "Yeti");
         }
 
@@ -413,9 +423,10 @@ impl Parser {
             return self.populate_dataset(result, "twitter");
         }
 
-        if agent.contains("ichiro") &&
-           (agent.contains("http://help.goo.ne.jp/door/crawler.html") ||
-            agent.contains("compatible; ichiro/mobile goo;")) {
+        if agent.contains("ichiro")
+            && (agent.contains("http://help.goo.ne.jp/door/crawler.html")
+                || agent.contains("compatible; ichiro/mobile goo;"))
+        {
             return self.populate_dataset(result, "goo");
         }
 
@@ -451,8 +462,10 @@ impl Parser {
             return self.populate_dataset(result, "livedoorFeedFetcher");
         }
 
-        if agent.contains("Hatena Antenna") || agent.contains("Hatena Pagetitle Agent") ||
-           agent.contains("Hatena Diary RSS") {
+        if agent.contains("Hatena Antenna")
+            || agent.contains("Hatena Pagetitle Agent")
+            || agent.contains("Hatena Diary RSS")
+        {
             return self.populate_dataset(result, "Hatena");
         }
 
@@ -643,12 +656,10 @@ impl Parser {
 
         let version = match RX_OPERA_VERSION_PATTERN1.captures(agent) {
             Some(caps) => caps.get(1).unwrap().as_str(),
-            None => {
-                match RX_OPERA_VERSION_PATTERN2.captures(agent) {
-                    Some(caps2) => caps2.get(1).unwrap().as_str(),
-                    None => VALUE_UNKNOWN,
-                }
-            }
+            None => match RX_OPERA_VERSION_PATTERN2.captures(agent) {
+                Some(caps2) => caps2.get(1).unwrap().as_str(),
+                None => VALUE_UNKNOWN,
+            },
         };
 
         if !self.populate_dataset(result, "Opera") {
@@ -1220,14 +1231,19 @@ impl Parser {
         // TODO: wip
         let mut version = "";
 
-        if RX_HTTP_CLIENT.is_match(agent) || RX_HTTP_CLIENT_OTHER.is_match(agent) ||
-           agent.contains("Java(TM) 2 Runtime Environment,") {
+        if RX_HTTP_CLIENT.is_match(agent)
+            || RX_HTTP_CLIENT_OTHER.is_match(agent)
+            || agent.contains("Java(TM) 2 Runtime Environment,")
+        {
             version = "Java";
         } else if agent.starts_with("Wget/") {
             version = "wget";
-        } else if agent.starts_with("libwww-perl") || agent.starts_with("WWW-Mechanize") ||
-                  agent.starts_with("LWP::Simple") || agent.starts_with("LWP ") ||
-                  agent.starts_with("lwp-trivial") {
+        } else if agent.starts_with("libwww-perl")
+            || agent.starts_with("WWW-Mechanize")
+            || agent.starts_with("LWP::Simple")
+            || agent.starts_with("LWP ")
+            || agent.starts_with("lwp-trivial")
+        {
             version = "perl";
         } else if agent.starts_with("Ruby") || agent.starts_with("feedzirra") || agent.starts_with("Typhoeus") {
             version = "ruby"
@@ -1252,8 +1268,10 @@ impl Parser {
     }
 
     fn challenge_maybe_rss_reader(&self, agent: &str, result: &mut WootheeResult) -> bool {
-        if RX_MAYBE_RSS_PATTERN.is_match(agent) || agent.to_lowercase().contains("headline-reader") ||
-           agent.contains("cococ/") {
+        if RX_MAYBE_RSS_PATTERN.is_match(agent)
+            || agent.to_lowercase().contains("headline-reader")
+            || agent.contains("cococ/")
+        {
             return self.populate_dataset(result, "VariousRSSReader");
         }
 
@@ -1261,9 +1279,12 @@ impl Parser {
     }
 
     fn challenge_maybe_crawler(&self, agent: &str, result: &mut WootheeResult) -> bool {
-        if RX_MAYBE_CRAWLER_PATTERN.is_match(agent) || RX_MAYBE_CRAWLER_OTHER.is_match(agent) ||
-           agent.contains("ASP-Ranker Feed Crawler") || RX_MAYBE_FEED_PARSER_PATTERN.is_match(agent) ||
-           RX_MAYBE_WATCHDOG_PATTERN.is_match(agent) {
+        if RX_MAYBE_CRAWLER_PATTERN.is_match(agent)
+            || RX_MAYBE_CRAWLER_OTHER.is_match(agent)
+            || agent.contains("ASP-Ranker Feed Crawler")
+            || RX_MAYBE_FEED_PARSER_PATTERN.is_match(agent)
+            || RX_MAYBE_WATCHDOG_PATTERN.is_match(agent)
+        {
             return self.populate_dataset(result, "VariousCrawler");
         }
 

@@ -29,23 +29,27 @@ mod tests {
             }
         }
         match parser.parse(r#"Mozilla/5.0 (Macintosh; Intel Mac OS X 10.7; rv:21.0) Gecko/20100101 Firefox/21.0"#) {
-            None => panic!(r#"invalid parse. "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.7; rv:21.0) Gecko/20100101 Firefox/21.0""#),
+            None => panic!(
+                r#"invalid parse. "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.7; rv:21.0) Gecko/20100101 Firefox/21.0""#
+            ),
             Some(result) => {
                 assert_eq!(result.category, "pc");
                 assert_eq!(result.name, "Firefox");
                 assert_eq!(result.os, "Mac OSX");
                 assert_eq!(result.os_version, "10.7".to_string());
-            assert_eq!(result.version, "21.0");
+                assert_eq!(result.version, "21.0");
             }
         }
         match parser.parse(r#"Opera/9.80 (Macintosh; Intel Mac OS X 10.8.3) Presto/2.12.388 Version/12.15"#) {
-            None => panic!(r#"invalid parse. "Opera/9.80 (Macintosh; Intel Mac OS X 10.8.3) Presto/2.12.388 Version/12.15""#),
+            None => panic!(
+                r#"invalid parse. "Opera/9.80 (Macintosh; Intel Mac OS X 10.8.3) Presto/2.12.388 Version/12.15""#
+            ),
             Some(result) => {
                 assert_eq!(result.category, "pc");
                 assert_eq!(result.name, "Opera");
                 assert_eq!(result.os, "Mac OSX");
                 assert_eq!(result.os_version, "10.8.3".to_string());
-            assert_eq!(result.version, "12.15");
+                assert_eq!(result.version, "12.15");
             }
         }
         match parser.parse(r#"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/33.0.1750.154 Safari/537.36 OPR/20.0.1387.82"#) {
@@ -106,17 +110,19 @@ mod tests {
                 assert_eq!(result.name, "Internet Explorer");
                 assert_eq!(result.os, "Mac OS Classic");
                 assert_eq!(result.os_version, "UNKNOWN".to_string());
-            assert_eq!(result.version, "5.17");
+                assert_eq!(result.version, "5.17");
             }
         }
         match parser.parse(r#"Mozilla/5.0 (Ubuntu; X11; Linux i686; rv:9.0.1) Gecko/20100101 Firefox/9.0.1"#) {
-            None => panic!(r#"invalid parse. "Mozilla/5.0 (Ubuntu; X11; Linux i686; rv:9.0.1) Gecko/20100101 Firefox/9.0.1""#),
+            None => panic!(
+                r#"invalid parse. "Mozilla/5.0 (Ubuntu; X11; Linux i686; rv:9.0.1) Gecko/20100101 Firefox/9.0.1""#
+            ),
             Some(result) => {
                 assert_eq!(result.category, "pc");
                 assert_eq!(result.name, "Firefox");
                 assert_eq!(result.os, "Linux");
                 assert_eq!(result.os_version, "UNKNOWN".to_string());
-            assert_eq!(result.version, "9.0.1");
+                assert_eq!(result.version, "9.0.1");
             }
         }
         match parser.parse(r#"Mozilla/5.0 (X11; Linux i686) AppleWebKit/535.7 (KHTML, like Gecko) Chrome/16.0.912.75 Safari/535.7"#) {
@@ -146,7 +152,7 @@ mod tests {
                 assert_eq!(result.name, "UNKNOWN");
                 assert_eq!(result.os, "Linux");
                 assert_eq!(result.os_version, "UNKNOWN".to_string());
-            assert_eq!(result.version, "UNKNOWN");
+                assert_eq!(result.version, "UNKNOWN");
             }
         }
         match parser.parse(r#"Mozilla/5.0 (X11; U; Linux i686; ja-JP; rv:1.8.1.23) Gecko/20090910 SeaMonkey/1.1.18"#) {
@@ -177,7 +183,7 @@ mod tests {
                 assert_eq!(result.os, "BSD");
                 // NOTE: skip test now
                 //assert_eq!(result.os_version, "UNKNOWN".to_string());
-            assert_eq!(result.version, "8.0");
+                assert_eq!(result.version, "8.0");
             }
         }
         match parser.parse(r#"Opera/9.80 (X11; FreeBSD 8.2-RELEASE-p3 amd64; U; ja) Presto/2.9.168 Version/11.52"#) {
@@ -210,5 +216,5 @@ mod tests {
             assert_eq!(result.version, "17.11.1.1087");
             }
         }
-        }
+    }
 }

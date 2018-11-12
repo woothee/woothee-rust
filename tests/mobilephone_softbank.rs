@@ -45,7 +45,7 @@ mod tests {
                 assert_eq!(result.name, "SoftBank Mobile");
                 assert_eq!(result.os, "SoftBank");
                 assert_eq!(result.os_version, "UNKNOWN".to_string());
-            assert_eq!(result.version, "821SC");
+                assert_eq!(result.version, "821SC");
             }
         }
         match parser.parse(r#"Vodafone/1.0/V905SH/SHJ001 Browser/VF-NetFront/3.3 Profile/MIDP-2.0 Configuration/CLDC-1.1"#) {
@@ -78,5 +78,5 @@ mod tests {
             assert_eq!(result.version, "J-T51");
             }
         }
-        }
+    }
 }

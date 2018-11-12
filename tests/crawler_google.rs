@@ -9,13 +9,15 @@ mod tests {
         let parser = Parser::new();
 
         match parser.parse(r#"Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)"#) {
-            None => panic!(r#"invalid parse. "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)""#),
+            None => {
+                panic!(r#"invalid parse. "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)""#)
+            }
             Some(result) => {
                 assert_eq!(result.category, "crawler");
                 assert_eq!(result.name, "Googlebot");
                 assert_eq!(result.os, "UNKNOWN");
                 assert_eq!(result.os_version, "UNKNOWN".to_string());
-            assert_eq!(result.version, "UNKNOWN");
+                assert_eq!(result.version, "UNKNOWN");
             }
         }
         match parser.parse(r#"Googlebot-Image/1.0"#) {
@@ -25,7 +27,7 @@ mod tests {
                 assert_eq!(result.name, "Googlebot");
                 assert_eq!(result.os, "UNKNOWN");
                 assert_eq!(result.os_version, "UNKNOWN".to_string());
-            assert_eq!(result.version, "UNKNOWN");
+                assert_eq!(result.version, "UNKNOWN");
             }
         }
         match parser.parse(r#"DoCoMo/2.0 N905i(c100;TB;W24H16) (compatible; Googlebot-Mobile/2.1; +http://www.google.com/bot.html)"#) {
@@ -65,7 +67,7 @@ mod tests {
                 assert_eq!(result.name, "Google Mediapartners");
                 assert_eq!(result.os, "UNKNOWN");
                 assert_eq!(result.os_version, "UNKNOWN".to_string());
-            assert_eq!(result.version, "UNKNOWN");
+                assert_eq!(result.version, "UNKNOWN");
             }
         }
         match parser.parse(r#"Feedfetcher-Google; (+http://www.google.com/feedfetcher.html; feed-id=000000000000000000)"#) {
@@ -85,7 +87,7 @@ mod tests {
                 assert_eq!(result.name, "Google AppEngine");
                 assert_eq!(result.os, "UNKNOWN");
                 assert_eq!(result.os_version, "UNKNOWN".to_string());
-            assert_eq!(result.version, "UNKNOWN");
+                assert_eq!(result.version, "UNKNOWN");
             }
         }
         match parser.parse(r#"Mozilla/5.0 (en-us) AppleWebKit/525.13 (KHTML, like Gecko; Google Web Preview) Version/3.1 Safari/525.13"#) {
@@ -105,8 +107,8 @@ mod tests {
                 assert_eq!(result.name, "Google FeedBurner");
                 assert_eq!(result.os, "UNKNOWN");
                 assert_eq!(result.os_version, "UNKNOWN".to_string());
-            assert_eq!(result.version, "UNKNOWN");
+                assert_eq!(result.version, "UNKNOWN");
             }
         }
-        }
+    }
 }

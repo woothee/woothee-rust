@@ -15,7 +15,7 @@ mod tests {
                 assert_eq!(result.name, "UNKNOWN");
                 assert_eq!(result.os, "UNKNOWN");
                 assert_eq!(result.os_version, "UNKNOWN".to_string());
-            assert_eq!(result.version, "UNKNOWN");
+                assert_eq!(result.version, "UNKNOWN");
             }
         }
         match parser.parse(r#""#) {
@@ -25,7 +25,7 @@ mod tests {
                 assert_eq!(result.name, "UNKNOWN");
                 assert_eq!(result.os, "UNKNOWN");
                 assert_eq!(result.os_version, "UNKNOWN".to_string());
-            assert_eq!(result.version, "UNKNOWN");
+                assert_eq!(result.version, "UNKNOWN");
             }
         }
         match parser.parse(r#"-"#) {
@@ -35,8 +35,8 @@ mod tests {
                 assert_eq!(result.name, "UNKNOWN");
                 assert_eq!(result.os, "UNKNOWN");
                 assert_eq!(result.os_version, "UNKNOWN".to_string());
-            assert_eq!(result.version, "UNKNOWN");
+                assert_eq!(result.version, "UNKNOWN");
             }
         }
-        }
+    }
 }

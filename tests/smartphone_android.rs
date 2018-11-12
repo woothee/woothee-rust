@@ -65,7 +65,7 @@ mod tests {
                 assert_eq!(result.name, "Firefox");
                 assert_eq!(result.os, "Android");
                 assert_eq!(result.os_version, "UNKNOWN".to_string());
-            assert_eq!(result.version, "14.0");
+                assert_eq!(result.version, "14.0");
             }
         }
         match parser.parse(r#"Mozilla/5.0 (Android; Tablet; rv:14.0) Gecko/14.0 Firefox/14.0"#) {
@@ -75,7 +75,7 @@ mod tests {
                 assert_eq!(result.name, "Firefox");
                 assert_eq!(result.os, "Android");
                 assert_eq!(result.os_version, "UNKNOWN".to_string());
-            assert_eq!(result.version, "14.0");
+                assert_eq!(result.version, "14.0");
             }
         }
         match parser.parse(r#"Dalvik/1.4.0 (Linux; U; Android 2.3.4; SBM009SH Build/S0008)"#) {
@@ -85,7 +85,7 @@ mod tests {
                 assert_eq!(result.name, "UNKNOWN");
                 assert_eq!(result.os, "Android");
                 assert_eq!(result.os_version, "2.3.4".to_string());
-            assert_eq!(result.version, "UNKNOWN");
+                assert_eq!(result.version, "UNKNOWN");
             }
         }
         match parser.parse(r#"LDNReader/2.0.1 (Android)"#) {
@@ -95,7 +95,7 @@ mod tests {
                 assert_eq!(result.name, "UNKNOWN");
                 assert_eq!(result.os, "Android");
                 assert_eq!(result.os_version, "UNKNOWN".to_string());
-            assert_eq!(result.version, "UNKNOWN");
+                assert_eq!(result.version, "UNKNOWN");
             }
         }
         match parser.parse(r#"Mozilla/5.0 (Linux; Android 5.1.1; Nexus 5 Build/LMY48B; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/43.0.2357.65 Mobile Safari/537.36"#) {
@@ -108,5 +108,5 @@ mod tests {
             assert_eq!(result.version, "4.0");
             }
         }
-        }
+    }
 }

@@ -6,7 +6,7 @@ extern crate test;
 extern crate uap_rust;
 extern crate woothee;
 
-use test::{Bencher, black_box};
+use test::{black_box, Bencher};
 use uap_rust::parser as uap;
 use woothee::parser as woo;
 

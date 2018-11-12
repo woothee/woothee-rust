@@ -4,22 +4,22 @@ extern crate serde_derive;
 
 #[cfg(feature = "generate")]
 mod inner {
-    extern crate yaml_rust;
+    extern crate glob;
+    extern crate serde;
+    extern crate serde_json;
     extern crate tempdir;
     extern crate tera;
-    extern crate serde;
-    extern crate glob;
-    extern crate serde_json;
+    extern crate yaml_rust;
+    use self::serde_json::value::{to_value, Value};
+    use self::tera::Result;
+    use self::tera::{try_get_value, Context, Tera};
+    use self::yaml_rust::YamlLoader;
+    use std::collections::HashMap;
     use std::env;
     use std::fs::File;
-    use std::io::{Write, Read};
+    use std::io::{Read, Write};
     use std::path::{Path, PathBuf};
     use std::process::Command;
-    use std::collections::HashMap;
-    use self::yaml_rust::YamlLoader;
-    use self::tera::{Tera, Context, try_get_value};
-    use self::tera::Result;
-    use self::serde_json::value::{to_value, Value};
 
     #[derive(Serialize, Deserialize, Debug)]
     struct Data {
@@ -35,16 +35,17 @@ mod inner {
     }
 
     impl Data {
-        pub fn new(label: &str,
-                   name: &str,
-                   category: &str,
-                   os: &str,
-                   os_version: &str,
-                   browser_type: &str,
-                   version: &str,
-                   vendor: &str,
-                   target: &str)
-                   -> Data {
+        pub fn new(
+            label: &str,
+            name: &str,
+            category: &str,
+            os: &str,
+            os_version: &str,
+            browser_type: &str,
+            version: &str,
+            vendor: &str,
+            target: &str,
+        ) -> Data {
             Data {
                 label: label.to_owned(),
                 name: name.to_owned(),
@@ -158,15 +159,17 @@ mod inner {
                     _ => (),
                 }
             }
-            woothee_results.push(Data::new(label,
-                                           name,
-                                           category,
-                                           os,
-                                           os_version,
-                                           browser_type,
-                                           version,
-                                           vendor,
-                                           ""));
+            woothee_results.push(Data::new(
+                label,
+                name,
+                category,
+                os,
+                os_version,
+                browser_type,
+                version,
+                vendor,
+                "",
+            ));
         }
 
         context.insert("results", &woothee_results);
@@ -194,8 +197,7 @@ mod inner {
             let testname = v[0];
             context.insert("test_fnname", &testname);
 
-            let yaml_file =
-                woothee_dir.join(Path::new(format!("testsets/{}", filename.as_str()).as_str()));
+            let yaml_file = woothee_dir.join(Path::new(format!("testsets/{}", filename.as_str()).as_str()));
             let path = Path::new(&yaml_file);
             let mut y = match File::open(&path) {
                 Ok(f) => f,
@@ -260,15 +262,17 @@ mod inner {
                         _ => (),
                     }
                 }
-                tests.push(Data::new("",
-                                     name,
-                                     category,
-                                     os,
-                                     os_version,
-                                     browser_type,
-                                     version,
-                                     vendor,
-                                     target));
+                tests.push(Data::new(
+                    "",
+                    name,
+                    category,
+                    os,
+                    os_version,
+                    browser_type,
+                    version,
+                    vendor,
+                    target,
+                ));
                 context.insert("tests", &tests);
             }
 
@@ -306,7 +310,6 @@ mod inner {
         gen_testsets(woothee_dir, root_path);
     }
 }
-
 
 #[cfg(not(feature = "generate"))]
 mod inner {

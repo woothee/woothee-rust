@@ -125,7 +125,7 @@ mod tests {
                 assert_eq!(result.name, "Safari");
                 assert_eq!(result.os, "iOS");
                 assert_eq!(result.os_version, "UNKNOWN".to_string());
-            assert_eq!(result.version, "UNKNOWN");
+                assert_eq!(result.version, "UNKNOWN");
             }
         }
         match parser.parse(r#"Blogos/1.13 CFNetwork/548.0.4 Darwin/11.0.0"#) {
@@ -135,8 +135,8 @@ mod tests {
                 assert_eq!(result.name, "UNKNOWN");
                 assert_eq!(result.os, "iOS");
                 assert_eq!(result.os_version, "UNKNOWN".to_string());
-            assert_eq!(result.version, "UNKNOWN");
+                assert_eq!(result.version, "UNKNOWN");
             }
         }
-        }
+    }
 }

@@ -1,4 +1,4 @@
-#![recursion_limit="100"]
+#![recursion_limit = "100"]
 //! # Woothee
 //!
 //! Woothee is a user-agent strings parser.
@@ -27,9 +27,9 @@
 extern crate lazy_static;
 extern crate regex;
 
-pub mod woothee;
-pub mod parser;
 pub mod dataset;
+pub mod parser;
+pub mod woothee;
 
 use parser::{Parser, WootheeResult};
 
@@ -45,7 +45,7 @@ pub fn is_crawler(agent: &str) -> bool {
 
 #[cfg(test)]
 mod tests {
-    use super::{is_crawler, WootheeResult, Parser};
+    use super::{is_crawler, Parser, WootheeResult};
 
     fn get_woothee_result(agent: &str) -> WootheeResult {
         Parser::new().parse(agent).expect("fail parse()")
@@ -61,8 +61,12 @@ mod tests {
 
     #[test]
     fn test_is_crawler_smoke() {
-        assert!(!is_crawler("Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.1; Trident/4.0)"));
-        assert!(is_crawler("Mozilla/5.0 (compatible; Yahoo! Slurp; \
-                            http://help.yahoo.com/help/us/ysearch/slurp)"));
+        assert!(!is_crawler(
+            "Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.1; Trident/4.0)"
+        ));
+        assert!(is_crawler(
+            "Mozilla/5.0 (compatible; Yahoo! Slurp; \
+             http://help.yahoo.com/help/us/ysearch/slurp)"
+        ));
     }
 }
