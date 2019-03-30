@@ -108,5 +108,15 @@ mod tests {
             assert_eq!(result.version, "4.0");
             }
         }
+        match parser.parse(r#"Mozilla/5.0 (Linux; Android 9; SM-N960F) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/72.0.3626.105 Mobile Safari/537.36"#) {
+            None => panic!(r#"invalid parse. "Mozilla/5.0 (Linux; Android 9; SM-N960F) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/72.0.3626.105 Mobile Safari/537.36""#),
+            Some(result) => {
+                assert_eq!(result.category, "smartphone");
+                assert_eq!(result.name, "Chrome");
+                assert_eq!(result.os, "Android");
+                assert_eq!(result.os_version, "9".to_string());
+            assert_eq!(result.version, "72.0.3626.105");
+            }
+        }
     }
 }
