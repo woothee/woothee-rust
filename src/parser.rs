@@ -39,7 +39,7 @@ lazy_static! {
     static ref RX_PPC_OS_VERSION: Regex = Regex::new(r"rv:(\d+\.\d+\.\d+)").unwrap();
     static ref RX_FREEBSD_OS_VERSION: Regex = Regex::new(r"FreeBSD ([^;\)]+);").unwrap();
     static ref RX_CHROMEOS_OS_VERSION: Regex = Regex::new(r"CrOS ([^\)]+)\)").unwrap();
-    static ref RX_ANDROIDOS_OS_VERSION: Regex = Regex::new(r"Android[- ](\d+\.\d+(?:\.\d+)?)").unwrap();
+    static ref RX_ANDROIDOS_OS_VERSION: Regex = Regex::new(r"Android[- ](\d+(?:\.\d+(?:\.\d+)?)?)").unwrap();
     static ref RX_PSP_OS_VERSION: Regex = Regex::new(r"PSP \(PlayStation Portable\); ([.0-9]+)\)").unwrap();
     static ref RX_PS3_OS_VERSION: Regex = Regex::new(r"PLAYSTATION 3;? ([.0-9]+)\)").unwrap();
     static ref RX_PSVITA_OS_VERSION: Regex = Regex::new(r"PlayStation Vita ([.0-9]+)\)").unwrap();
