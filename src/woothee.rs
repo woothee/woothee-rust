@@ -1,1 +1,1 @@
-pub const VALUE_UNKNOWN: &'static str = "UNKNOWN";
+pub const VALUE_UNKNOWN: &str = "UNKNOWN";
