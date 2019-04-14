@@ -21,7 +21,7 @@ lazy_static! {
     static ref RX_MAYBE_CRAWLER_PATTERN: Regex = Regex::new(r"(?i)(?:bot|crawler|spider)(?:[-_ ./;@()]|$)").unwrap();
     static ref RX_MAYBE_FEED_PARSER_PATTERN: Regex = Regex::new(r"(?i)(?:feed|web) ?parser").unwrap();
     static ref RX_MAYBE_WATCHDOG_PATTERN: Regex = Regex::new(r"(?i)watch ?dog").unwrap();
-    static ref RX_MSEDGE_PATTERN: Regex = Regex::new(r"Edge/([.0-9]+)").unwrap();
+    static ref RX_MSEDGE_PATTERN: Regex = Regex::new(r"(?:Edge|Edg|EdgiOS|EdgA)/([.0-9]+)").unwrap();
     static ref RX_MSIE_PATTERN: Regex = Regex::new(r"MSIE ([.0-9]+);").unwrap();
     static ref RX_OPERA_VERSION_PATTERN1: Regex = Regex::new(r"Version/([.0-9]+)").unwrap();
     static ref RX_OPERA_VERSION_PATTERN2: Regex = Regex::new(r"Opera[/ ]([.0-9]+)").unwrap();
@@ -511,9 +511,14 @@ impl Parser {
         true
     }
 
-    fn challenge_ms_edge(&self, agent: &str, result: &mut WootheeResult) -> bool {
-        if !RX_MSEDGE_PATTERN.is_match(agent) {
-            return false;
+    fn challenge_ms_edge<'a>(&self, agent: &'a str, result: &mut WootheeResult<'a>) -> bool {
+        match RX_MSEDGE_PATTERN.captures(agent) {
+            Some(caps) => {
+                result.version = caps.get(1).unwrap().as_str();
+            }
+            None => {
+                return false;
+            }
         };
 
         if !self.populate_dataset(result, "Edge") {
