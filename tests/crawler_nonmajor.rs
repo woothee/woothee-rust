@@ -26,7 +26,7 @@ mod tests {
                 assert_eq!(result.os, "Windows Vista");
                 // NOTE: skip test now
                 //assert_eq!(result.os_version, "UNKNOWN".to_string());
-            assert_eq!(result.version, "UNKNOWN");
+                assert_eq!(result.version, "UNKNOWN");
             }
         }
         match parser.parse(r#"Mozilla/5.0 (compatible; Ezooms/1.0; ezooms.bot@gmail.com)"#) {
@@ -100,7 +100,7 @@ mod tests {
                 assert_eq!(result.name, "misc crawler");
                 assert_eq!(result.os, "UNKNOWN");
                 assert_eq!(result.os_version, "UNKNOWN".to_string());
-            assert_eq!(result.version, "UNKNOWN");
+                assert_eq!(result.version, "UNKNOWN");
             }
         }
         match parser.parse(r#"SearQuBot/SearQuBot v1.0"#) {
@@ -232,7 +232,7 @@ mod tests {
                 assert_eq!(result.name, "misc crawler");
                 assert_eq!(result.os, "UNKNOWN");
                 assert_eq!(result.os_version, "UNKNOWN".to_string());
-            assert_eq!(result.version, "UNKNOWN");
+                assert_eq!(result.version, "UNKNOWN");
             }
         }
         match parser.parse(r#"Rainmeter WebParser plugin"#) {

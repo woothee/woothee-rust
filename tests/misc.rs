@@ -25,7 +25,7 @@ mod tests {
                 assert_eq!(result.name, "Google Desktop");
                 assert_eq!(result.os, "UNKNOWN");
                 assert_eq!(result.os_version, "UNKNOWN".to_string());
-            assert_eq!(result.version, "UNKNOWN");
+                assert_eq!(result.version, "UNKNOWN");
             }
         }
         match parser.parse(r#"Windows-RSS-Platform/2.0 (MSIE 9.0; Windows NT 6.0)"#) {
@@ -295,7 +295,7 @@ mod tests {
                 assert_eq!(result.name, "HTTP Library");
                 assert_eq!(result.os, "UNKNOWN");
                 assert_eq!(result.os_version, "UNKNOWN".to_string());
-            assert_eq!(result.version, "php");
+                assert_eq!(result.version, "php");
             }
         }
         match parser.parse(r#"PECL::HTTP/1.7.4 (PHP/5.4.4)"#) {
@@ -355,7 +355,7 @@ mod tests {
                 assert_eq!(result.name, "HTTP Library");
                 assert_eq!(result.os, "UNKNOWN");
                 assert_eq!(result.os_version, "UNKNOWN".to_string());
-            assert_eq!(result.version, "curl");
+                assert_eq!(result.version, "curl");
             }
         }
     }

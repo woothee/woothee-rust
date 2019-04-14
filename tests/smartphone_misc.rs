@@ -36,7 +36,7 @@ mod tests {
                 assert_eq!(result.name, "Internet Explorer");
                 assert_eq!(result.os, "Windows Phone OS");
                 assert_eq!(result.os_version, "7.5".to_string());
-            assert_eq!(result.version, "7.0");
+                assert_eq!(result.version, "7.0");
             }
         }
         match parser.parse(r#"Mozilla/5.0 (Windows Phone 8.1; ARM; Trident/7.0; Touch; rv:11.0; IEMobile/11.0; NOKIA; Lumia 930) like Gecko"#) {
@@ -46,7 +46,7 @@ mod tests {
                 assert_eq!(result.name, "Internet Explorer");
                 assert_eq!(result.os, "Windows Phone OS");
                 assert_eq!(result.os_version, "8.1".to_string());
-            assert_eq!(result.version, "11.0");
+                assert_eq!(result.version, "11.0");
             }
         }
         match parser.parse(r#"Mozilla/4.0 (compatible; MSIE 6.0; Windows CE; IEMobile 7.7) S12HT"#) {
@@ -67,7 +67,7 @@ mod tests {
                 assert_eq!(result.name, "Opera");
                 assert_eq!(result.os, "BlackBerry");
                 assert_eq!(result.os_version, "UNKNOWN".to_string());
-            assert_eq!(result.version, "10.54");
+                assert_eq!(result.version, "10.54");
             }
         }
         match parser.parse(r#"BlackBerry9700/5.0.0.1014 Profile/MIDP-2.1 Configuration/CLDC-1.1 VendorID/220"#) {
@@ -89,7 +89,7 @@ mod tests {
                 assert_eq!(result.name, "Safari");
                 assert_eq!(result.os, "BlackBerry 10");
                 assert_eq!(result.os_version, "10.3.1.2243".to_string());
-            assert_eq!(result.version, "UNKNOWN");
+                assert_eq!(result.version, "UNKNOWN");
             }
         }
     }

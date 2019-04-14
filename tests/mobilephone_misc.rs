@@ -85,7 +85,7 @@ mod tests {
                 assert_eq!(result.name, "Safari");
                 assert_eq!(result.os, "SymbianOS");
                 assert_eq!(result.os_version, "UNKNOWN".to_string());
-            assert_eq!(result.version, "UNKNOWN");
+                assert_eq!(result.version, "UNKNOWN");
             }
         }
         match parser.parse(r#"Mozilla/5.0 (en-us) AppleWebKit/534.14 (KHTML, like Gecko; Google Wireless Transcoder) Chrome/9.0.597 Safari/534.14"#) {
@@ -95,7 +95,7 @@ mod tests {
                 assert_eq!(result.name, "Mobile Transcoder");
                 assert_eq!(result.os, "Mobile Transcoder");
                 assert_eq!(result.os_version, "UNKNOWN".to_string());
-            assert_eq!(result.version, "Google");
+                assert_eq!(result.version, "Google");
             }
         }
         match parser.parse(r#"Mozilla/5.0 (compatible; livedoor-Mobile-Gateway/0.02; +http://p.m.livedoor.com/help.html)"#) {
@@ -105,7 +105,7 @@ mod tests {
                 assert_eq!(result.name, "Mobile Transcoder");
                 assert_eq!(result.os, "Mobile Transcoder");
                 assert_eq!(result.os_version, "UNKNOWN".to_string());
-            assert_eq!(result.version, "livedoor");
+                assert_eq!(result.version, "livedoor");
             }
         }
     }

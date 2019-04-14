@@ -15,7 +15,7 @@ mod tests {
                 assert_eq!(result.name, "Yahoo! Slurp");
                 assert_eq!(result.os, "UNKNOWN");
                 assert_eq!(result.os_version, "UNKNOWN".to_string());
-            assert_eq!(result.version, "UNKNOWN");
+                assert_eq!(result.version, "UNKNOWN");
             }
         }
         match parser.parse(r#"Mozilla/5.0 (compatible; Yahoo! Slurp/3.0; http://help.yahoo.com/help/us/ysearch/slurp)"#) {
@@ -25,7 +25,7 @@ mod tests {
                 assert_eq!(result.name, "Yahoo! Slurp");
                 assert_eq!(result.os, "UNKNOWN");
                 assert_eq!(result.os_version, "UNKNOWN".to_string());
-            assert_eq!(result.version, "UNKNOWN");
+                assert_eq!(result.version, "UNKNOWN");
             }
         }
         match parser.parse(r#"Y!J-BRO/YFSJ crawler (compatible; Mozilla 4.0; MSIE 5.5; http://help.yahoo.co.jp/help/jp/search/indexing/indexing-15.html; YahooFeedSeekerJp/2.0; users 0; views 248)"#) {
@@ -35,7 +35,7 @@ mod tests {
                 assert_eq!(result.name, "Yahoo! Japan");
                 assert_eq!(result.os, "UNKNOWN");
                 assert_eq!(result.os_version, "UNKNOWN".to_string());
-            assert_eq!(result.version, "UNKNOWN");
+                assert_eq!(result.version, "UNKNOWN");
             }
         }
         match parser.parse(r#"Y!J-BRP/YFSBJ crawler (compatible; Mozilla 4.0; MSIE 5.5; http://help.yahoo.co.jp/help/jp/search/indexing/indexing-15.html; YahooFeedSeekerBetaJp/2.0; users 0; views 80)"#) {
@@ -45,7 +45,7 @@ mod tests {
                 assert_eq!(result.name, "Yahoo! Japan");
                 assert_eq!(result.os, "UNKNOWN");
                 assert_eq!(result.os_version, "UNKNOWN".to_string());
-            assert_eq!(result.version, "UNKNOWN");
+                assert_eq!(result.version, "UNKNOWN");
             }
         }
         match parser.parse(r#"Y!J-BRJ/YATS crawler (http://listing.yahoo.co.jp/support/faq/int/other/other_001.html)"#) {
@@ -55,7 +55,7 @@ mod tests {
                 assert_eq!(result.name, "Yahoo! Japan");
                 assert_eq!(result.os, "UNKNOWN");
                 assert_eq!(result.os_version, "UNKNOWN".to_string());
-            assert_eq!(result.version, "UNKNOWN");
+                assert_eq!(result.version, "UNKNOWN");
             }
         }
         match parser.parse(r#"Y!J-BRJ/YATS crawler (http://help.yahoo.co.jp/help/jp/search/indexing/indexing-15.html)"#) {
@@ -65,7 +65,7 @@ mod tests {
                 assert_eq!(result.name, "Yahoo! Japan");
                 assert_eq!(result.os, "UNKNOWN");
                 assert_eq!(result.os_version, "UNKNOWN".to_string());
-            assert_eq!(result.version, "UNKNOWN");
+                assert_eq!(result.version, "UNKNOWN");
             }
         }
         match parser.parse(r#"Y!J-BSC/1.0 crawler (http://help.yahoo.co.jp/help/jp/blog-search/)"#) {
@@ -85,7 +85,7 @@ mod tests {
                 assert_eq!(result.name, "Yahoo! Japan");
                 assert_eq!(result.os, "UNKNOWN");
                 assert_eq!(result.os_version, "UNKNOWN".to_string());
-            assert_eq!(result.version, "UNKNOWN");
+                assert_eq!(result.version, "UNKNOWN");
             }
         }
         match parser.parse(r#"Mozilla/5.0 (iPhone; Y!J-BRY/YATSH crawler; http://help.yahoo.co.jp/help/jp/search/indexing/indexing-15.html)"#) {
@@ -95,7 +95,7 @@ mod tests {
                 assert_eq!(result.name, "Yahoo! Japan");
                 assert_eq!(result.os, "UNKNOWN");
                 assert_eq!(result.os_version, "UNKNOWN".to_string());
-            assert_eq!(result.version, "UNKNOWN");
+                assert_eq!(result.version, "UNKNOWN");
             }
         }
         match parser.parse(r#"Yahoo Pipes 2.0"#) {
@@ -115,7 +115,7 @@ mod tests {
                 assert_eq!(result.name, "Baiduspider");
                 assert_eq!(result.os, "UNKNOWN");
                 assert_eq!(result.os_version, "UNKNOWN".to_string());
-            assert_eq!(result.version, "UNKNOWN");
+                assert_eq!(result.version, "UNKNOWN");
             }
         }
         match parser.parse(r#"Baiduspider+(+http://www.baidu.jp/spider/)"#) {
@@ -207,7 +207,7 @@ mod tests {
                 assert_eq!(result.name, "BingPreview");
                 assert_eq!(result.os, "UNKNOWN");
                 assert_eq!(result.os_version, "UNKNOWN".to_string());
-            assert_eq!(result.version, "UNKNOWN");
+                assert_eq!(result.version, "UNKNOWN");
             }
         }
         match parser.parse(r#"Yeti/1.0 (NHN Corp.; http://help.naver.com/robots/)"#) {
@@ -301,7 +301,7 @@ mod tests {
                 assert_eq!(result.name, "topsy Butterfly");
                 assert_eq!(result.os, "UNKNOWN");
                 assert_eq!(result.os_version, "UNKNOWN".to_string());
-            assert_eq!(result.version, "UNKNOWN");
+                assert_eq!(result.version, "UNKNOWN");
             }
         }
         match parser.parse(r#"rogerbot/1.0 (http://www.seomoz.org/dp/rogerbot, rogerbot-crawler@seomoz.org)"#) {
@@ -323,7 +323,7 @@ mod tests {
                 assert_eq!(result.name, "SeoMoz rogerbot");
                 assert_eq!(result.os, "UNKNOWN");
                 assert_eq!(result.os_version, "UNKNOWN".to_string());
-            assert_eq!(result.version, "UNKNOWN");
+                assert_eq!(result.version, "UNKNOWN");
             }
         }
         match parser.parse(r#"Mozilla/5.0 (compatible; AhrefsBot/4.0; +http://ahrefs.com/robot/)"#) {
@@ -383,7 +383,7 @@ mod tests {
                 assert_eq!(result.name, "goo");
                 assert_eq!(result.os, "UNKNOWN");
                 assert_eq!(result.os_version, "UNKNOWN".to_string());
-            assert_eq!(result.version, "UNKNOWN");
+                assert_eq!(result.version, "UNKNOWN");
             }
         }
         match parser.parse(r#"gooblogsearch/2.0 (http://search.goo.ne.jp/option/use/sub4/sub4-1/)"#) {
@@ -477,7 +477,7 @@ mod tests {
                 assert_eq!(result.name, "trendiction");
                 assert_eq!(result.os, "UNKNOWN");
                 assert_eq!(result.os_version, "UNKNOWN".to_string());
-            assert_eq!(result.version, "UNKNOWN");
+                assert_eq!(result.version, "UNKNOWN");
             }
         }
     }

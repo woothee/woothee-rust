@@ -45,7 +45,7 @@ mod tests {
                 assert_eq!(result.name, "Nintendo Wii U");
                 assert_eq!(result.os, "Nintendo Wii U");
                 assert_eq!(result.os_version, "UNKNOWN".to_string());
-            assert_eq!(result.version, "UNKNOWN");
+                assert_eq!(result.version, "UNKNOWN");
             }
         }
         match parser.parse(r#"Mozilla/5.0 (PLAYSTATION 3; 1.00)"#) {
@@ -99,7 +99,7 @@ mod tests {
                 assert_eq!(result.name, "PlayStation Vita");
                 assert_eq!(result.os, "PlayStation Vita");
                 assert_eq!(result.os_version, "1.51".to_string());
-            assert_eq!(result.version, "UNKNOWN");
+                assert_eq!(result.version, "UNKNOWN");
             }
         }
         match parser.parse(r#"Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Trident/5.0; Xbox)"#) {
@@ -133,7 +133,7 @@ mod tests {
                 assert_eq!(result.name, "InternetTVBrowser");
                 assert_eq!(result.os, "DigitalTV");
                 assert_eq!(result.os_version, "UNKNOWN".to_string());
-            assert_eq!(result.version, "UNKNOWN");
+                assert_eq!(result.version, "UNKNOWN");
             }
         }
         match parser.parse(r#"Mozilla/5.0 (DTV; TVwithVideoPlayer) NetFront/4.1 InettvBrowser/2.2 (08001F;DTV04VSFC3;0001;0001)"#) {
@@ -143,7 +143,7 @@ mod tests {
                 assert_eq!(result.name, "InternetTVBrowser");
                 assert_eq!(result.os, "DigitalTV");
                 assert_eq!(result.os_version, "UNKNOWN".to_string());
-            assert_eq!(result.version, "UNKNOWN");
+                assert_eq!(result.version, "UNKNOWN");
             }
         }
         match parser.parse(r#"Mozilla/5.0 (DTV; TSBNetTV/T45000006.0203.CDD; like Gecko) NetFront/3.4 DTVNetBrowser/2.2 (000039;T45011C06;0203;CDD) InettvBrowser/2.2 (000039;T45011C06;0203;CDD)"#) {
@@ -153,7 +153,7 @@ mod tests {
                 assert_eq!(result.name, "InternetTVBrowser");
                 assert_eq!(result.os, "DigitalTV");
                 assert_eq!(result.os_version, "UNKNOWN".to_string());
-            assert_eq!(result.version, "UNKNOWN");
+                assert_eq!(result.version, "UNKNOWN");
             }
         }
         match parser.parse(r#"Mozilla/5.0 (Standard; NF34SW/1.1; like Gecko) NetFront/3.4 InettvBrowser/2.2C (000087;IP03-01;0100;0000)"#) {
@@ -163,7 +163,7 @@ mod tests {
                 assert_eq!(result.name, "InternetTVBrowser");
                 assert_eq!(result.os, "DigitalTV");
                 assert_eq!(result.os_version, "UNKNOWN".to_string());
-            assert_eq!(result.version, "UNKNOWN");
+                assert_eq!(result.version, "UNKNOWN");
             }
         }
     }

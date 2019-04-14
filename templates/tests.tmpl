@@ -45,17 +45,17 @@ mod tests {
 
                 {% if test.version -%}
             {%- if skip_version_test == true -%}
-                // NOTE: skip test now
+                {{ "    " }}// NOTE: skip test now
                 //assert_eq!(result.version, "{{test.version}}");
             {% else -%}
-                assert_eq!(result.version, "{{test.version}}");
+                {{ "    " }}assert_eq!(result.version, "{{test.version}}");
             {% endif -%}
             {% else -%}
             {% if skip_version_test == true -%}
-                // NOTE: skip test now
+                {{ "    " }}// NOTE: skip test now
                 //assert_eq!(result.version, "UNKNOWN");
             {% else -%}
-                assert_eq!(result.version, "UNKNOWN");
+                {{ "    " }}assert_eq!(result.version, "UNKNOWN");
             {% endif -%}
                 {% endif -%}
             }

@@ -35,7 +35,7 @@ mod tests {
                 assert_eq!(result.name, "docomo");
                 assert_eq!(result.os, "docomo");
                 assert_eq!(result.os_version, "UNKNOWN".to_string());
-            assert_eq!(result.version, "D505i");
+                assert_eq!(result.version, "D505i");
             }
         }
         match parser.parse(r#"DoCoMo/1.0/N505i/c20/TB/W24H12"#) {

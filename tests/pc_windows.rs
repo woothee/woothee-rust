@@ -37,7 +37,7 @@ mod tests {
                 assert_eq!(result.name, "Internet Explorer");
                 assert_eq!(result.os, "Windows XP");
                 assert_eq!(result.os_version, "NT 5.1".to_string());
-            assert_eq!(result.version, "8.0");
+                assert_eq!(result.version, "8.0");
             }
         }
         match parser.parse(r#"Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 5.1; Trident/4.0; Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1) ; .NET CLR 2.0.50727; .NET CLR 3.0.4506.2152; .NET CLR 3.5.30729; .NET4.0C; BOIE8;ENUSMSCOM)"#) {
@@ -47,7 +47,7 @@ mod tests {
                 assert_eq!(result.name, "Internet Explorer");
                 assert_eq!(result.os, "Windows XP");
                 assert_eq!(result.os_version, "NT 5.1".to_string());
-            assert_eq!(result.version, "8.0");
+                assert_eq!(result.version, "8.0");
             }
         }
         match parser.parse(r#"Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.0; Trident/4.0)"#) {
@@ -189,7 +189,7 @@ mod tests {
                 assert_eq!(result.name, "Edge");
                 assert_eq!(result.os, "Windows 10");
                 assert_eq!(result.os_version, "NT 10.0".to_string());
-            // NOTE: skip test now
+                // NOTE: skip test now
                 //assert_eq!(result.version, "UNKNOWN");
             }
         }
@@ -200,7 +200,7 @@ mod tests {
                 assert_eq!(result.name, "Edge");
                 assert_eq!(result.os, "Windows 10");
                 assert_eq!(result.os_version, "NT 10.0".to_string());
-            // NOTE: skip test now
+                // NOTE: skip test now
                 //assert_eq!(result.version, "UNKNOWN");
             }
         }
@@ -211,7 +211,7 @@ mod tests {
                 assert_eq!(result.name, "Chrome");
                 assert_eq!(result.os, "Windows XP");
                 assert_eq!(result.os_version, "NT 5.1".to_string());
-            assert_eq!(result.version, "0.2.149.27");
+                assert_eq!(result.version, "0.2.149.27");
             }
         }
         match parser.parse(r#"Mozilla/5.0 (Windows NT 6.0; rv:9.0.1) Gecko/20100101 Firefox/9.0.1"#) {
@@ -231,7 +231,7 @@ mod tests {
                 assert_eq!(result.name, "Safari");
                 assert_eq!(result.os, "Windows XP");
                 assert_eq!(result.os_version, "NT 5.1".to_string());
-            assert_eq!(result.version, "5.1.2");
+                assert_eq!(result.version, "5.1.2");
             }
         }
         match parser.parse(r#"Opera/9.52 (Windows NT 5.1; U; ja)"#) {
@@ -251,7 +251,7 @@ mod tests {
                 assert_eq!(result.name, "Vivaldi");
                 assert_eq!(result.os, "Windows 10");
                 assert_eq!(result.os_version, "NT 10.0".to_string());
-            assert_eq!(result.version, "1.0.380.2");
+                assert_eq!(result.version, "1.0.380.2");
             }
         }
         match parser.parse(r#"Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/33.0.1750.117 Safari/537.36 OPR/20.0.1387.64"#) {
@@ -261,7 +261,7 @@ mod tests {
                 assert_eq!(result.name, "Opera");
                 assert_eq!(result.os, "Windows 8.1");
                 assert_eq!(result.os_version, "NT 6.3".to_string());
-            assert_eq!(result.version, "20.0.1387.64");
+                assert_eq!(result.version, "20.0.1387.64");
             }
         }
         match parser.parse(r#"Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; .NET CLR 1.1.4322; .NET CLR 2.0.50727; InfoPath.1) Sleipnir/2.8.0"#) {
@@ -271,7 +271,7 @@ mod tests {
                 assert_eq!(result.name, "Internet Explorer");
                 assert_eq!(result.os, "Windows XP");
                 assert_eq!(result.os_version, "NT 5.1".to_string());
-            assert_eq!(result.version, "6.0");
+                assert_eq!(result.version, "6.0");
             }
         }
         match parser.parse(r#"Mozilla/5.0 (Windows; U; Windows NT 6.0; ja-JP; rv:1.4) Gecko/20030624 Netscape/7.1 (ax)"#) {
@@ -281,7 +281,7 @@ mod tests {
                 assert_eq!(result.name, "UNKNOWN");
                 assert_eq!(result.os, "Windows Vista");
                 assert_eq!(result.os_version, "NT 6.0".to_string());
-            assert_eq!(result.version, "UNKNOWN");
+                assert_eq!(result.version, "UNKNOWN");
             }
         }
         match parser.parse(r#"Mozilla/5.0 (Windows NT 5.1; rv:8.0) Gecko/20111105 Thunderbird/8.0"#) {
@@ -301,7 +301,7 @@ mod tests {
                 assert_eq!(result.name, "Yandex Browser");
                 assert_eq!(result.os, "Windows 7");
                 assert_eq!(result.os_version, "NT 6.1".to_string());
-            assert_eq!(result.version, "18.1.1.839");
+                assert_eq!(result.version, "18.1.1.839");
             }
         }
     }
