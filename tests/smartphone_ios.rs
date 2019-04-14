@@ -108,6 +108,16 @@ mod tests {
             assert_eq!(result.version, "1.0");
             }
         }
+        match parser.parse(r#"Mozilla/5.0 (iPhone; CPU iPhone OS 10_3_2 like Mac OS X) AppleWebKit/603.2.4 (KHTML, like Gecko) Mobile/14F89 Safari/603.2.4 EdgiOS/41.1.35.1"#) {
+            None => panic!(r#"invalid parse. "Mozilla/5.0 (iPhone; CPU iPhone OS 10_3_2 like Mac OS X) AppleWebKit/603.2.4 (KHTML, like Gecko) Mobile/14F89 Safari/603.2.4 EdgiOS/41.1.35.1""#),
+            Some(result) => {
+                assert_eq!(result.category, "smartphone");
+                assert_eq!(result.name, "Edge");
+                assert_eq!(result.os, "iPhone");
+                assert_eq!(result.os_version, "10.3.2".to_string());
+            assert_eq!(result.version, "41.1.35.1");
+            }
+        }
         match parser.parse(r#"Girls/2.0 (livedoor Co.,Ltd.; Peachy 2.1; iPhone; RSS Version 2.0; +http://girls.livedoor.com/)"#) {
             None => panic!(r#"invalid parse. "Girls/2.0 (livedoor Co.,Ltd.; Peachy 2.1; iPhone; RSS Version 2.0; +http://girls.livedoor.com/)""#),
             Some(result) => {

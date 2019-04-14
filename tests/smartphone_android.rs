@@ -78,6 +78,16 @@ mod tests {
                 assert_eq!(result.version, "14.0");
             }
         }
+        match parser.parse(r#"Mozilla/5.0 (Linux; Android 8.0; Pixel XL Build/OPP3.170518.006) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.0 Mobile Safari/537.36 EdgA/41.1.35.1"#) {
+            None => panic!(r#"invalid parse. "Mozilla/5.0 (Linux; Android 8.0; Pixel XL Build/OPP3.170518.006) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.0 Mobile Safari/537.36 EdgA/41.1.35.1""#),
+            Some(result) => {
+                assert_eq!(result.category, "smartphone");
+                assert_eq!(result.name, "Edge");
+                assert_eq!(result.os, "Android");
+                assert_eq!(result.os_version, "8.0".to_string());
+            assert_eq!(result.version, "41.1.35.1");
+            }
+        }
         match parser.parse(r#"Dalvik/1.4.0 (Linux; U; Android 2.3.4; SBM009SH Build/S0008)"#) {
             None => panic!(r#"invalid parse. "Dalvik/1.4.0 (Linux; U; Android 2.3.4; SBM009SH Build/S0008)""#),
             Some(result) => {
