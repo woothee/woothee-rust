@@ -494,8 +494,8 @@ impl Parser {
         let re_trident_ver_caps = RX_TRIDENT_VERSION_PATTERN.captures(agent);
         let re_ie_mobile_caps = RX_IEMOBILE_PATTERN.captures(agent);
 
-        result.version = if re_msie_caps.is_some() {
-            re_msie_caps.unwrap().get(1).unwrap().as_str()
+        result.version = if let Some(c) = re_msie_caps {
+            c.get(1).unwrap().as_str()
         } else if re_trident_caps.is_some() && re_trident_ver_caps.is_some() {
             re_trident_ver_caps.unwrap().get(1).unwrap().as_str()
         } else if re_ie_mobile_caps.is_some() {
@@ -719,10 +719,10 @@ impl Parser {
         let mut version = VALUE_UNKNOWN;
         let docomo_caps = RX_DOCOMO_VERSION_PATTERN.captures(agent);
         let foma_caps = RX_FOMA_VERSION_PATTERN.captures(agent);
-        if docomo_caps.is_some() {
-            version = docomo_caps.unwrap().get(1).unwrap().as_str();
-        } else if foma_caps.is_some() {
-            version = foma_caps.unwrap().get(1).unwrap().as_str();
+        if let Some(c) = docomo_caps {
+            version = c.get(1).unwrap().as_str();
+        } else if let Some(c) = foma_caps {
+            version = c.get(1).unwrap().as_str();
         }
 
         if !self.populate_dataset(result, "docomo") {
@@ -740,8 +740,8 @@ impl Parser {
 
         let mut version = VALUE_UNKNOWN;
         let caps = RX_KDDI_PATTERN.captures(agent);
-        if caps.is_some() {
-            version = caps.unwrap().get(1).unwrap().as_str();
+        if let Some(c) = caps {
+            version = c.get(1).unwrap().as_str();
         }
 
         if !self.populate_dataset(result, "au") {
@@ -759,8 +759,8 @@ impl Parser {
 
         let mut version = VALUE_UNKNOWN;
         let caps = RX_SOFTBANK_PATTERN.captures(agent);
-        if caps.is_some() {
-            version = caps.unwrap().get(1).unwrap().as_str();
+        if let Some(c) = caps {
+            version = c.get(1).unwrap().as_str();
         }
 
         if !self.populate_dataset(result, "SoftBank") {
@@ -778,8 +778,8 @@ impl Parser {
 
         let mut version = VALUE_UNKNOWN;
         let caps = RX_WILLCOM_PATTERN.captures(agent);
-        if caps.is_some() {
-            version = caps.unwrap().get(1).unwrap().as_str();
+        if let Some(c) = caps {
+            version = c.get(1).unwrap().as_str();
         }
 
         if !self.populate_dataset(result, "willcom") {
@@ -797,8 +797,8 @@ impl Parser {
             }
 
             let caps = RX_JIG_PATTERN.captures(agent);
-            if caps.is_some() {
-                result.version = caps.unwrap().get(1).unwrap().as_str();
+            if let Some(c) = caps {
+                result.version = c.get(1).unwrap().as_str();
             }
             return true;
         }
@@ -949,8 +949,8 @@ impl Parser {
             "CE" => self.lookup_dataset("WinCE"),
             _ => {
                 let caps = RX_WIN_PHONE.captures(version);
-                if caps.is_some() {
-                    version = caps.unwrap().get(1).unwrap().as_str();
+                if let Some(c) = caps {
+                    version = c.get(1).unwrap().as_str();
                     self.lookup_dataset("WinPhone")
                 } else {
                     None
@@ -998,14 +998,14 @@ impl Parser {
             data = d.unwrap();
 
             let caps = RE_OSX_IPHONE_OS_VERSION.captures(agent);
-            if caps.is_some() {
-                let v = caps.unwrap().get(1).unwrap().as_str();
+            if let Some(c) = caps {
+                let v = c.get(1).unwrap().as_str();
                 version = v.replace("_", ".").into();
             }
         } else {
             let caps = RE_OSX_OS_VERSION.captures(agent);
-            if caps.is_some() {
-                let v = caps.unwrap().get(1).unwrap().as_str();
+            if let Some(c) = caps {
+                let v = c.get(1).unwrap().as_str();
                 version = v.replace("_", ".").into();
             }
         }
@@ -1027,8 +1027,8 @@ impl Parser {
         let mut os_version = "";
         let d = if agent.contains("Android") {
             let caps = RX_ANDROIDOS_OS_VERSION.captures(agent);
-            if caps.is_some() {
-                os_version = caps.unwrap().get(1).unwrap().as_str();
+            if let Some(c) = caps {
+                os_version = c.get(1).unwrap().as_str();
             }
             self.lookup_dataset("Android")
         } else {
@@ -1064,15 +1064,15 @@ impl Parser {
             self.lookup_dataset("iOS")
         } else if agent.contains("BB10") {
             let caps = RX_BLACKBERRY10_OS_VERSION.captures(agent);
-            if caps.is_some() {
-                os_version = caps.unwrap().get(1).unwrap().as_str();
+            if let Some(c) = caps {
+                os_version = c.get(1).unwrap().as_str();
             }
             result.version = VALUE_UNKNOWN;
             self.lookup_dataset("BlackBerry10")
         } else if agent.contains("BlackBerry") {
             let caps = RX_BLACKBERRY_OS_VERSION.captures(agent);
-            if caps.is_some() {
-                os_version = caps.unwrap().get(1).unwrap().as_str();
+            if let Some(c) = caps {
+                os_version = c.get(1).unwrap().as_str();
             }
             self.lookup_dataset("BlackBerry")
         } else {
@@ -1090,8 +1090,7 @@ impl Parser {
             // http://lawrencemandel.com/2012/07/27/decision-made-firefox-os-user-agent-string/
             // https://github.com/woothee/woothee/issues/2
             let caps = RX_FIREFOX_OS_PATTERN.captures(agent);
-            if caps.is_some() {
-                let c = caps.unwrap();
+            if let Some(c) = caps {
                 if c.len() > 1 {
                     d = self.lookup_dataset("FirefoxOS");
                     os_version = c.get(1).unwrap().as_str();
@@ -1116,8 +1115,8 @@ impl Parser {
     fn challenge_mobilephone<'a>(&self, agent: &'a str, result: &mut WootheeResult<'a>) -> bool {
         if agent.contains("KDDI-") {
             let caps = RX_KDDI_PATTERN.captures(agent);
-            if caps.is_some() {
-                let term = caps.unwrap().get(1).unwrap().as_str();
+            if let Some(c) = caps {
+                let term = c.get(1).unwrap().as_str();
                 let d = self.lookup_dataset("au");
                 if d.is_none() {
                     return false;
@@ -1132,8 +1131,8 @@ impl Parser {
 
         if agent.contains("WILLCOM") || agent.contains("DDIPOCKET") {
             let caps = RX_WILLCOM_PATTERN.captures(agent);
-            if caps.is_some() {
-                let term = caps.unwrap().get(1).unwrap().as_str();
+            if let Some(c) = caps {
+                let term = c.get(1).unwrap().as_str();
                 let d = self.lookup_dataset("willcom");
                 if d.is_none() {
                     return false;
@@ -1328,20 +1327,20 @@ impl Parser {
             self.lookup_dataset("Win98")
         } else if agent.contains("Macintosh; U; PPC;") || agent.contains("Mac_PowerPC") {
             let caps = RX_PPC_OS_VERSION.captures(agent);
-            if caps.is_some() {
-                result.os_version = caps.unwrap().get(1).unwrap().as_str().into();
+            if let Some(c) = caps {
+                result.os_version = c.get(1).unwrap().as_str().into();
             }
             self.lookup_dataset("MacOS")
         } else if agent.contains("X11; FreeBSD ") {
             let caps = RX_FREEBSD_OS_VERSION.captures(agent);
-            if caps.is_some() {
-                result.os_version = caps.unwrap().get(1).unwrap().as_str().into();
+            if let Some(c) = caps {
+                result.os_version = c.get(1).unwrap().as_str().into();
             }
             self.lookup_dataset("BSD")
         } else if agent.contains("X11; CrOS ") {
             let caps = RX_CHROMEOS_OS_VERSION.captures(agent);
-            if caps.is_some() {
-                result.os_version = caps.unwrap().get(1).unwrap().as_str().into();
+            if let Some(c) = caps {
+                result.os_version = c.get(1).unwrap().as_str().into();
             }
             self.lookup_dataset("ChromeOS")
         } else {
