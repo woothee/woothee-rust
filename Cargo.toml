@@ -9,6 +9,7 @@ readme = "README.md"
 description = "user-agent strings parser"
 documentation = "https://docs.rs/woothee"
 build = "build.rs"
+edition = "2018"
 
 [dependencies]
 regex = "1"

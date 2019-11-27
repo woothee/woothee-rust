@@ -2,8 +2,8 @@ use std::borrow::Cow;
 
 use regex::Regex;
 
-use dataset;
-use woothee::VALUE_UNKNOWN;
+use crate::dataset;
+use crate::woothee::VALUE_UNKNOWN;
 
 lazy_static! {
     static ref RX_CHROME_PATTERN: Regex = Regex::new(r"(?:Chrome|CrMo|CriOS)/([.0-9]+)").unwrap();
@@ -1361,7 +1361,7 @@ impl Parser {
 
 #[cfg(test)]
 mod tests {
-    use parser::Parser;
+    use crate::parser::Parser;
 
     #[test]
     fn test_parse_smoke() {

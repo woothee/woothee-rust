@@ -1,5 +1,5 @@
 // This file is auto-generated! Any changes to this file will be lost!
-use parser::WootheeResult;
+use crate::parser::WootheeResult;
 use std::collections::HashMap;
 
 lazy_static! {
