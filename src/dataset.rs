@@ -103,6 +103,18 @@ lazy_static! {
             },
         );
         dataset.insert(
+            "GSA",
+            WootheeResult {
+                name: "Google Search App",
+                browser_type: "browser",
+                category: "",
+                os: "",
+                os_version: "".into(),
+                vendor: "Google",
+                version: "",
+            },
+        );
+        dataset.insert(
             "Webview",
             WootheeResult {
                 name: "Webview",
