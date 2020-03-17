@@ -29,8 +29,12 @@ mod tests {
                 assert_eq!(result.version, "UNKNOWN");
             }
         }
-        match parser.parse(r#"DoCoMo/2.0 N905i(c100;TB;W24H16) (compatible; Googlebot-Mobile/2.1; +http://www.google.com/bot.html)"#) {
-            None => panic!(r#"invalid parse. "DoCoMo/2.0 N905i(c100;TB;W24H16) (compatible; Googlebot-Mobile/2.1; +http://www.google.com/bot.html)""#),
+        match parser.parse(
+            r#"DoCoMo/2.0 N905i(c100;TB;W24H16) (compatible; Googlebot-Mobile/2.1; +http://www.google.com/bot.html)"#,
+        ) {
+            None => panic!(
+                r#"invalid parse. "DoCoMo/2.0 N905i(c100;TB;W24H16) (compatible; Googlebot-Mobile/2.1; +http://www.google.com/bot.html)""#
+            ),
             Some(result) => {
                 assert_eq!(result.category, "crawler");
                 assert_eq!(result.name, "Googlebot Mobile");
@@ -69,8 +73,12 @@ mod tests {
                 assert_eq!(result.version, "UNKNOWN");
             }
         }
-        match parser.parse(r#"Feedfetcher-Google; (+http://www.google.com/feedfetcher.html; feed-id=000000000000000000)"#) {
-            None => panic!(r#"invalid parse. "Feedfetcher-Google; (+http://www.google.com/feedfetcher.html; feed-id=000000000000000000)""#),
+        match parser
+            .parse(r#"Feedfetcher-Google; (+http://www.google.com/feedfetcher.html; feed-id=000000000000000000)"#)
+        {
+            None => panic!(
+                r#"invalid parse. "Feedfetcher-Google; (+http://www.google.com/feedfetcher.html; feed-id=000000000000000000)""#
+            ),
             Some(result) => {
                 assert_eq!(result.category, "crawler");
                 assert_eq!(result.name, "Google Feedfetcher");

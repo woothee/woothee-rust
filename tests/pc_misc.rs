@@ -82,8 +82,12 @@ mod tests {
                 assert_eq!(result.version, "UNKNOWN");
             }
         }
-        match parser.parse(r#"Mozilla/5.0 (Macintosh; U; PPC Mac OS X 10.5; ja-JP-mac; rv:1.9.1.19) Gecko/20110420 SeaMonkey/2.0.14"#) {
-            None => panic!(r#"invalid parse. "Mozilla/5.0 (Macintosh; U; PPC Mac OS X 10.5; ja-JP-mac; rv:1.9.1.19) Gecko/20110420 SeaMonkey/2.0.14""#),
+        match parser.parse(
+            r#"Mozilla/5.0 (Macintosh; U; PPC Mac OS X 10.5; ja-JP-mac; rv:1.9.1.19) Gecko/20110420 SeaMonkey/2.0.14"#,
+        ) {
+            None => panic!(
+                r#"invalid parse. "Mozilla/5.0 (Macintosh; U; PPC Mac OS X 10.5; ja-JP-mac; rv:1.9.1.19) Gecko/20110420 SeaMonkey/2.0.14""#
+            ),
             Some(result) => {
                 assert_eq!(result.category, "pc");
                 assert_eq!(result.name, "UNKNOWN");
@@ -124,8 +128,12 @@ mod tests {
                 assert_eq!(result.version, "9.0.1");
             }
         }
-        match parser.parse(r#"Mozilla/5.0 (X11; Linux i686) AppleWebKit/535.7 (KHTML, like Gecko) Chrome/16.0.912.75 Safari/535.7"#) {
-            None => panic!(r#"invalid parse. "Mozilla/5.0 (X11; Linux i686) AppleWebKit/535.7 (KHTML, like Gecko) Chrome/16.0.912.75 Safari/535.7""#),
+        match parser.parse(
+            r#"Mozilla/5.0 (X11; Linux i686) AppleWebKit/535.7 (KHTML, like Gecko) Chrome/16.0.912.75 Safari/535.7"#,
+        ) {
+            None => panic!(
+                r#"invalid parse. "Mozilla/5.0 (X11; Linux i686) AppleWebKit/535.7 (KHTML, like Gecko) Chrome/16.0.912.75 Safari/535.7""#
+            ),
             Some(result) => {
                 assert_eq!(result.category, "pc");
                 assert_eq!(result.name, "Chrome");
@@ -155,7 +163,9 @@ mod tests {
             }
         }
         match parser.parse(r#"Mozilla/5.0 (X11; U; Linux i686; ja-JP; rv:1.8.1.23) Gecko/20090910 SeaMonkey/1.1.18"#) {
-            None => panic!(r#"invalid parse. "Mozilla/5.0 (X11; U; Linux i686; ja-JP; rv:1.8.1.23) Gecko/20090910 SeaMonkey/1.1.18""#),
+            None => panic!(
+                r#"invalid parse. "Mozilla/5.0 (X11; U; Linux i686; ja-JP; rv:1.8.1.23) Gecko/20090910 SeaMonkey/1.1.18""#
+            ),
             Some(result) => {
                 assert_eq!(result.category, "pc");
                 assert_eq!(result.name, "UNKNOWN");
@@ -186,7 +196,9 @@ mod tests {
             }
         }
         match parser.parse(r#"Opera/9.80 (X11; FreeBSD 8.2-RELEASE-p3 amd64; U; ja) Presto/2.9.168 Version/11.52"#) {
-            None => panic!(r#"invalid parse. "Opera/9.80 (X11; FreeBSD 8.2-RELEASE-p3 amd64; U; ja) Presto/2.9.168 Version/11.52""#),
+            None => panic!(
+                r#"invalid parse. "Opera/9.80 (X11; FreeBSD 8.2-RELEASE-p3 amd64; U; ja) Presto/2.9.168 Version/11.52""#
+            ),
             Some(result) => {
                 assert_eq!(result.category, "pc");
                 assert_eq!(result.name, "Opera");

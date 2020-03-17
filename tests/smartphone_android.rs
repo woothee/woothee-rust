@@ -37,8 +37,11 @@ mod tests {
                 assert_eq!(result.version, "16.0.912.75");
             }
         }
-        match parser.parse(r#"Opera/9.80 (Android; Opera Mini/6.5.27452/26.1305; U; ja) Presto/2.8.119 Version/10.54"#) {
-            None => panic!(r#"invalid parse. "Opera/9.80 (Android; Opera Mini/6.5.27452/26.1305; U; ja) Presto/2.8.119 Version/10.54""#),
+        match parser.parse(r#"Opera/9.80 (Android; Opera Mini/6.5.27452/26.1305; U; ja) Presto/2.8.119 Version/10.54"#)
+        {
+            None => panic!(
+                r#"invalid parse. "Opera/9.80 (Android; Opera Mini/6.5.27452/26.1305; U; ja) Presto/2.8.119 Version/10.54""#
+            ),
             Some(result) => {
                 assert_eq!(result.category, "smartphone");
                 assert_eq!(result.name, "Opera");

@@ -117,8 +117,22 @@ mod tests {
                 assert_eq!(result.version, "41.1.35.1");
             }
         }
-        match parser.parse(r#"Girls/2.0 (livedoor Co.,Ltd.; Peachy 2.1; iPhone; RSS Version 2.0; +http://girls.livedoor.com/)"#) {
-            None => panic!(r#"invalid parse. "Girls/2.0 (livedoor Co.,Ltd.; Peachy 2.1; iPhone; RSS Version 2.0; +http://girls.livedoor.com/)""#),
+        match parser.parse(r#"Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_1 like Mac OS X) AppleWebKit/604.1.34 (KHTML, like Gecko) GSA/41.0.178428663 Mobile/15B150 Safari/604.1"#) {
+            None => panic!(r#"invalid parse. "Mozilla/5.0 (iPhone; CPU iPhone OS 11_1_1 like Mac OS X) AppleWebKit/604.1.34 (KHTML, like Gecko) GSA/41.0.178428663 Mobile/15B150 Safari/604.1""#),
+            Some(result) => {
+                assert_eq!(result.category, "smartphone");
+                assert_eq!(result.name, "Google Search App");
+                assert_eq!(result.os, "iPhone");
+                assert_eq!(result.os_version, "11.1.1".to_string());
+                assert_eq!(result.version, "41.0.178428663");
+            }
+        }
+        match parser
+            .parse(r#"Girls/2.0 (livedoor Co.,Ltd.; Peachy 2.1; iPhone; RSS Version 2.0; +http://girls.livedoor.com/)"#)
+        {
+            None => panic!(
+                r#"invalid parse. "Girls/2.0 (livedoor Co.,Ltd.; Peachy 2.1; iPhone; RSS Version 2.0; +http://girls.livedoor.com/)""#
+            ),
             Some(result) => {
                 assert_eq!(result.category, "smartphone");
                 assert_eq!(result.name, "UNKNOWN");

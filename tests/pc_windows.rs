@@ -223,8 +223,12 @@ mod tests {
                 assert_eq!(result.version, "9.0.1");
             }
         }
-        match parser.parse(r#"Mozilla/5.0 (Windows NT 5.1) AppleWebKit/534.52.7 (KHTML, like Gecko) Version/5.1.2 Safari/534.52.7"#) {
-            None => panic!(r#"invalid parse. "Mozilla/5.0 (Windows NT 5.1) AppleWebKit/534.52.7 (KHTML, like Gecko) Version/5.1.2 Safari/534.52.7""#),
+        match parser.parse(
+            r#"Mozilla/5.0 (Windows NT 5.1) AppleWebKit/534.52.7 (KHTML, like Gecko) Version/5.1.2 Safari/534.52.7"#,
+        ) {
+            None => panic!(
+                r#"invalid parse. "Mozilla/5.0 (Windows NT 5.1) AppleWebKit/534.52.7 (KHTML, like Gecko) Version/5.1.2 Safari/534.52.7""#
+            ),
             Some(result) => {
                 assert_eq!(result.category, "pc");
                 assert_eq!(result.name, "Safari");
@@ -273,8 +277,12 @@ mod tests {
                 assert_eq!(result.version, "6.0");
             }
         }
-        match parser.parse(r#"Mozilla/5.0 (Windows; U; Windows NT 6.0; ja-JP; rv:1.4) Gecko/20030624 Netscape/7.1 (ax)"#) {
-            None => panic!(r#"invalid parse. "Mozilla/5.0 (Windows; U; Windows NT 6.0; ja-JP; rv:1.4) Gecko/20030624 Netscape/7.1 (ax)""#),
+        match parser
+            .parse(r#"Mozilla/5.0 (Windows; U; Windows NT 6.0; ja-JP; rv:1.4) Gecko/20030624 Netscape/7.1 (ax)"#)
+        {
+            None => panic!(
+                r#"invalid parse. "Mozilla/5.0 (Windows; U; Windows NT 6.0; ja-JP; rv:1.4) Gecko/20030624 Netscape/7.1 (ax)""#
+            ),
             Some(result) => {
                 assert_eq!(result.category, "pc");
                 assert_eq!(result.name, "UNKNOWN");

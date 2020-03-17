@@ -27,8 +27,11 @@ mod tests {
                 assert_eq!(result.version, "N07B");
             }
         }
-        match parser.parse(r#"Mozilla/5.0 (compatible; DoCoMo/1.0/D505i/c20/TB/W20H10; http://www.rcdtokyo.com/pc2m/)"#) {
-            None => panic!(r#"invalid parse. "Mozilla/5.0 (compatible; DoCoMo/1.0/D505i/c20/TB/W20H10; http://www.rcdtokyo.com/pc2m/)""#),
+        match parser.parse(r#"Mozilla/5.0 (compatible; DoCoMo/1.0/D505i/c20/TB/W20H10; http://www.rcdtokyo.com/pc2m/)"#)
+        {
+            None => panic!(
+                r#"invalid parse. "Mozilla/5.0 (compatible; DoCoMo/1.0/D505i/c20/TB/W20H10; http://www.rcdtokyo.com/pc2m/)""#
+            ),
             Some(result) => {
                 assert_eq!(result.category, "mobilephone");
                 assert_eq!(result.name, "docomo");

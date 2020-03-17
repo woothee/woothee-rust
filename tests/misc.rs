@@ -18,7 +18,9 @@ mod tests {
             }
         }
         match parser.parse(r#"Mozilla/5.0 (compatible; Google Desktop/5.9.1005.12335; http://desktop.google.com/)"#) {
-            None => panic!(r#"invalid parse. "Mozilla/5.0 (compatible; Google Desktop/5.9.1005.12335; http://desktop.google.com/)""#),
+            None => panic!(
+                r#"invalid parse. "Mozilla/5.0 (compatible; Google Desktop/5.9.1005.12335; http://desktop.google.com/)""#
+            ),
             Some(result) => {
                 assert_eq!(result.category, "misc");
                 assert_eq!(result.name, "Google Desktop");
@@ -288,7 +290,9 @@ mod tests {
             }
         }
         match parser.parse(r#"HTTP_Request2/2.1.1 (http://pear.php.net/package/http_request2) PHP/5.3.10-1ubuntu3.6"#) {
-            None => panic!(r#"invalid parse. "HTTP_Request2/2.1.1 (http://pear.php.net/package/http_request2) PHP/5.3.10-1ubuntu3.6""#),
+            None => panic!(
+                r#"invalid parse. "HTTP_Request2/2.1.1 (http://pear.php.net/package/http_request2) PHP/5.3.10-1ubuntu3.6""#
+            ),
             Some(result) => {
                 assert_eq!(result.category, "misc");
                 assert_eq!(result.name, "HTTP Library");

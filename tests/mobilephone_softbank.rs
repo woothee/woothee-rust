@@ -47,8 +47,12 @@ mod tests {
                 assert_eq!(result.version, "821SC");
             }
         }
-        match parser.parse(r#"Vodafone/1.0/V905SH/SHJ001 Browser/VF-NetFront/3.3 Profile/MIDP-2.0 Configuration/CLDC-1.1"#) {
-            None => panic!(r#"invalid parse. "Vodafone/1.0/V905SH/SHJ001 Browser/VF-NetFront/3.3 Profile/MIDP-2.0 Configuration/CLDC-1.1""#),
+        match parser
+            .parse(r#"Vodafone/1.0/V905SH/SHJ001 Browser/VF-NetFront/3.3 Profile/MIDP-2.0 Configuration/CLDC-1.1"#)
+        {
+            None => panic!(
+                r#"invalid parse. "Vodafone/1.0/V905SH/SHJ001 Browser/VF-NetFront/3.3 Profile/MIDP-2.0 Configuration/CLDC-1.1""#
+            ),
             Some(result) => {
                 assert_eq!(result.category, "mobilephone");
                 assert_eq!(result.name, "SoftBank Mobile");

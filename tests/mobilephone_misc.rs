@@ -97,8 +97,12 @@ mod tests {
                 assert_eq!(result.version, "Google");
             }
         }
-        match parser.parse(r#"Mozilla/5.0 (compatible; livedoor-Mobile-Gateway/0.02; +http://p.m.livedoor.com/help.html)"#) {
-            None => panic!(r#"invalid parse. "Mozilla/5.0 (compatible; livedoor-Mobile-Gateway/0.02; +http://p.m.livedoor.com/help.html)""#),
+        match parser
+            .parse(r#"Mozilla/5.0 (compatible; livedoor-Mobile-Gateway/0.02; +http://p.m.livedoor.com/help.html)"#)
+        {
+            None => panic!(
+                r#"invalid parse. "Mozilla/5.0 (compatible; livedoor-Mobile-Gateway/0.02; +http://p.m.livedoor.com/help.html)""#
+            ),
             Some(result) => {
                 assert_eq!(result.category, "mobilephone");
                 assert_eq!(result.name, "Mobile Transcoder");

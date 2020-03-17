@@ -8,7 +8,9 @@ mod tests {
         let parser = Parser::new();
 
         match parser.parse(r#"Mozilla/5.0 (compatible; Yahoo! Slurp; http://help.yahoo.com/help/us/ysearch/slurp)"#) {
-            None => panic!(r#"invalid parse. "Mozilla/5.0 (compatible; Yahoo! Slurp; http://help.yahoo.com/help/us/ysearch/slurp)""#),
+            None => panic!(
+                r#"invalid parse. "Mozilla/5.0 (compatible; Yahoo! Slurp; http://help.yahoo.com/help/us/ysearch/slurp)""#
+            ),
             Some(result) => {
                 assert_eq!(result.category, "crawler");
                 assert_eq!(result.name, "Yahoo! Slurp");
@@ -17,8 +19,11 @@ mod tests {
                 assert_eq!(result.version, "UNKNOWN");
             }
         }
-        match parser.parse(r#"Mozilla/5.0 (compatible; Yahoo! Slurp/3.0; http://help.yahoo.com/help/us/ysearch/slurp)"#) {
-            None => panic!(r#"invalid parse. "Mozilla/5.0 (compatible; Yahoo! Slurp/3.0; http://help.yahoo.com/help/us/ysearch/slurp)""#),
+        match parser.parse(r#"Mozilla/5.0 (compatible; Yahoo! Slurp/3.0; http://help.yahoo.com/help/us/ysearch/slurp)"#)
+        {
+            None => panic!(
+                r#"invalid parse. "Mozilla/5.0 (compatible; Yahoo! Slurp/3.0; http://help.yahoo.com/help/us/ysearch/slurp)""#
+            ),
             Some(result) => {
                 assert_eq!(result.category, "crawler");
                 assert_eq!(result.name, "Yahoo! Slurp");
@@ -47,8 +52,11 @@ mod tests {
                 assert_eq!(result.version, "UNKNOWN");
             }
         }
-        match parser.parse(r#"Y!J-BRJ/YATS crawler (http://listing.yahoo.co.jp/support/faq/int/other/other_001.html)"#) {
-            None => panic!(r#"invalid parse. "Y!J-BRJ/YATS crawler (http://listing.yahoo.co.jp/support/faq/int/other/other_001.html)""#),
+        match parser.parse(r#"Y!J-BRJ/YATS crawler (http://listing.yahoo.co.jp/support/faq/int/other/other_001.html)"#)
+        {
+            None => panic!(
+                r#"invalid parse. "Y!J-BRJ/YATS crawler (http://listing.yahoo.co.jp/support/faq/int/other/other_001.html)""#
+            ),
             Some(result) => {
                 assert_eq!(result.category, "crawler");
                 assert_eq!(result.name, "Yahoo! Japan");
@@ -57,8 +65,11 @@ mod tests {
                 assert_eq!(result.version, "UNKNOWN");
             }
         }
-        match parser.parse(r#"Y!J-BRJ/YATS crawler (http://help.yahoo.co.jp/help/jp/search/indexing/indexing-15.html)"#) {
-            None => panic!(r#"invalid parse. "Y!J-BRJ/YATS crawler (http://help.yahoo.co.jp/help/jp/search/indexing/indexing-15.html)""#),
+        match parser.parse(r#"Y!J-BRJ/YATS crawler (http://help.yahoo.co.jp/help/jp/search/indexing/indexing-15.html)"#)
+        {
+            None => panic!(
+                r#"invalid parse. "Y!J-BRJ/YATS crawler (http://help.yahoo.co.jp/help/jp/search/indexing/indexing-15.html)""#
+            ),
             Some(result) => {
                 assert_eq!(result.category, "crawler");
                 assert_eq!(result.name, "Yahoo! Japan");
@@ -108,7 +119,9 @@ mod tests {
             }
         }
         match parser.parse(r#"Mozilla/5.0 (compatible; Baiduspider/2.0; +http://www.baidu.com/search/spider.html)"#) {
-            None => panic!(r#"invalid parse. "Mozilla/5.0 (compatible; Baiduspider/2.0; +http://www.baidu.com/search/spider.html)""#),
+            None => panic!(
+                r#"invalid parse. "Mozilla/5.0 (compatible; Baiduspider/2.0; +http://www.baidu.com/search/spider.html)""#
+            ),
             Some(result) => {
                 assert_eq!(result.category, "crawler");
                 assert_eq!(result.name, "Baiduspider");
@@ -199,8 +212,12 @@ mod tests {
                 assert_eq!(result.version, "UNKNOWN");
             }
         }
-        match parser.parse(r#"Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/534+ (KHTML, like Gecko) BingPreview/1.0b"#) {
-            None => panic!(r#"invalid parse. "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/534+ (KHTML, like Gecko) BingPreview/1.0b""#),
+        match parser
+            .parse(r#"Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/534+ (KHTML, like Gecko) BingPreview/1.0b"#)
+        {
+            None => panic!(
+                r#"invalid parse. "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/534+ (KHTML, like Gecko) BingPreview/1.0b""#
+            ),
             Some(result) => {
                 assert_eq!(result.category, "crawler");
                 assert_eq!(result.name, "BingPreview");
@@ -316,7 +333,9 @@ mod tests {
             }
         }
         match parser.parse(r#"rogerbot/1.0 (http://www.seomoz.org/dp/rogerbot, rogerbot-crawler+shiny@seomoz.org)"#) {
-            None => panic!(r#"invalid parse. "rogerbot/1.0 (http://www.seomoz.org/dp/rogerbot, rogerbot-crawler+shiny@seomoz.org)""#),
+            None => panic!(
+                r#"invalid parse. "rogerbot/1.0 (http://www.seomoz.org/dp/rogerbot, rogerbot-crawler+shiny@seomoz.org)""#
+            ),
             Some(result) => {
                 assert_eq!(result.category, "crawler");
                 assert_eq!(result.name, "SeoMoz rogerbot");

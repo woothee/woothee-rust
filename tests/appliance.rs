@@ -92,7 +92,9 @@ mod tests {
             }
         }
         match parser.parse(r#"Mozilla/5.0 (PlayStation Vita 1.51) AppleWebKit/531.22.8 (KHTML, like Gecko) Silk/3.2"#) {
-            None => panic!(r#"invalid parse. "Mozilla/5.0 (PlayStation Vita 1.51) AppleWebKit/531.22.8 (KHTML, like Gecko) Silk/3.2""#),
+            None => panic!(
+                r#"invalid parse. "Mozilla/5.0 (PlayStation Vita 1.51) AppleWebKit/531.22.8 (KHTML, like Gecko) Silk/3.2""#
+            ),
             Some(result) => {
                 assert_eq!(result.category, "appliance");
                 assert_eq!(result.name, "PlayStation Vita");
@@ -135,8 +137,12 @@ mod tests {
                 assert_eq!(result.version, "UNKNOWN");
             }
         }
-        match parser.parse(r#"Mozilla/5.0 (DTV; TVwithVideoPlayer) NetFront/4.1 InettvBrowser/2.2 (08001F;DTV04VSFC3;0001;0001)"#) {
-            None => panic!(r#"invalid parse. "Mozilla/5.0 (DTV; TVwithVideoPlayer) NetFront/4.1 InettvBrowser/2.2 (08001F;DTV04VSFC3;0001;0001)""#),
+        match parser.parse(
+            r#"Mozilla/5.0 (DTV; TVwithVideoPlayer) NetFront/4.1 InettvBrowser/2.2 (08001F;DTV04VSFC3;0001;0001)"#,
+        ) {
+            None => panic!(
+                r#"invalid parse. "Mozilla/5.0 (DTV; TVwithVideoPlayer) NetFront/4.1 InettvBrowser/2.2 (08001F;DTV04VSFC3;0001;0001)""#
+            ),
             Some(result) => {
                 assert_eq!(result.category, "appliance");
                 assert_eq!(result.name, "InternetTVBrowser");

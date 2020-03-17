@@ -92,8 +92,12 @@ mod tests {
                 assert_eq!(result.version, "UNKNOWN");
             }
         }
-        match parser.parse(r#"Mozilla/5.0 (compatible; PaperLiBot/2.1; http://support.paper.li/entries/20023257-what-is-paper-li)"#) {
-            None => panic!(r#"invalid parse. "Mozilla/5.0 (compatible; PaperLiBot/2.1; http://support.paper.li/entries/20023257-what-is-paper-li)""#),
+        match parser.parse(
+            r#"Mozilla/5.0 (compatible; PaperLiBot/2.1; http://support.paper.li/entries/20023257-what-is-paper-li)"#,
+        ) {
+            None => panic!(
+                r#"invalid parse. "Mozilla/5.0 (compatible; PaperLiBot/2.1; http://support.paper.li/entries/20023257-what-is-paper-li)""#
+            ),
             Some(result) => {
                 assert_eq!(result.category, "crawler");
                 assert_eq!(result.name, "misc crawler");
@@ -224,8 +228,12 @@ mod tests {
                 assert_eq!(result.version, "UNKNOWN");
             }
         }
-        match parser.parse(r#"SimplePie/1.3-dev (Feed Parser; http://simplepie.org; Allow like Gecko) Build/20111118194710"#) {
-            None => panic!(r#"invalid parse. "SimplePie/1.3-dev (Feed Parser; http://simplepie.org; Allow like Gecko) Build/20111118194710""#),
+        match parser
+            .parse(r#"SimplePie/1.3-dev (Feed Parser; http://simplepie.org; Allow like Gecko) Build/20111118194710"#)
+        {
+            None => panic!(
+                r#"invalid parse. "SimplePie/1.3-dev (Feed Parser; http://simplepie.org; Allow like Gecko) Build/20111118194710""#
+            ),
             Some(result) => {
                 assert_eq!(result.category, "crawler");
                 assert_eq!(result.name, "misc crawler");
