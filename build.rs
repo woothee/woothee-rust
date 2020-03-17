@@ -195,7 +195,7 @@ mod inner {
                 Err(e) => panic!("glob error. {:?}", e),
             };
 
-            let testname = filename.split('.').collect()[0];
+            let testname = filename.split('.').collect::<Vec<&str>>()[0];
             context.insert("test_fnname", &testname);
 
             let yaml_file = woothee_dir.join(Path::new(format!("testsets/{}", filename.as_str()).as_str()));
