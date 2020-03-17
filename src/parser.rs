@@ -26,6 +26,7 @@ lazy_static! {
     static ref RX_OPERA_VERSION_PATTERN1: Regex = Regex::new(r"Version/([.0-9]+)").unwrap();
     static ref RX_OPERA_VERSION_PATTERN2: Regex = Regex::new(r"Opera[/ ]([.0-9]+)").unwrap();
     static ref RX_OPERA_VERSION_PATTERN3: Regex = Regex::new(r"OPR/([.0-9]+)").unwrap();
+    static ref RX_GSA_VERSION_PATTERN: Regex = Regex::new(r"GSA/([.0-9]+)").unwrap();
     static ref RX_SAFARI_PATTERN: Regex = Regex::new(r"Version/([.0-9]+)").unwrap();
     static ref RX_SOFTBANK_PATTERN: Regex = Regex::new(r"(?:SoftBank|Vodafone|J-PHONE)/[.0-9]+/([^ /;()]+)").unwrap();
     static ref RX_TRIDENT_PATTERN: Regex = Regex::new(r"Trident/([.0-9]+);").unwrap();
@@ -625,6 +626,16 @@ impl Parser {
             Some(caps) => caps.get(1).unwrap().as_str(),
             None => VALUE_UNKNOWN,
         };
+
+        if agent.contains("GSA") {
+            if let Some(caps) = RX_GSA_VERSION_PATTERN.captures(agent) {
+                result.version = caps.get(1).unwrap().as_str();
+                if !self.populate_dataset(result, "GSA") {
+                    return false;
+                }
+                return true;
+            }
+        }
 
         if !self.populate_dataset(result, "Safari") {
             return false;
