@@ -4,10 +4,10 @@
 extern crate lazy_static;
 extern crate test;
 
+use fast_uaparser::UserAgent;
 use test::{black_box, Bencher};
 use uap_rust::parser as uap;
 use uaparser::*;
-use fast_uaparser::UserAgent;
 use woothee::parser as woo;
 
 lazy_static! {
