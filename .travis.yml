@@ -5,7 +5,6 @@ rust:
     - stable
 
 cache: cargo
-sudo: false
 
 script:
     - cargo build --verbose $FEATURES
