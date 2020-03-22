@@ -10,9 +10,8 @@ mod inner {
     extern crate tempdir;
     extern crate tera;
     extern crate yaml_rust;
-    use self::serde_json::value::{to_value, Value};
-    use self::tera::Result;
-    use self::tera::{try_get_value, Context, Tera};
+    use self::serde_json::value::{from_value, to_value, Value};
+    use self::tera::{Context, Result, Tera};
     use self::yaml_rust::YamlLoader;
     use std::collections::HashMap;
     use std::env;
@@ -60,8 +59,16 @@ mod inner {
         }
     }
 
-    fn is_skip_test_for_version(value: Value, _: HashMap<String, Value>) -> Result<Value> {
-        let name = try_get_value!("is_skip_test_for_version", "value", String, value);
+    fn is_skip_test_for_version(args: &HashMap<String, Value>) -> Result<Value> {
+        let name = match args.get("name") {
+            Some(val) => match from_value::<String>(val.clone()) {
+                Ok(v) => v,
+                Err(_) => {
+                    return Err("uasge: is_skip_test_for_version(name='your test name')".into());
+                }
+            },
+            None => "".to_string(),
+        };
         let mut is_skip = false;
         for test_name in vec![
             r#"Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Trident/5.0; Xbox)"#,
@@ -78,8 +85,16 @@ mod inner {
         Ok(to_value(is_skip).unwrap())
     }
 
-    fn is_skip_test_for_os_version(value: Value, _: HashMap<String, Value>) -> Result<Value> {
-        let name = try_get_value!("is_skip_test_for_os_version", "value", String, value);
+    fn is_skip_test_for_os_version(args: &HashMap<String, Value>) -> Result<Value> {
+        let name = match args.get("name") {
+            Some(val) => match from_value::<String>(val.clone()) {
+                Ok(v) => v,
+                Err(_) => {
+                    return Err("uasge: is_skip_test_for_os_version(name='your test name')".into());
+                }
+            },
+            None => "".to_string(),
+        };
         let mut is_skip = false;
         for test_name in vec![
             r#"Mozilla/5.0 (Windows; U; Windows NT 6.0; en-US; aggregator VocusBot 0.4; +http://www.vocus.com/vnhs.html)"#,
@@ -277,8 +292,8 @@ mod inner {
                 context.insert("tests", &tests);
             }
 
-            template_engine.register_filter("is_skip_test_for_version", is_skip_test_for_version);
-            template_engine.register_filter("is_skip_test_for_os_version", is_skip_test_for_os_version);
+            template_engine.register_function("is_skip_test_for_version", is_skip_test_for_version);
+            template_engine.register_function("is_skip_test_for_os_version", is_skip_test_for_os_version);
             let output = match template_engine.render("tests.tmpl", &context) {
                 Ok(ret) => ret,
                 Err(e) => panic!("tera.render() error. {}", e),

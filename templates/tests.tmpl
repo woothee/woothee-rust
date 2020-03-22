@@ -8,8 +8,7 @@ mod tests {
         let parser = Parser::new();
 
         {% for test in tests -%}
-            {%- set skip_version_test = test.target | is_skip_test_for_version -%}
-            {%- set skip_os_version_test = test.target | is_skip_test_for_os_version -%}
+            {%- set skip_version_test = is_skip_test_for_version(name=test.target) -%}
         match parser.parse(r#"{{test.target}}"#) {
             None => panic!(r#"invalid parse. "{{test.target}}""#),
             Some(result) => {
@@ -27,14 +26,14 @@ mod tests {
                 {% else -%}assert_eq!(result.os, "UNKNOWN");
                 {% endif -%}
                 {% if test.os_version -%}
-            {%- if skip_os_version_test == true -%}
+            {%- if is_skip_test_for_os_version(name=test.target) -%}
                 // NOTE: skip test now
                 //assert_eq!(result.os_version, "{{test.os_version}}".to_string());
             {% else -%}
                 assert_eq!(result.os_version, "{{test.os_version}}".to_string());
             {% endif -%}
             {% else -%}
-            {%- if skip_os_version_test == true -%}
+            {%- if is_skip_test_for_os_version(name=test.target) -%}
                 // NOTE: skip test now
                 //assert_eq!(result.os_version, "UNKNOWN".to_string());
             {% else -%}
@@ -43,14 +42,14 @@ mod tests {
             {% endif -%}
 
                 {% if test.version -%}
-            {%- if skip_version_test == true -%}
+            {%- if is_skip_test_for_version(name=test.target) -%}
                 {{ "    " }}// NOTE: skip test now
                 //assert_eq!(result.version, "{{test.version}}");
             {% else -%}
                 {{ "    " }}assert_eq!(result.version, "{{test.version}}");
             {% endif -%}
             {% else -%}
-            {% if skip_version_test == true -%}
+            {% if is_skip_test_for_version(name=test.target) -%}
                 {{ "    " }}// NOTE: skip test now
                 //assert_eq!(result.version, "UNKNOWN");
             {% else -%}
