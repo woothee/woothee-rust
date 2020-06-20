@@ -497,8 +497,12 @@ impl Parser {
 
         result.version = if let Some(c) = re_msie_caps {
             c.get(1).unwrap().as_str()
-        } else if re_trident_caps.is_some() && re_trident_ver_caps.is_some() {
-            re_trident_ver_caps.unwrap().get(1).unwrap().as_str()
+        } else if re_trident_caps.is_some() {
+            if let Some(caps) = re_trident_ver_caps {
+                caps.get(1).unwrap().as_str()
+            } else {
+                VALUE_UNKNOWN
+            }
         } else if re_ie_mobile_caps.is_some() {
             re_ie_mobile_caps.unwrap().get(1).unwrap().as_str()
         } else {
