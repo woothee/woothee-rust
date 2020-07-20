@@ -1,4 +1,4 @@
-# woothee-rust [![](https://travis-ci.org/woothee/woothee-rust.svg?branch=master)](https://travis-ci.org/woothee/woothee-rust) [![Latest Version](https://img.shields.io/crates/v/woothee.svg)](https://crates.io/crates/woothee)
+# woothee-rust [![Rust](https://github.com/woothee/woothee-rust/workflows/Rust/badge.svg)](https://github.com/woothee/woothee-rust/actions) [![Latest Version](https://img.shields.io/crates/v/woothee.svg)](https://crates.io/crates/woothee)
 
 The Rust implementation of [Project Woothee](https://github.com/woothee/woothee),
 which is multi-language user-agent strings parsers.
