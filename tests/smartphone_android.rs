@@ -130,5 +130,15 @@ mod tests {
                 assert_eq!(result.version, "72.0.3626.105");
             }
         }
+        match parser.parse(r#"Mozilla/5.0 (Linux; Android 5.0.2; SAMSUNG SM-G925F Build/LRX22G) AppleWebKit/537.36 (KHTML, like Gecko) SamsungBrowser/4.0 Chrome/44.0.2403.133 Mobile Safari/537.36"#) {
+            None => panic!(r#"invalid parse. "Mozilla/5.0 (Linux; Android 5.0.2; SAMSUNG SM-G925F Build/LRX22G) AppleWebKit/537.36 (KHTML, like Gecko) SamsungBrowser/4.0 Chrome/44.0.2403.133 Mobile Safari/537.36""#),
+            Some(result) => {
+                assert_eq!(result.category, "smartphone");
+                assert_eq!(result.name, "SamsungBrowser");
+                assert_eq!(result.os, "Android");
+                assert_eq!(result.os_version, "5.0.2".to_string());
+                assert_eq!(result.version, "4.0");
+            }
+        }
     }
 }
