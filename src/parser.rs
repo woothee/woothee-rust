@@ -57,6 +57,7 @@ lazy_static! {
     static ref RX_PEAR: Regex = Regex::new(r"(?:PEAR HTTP_Request|HTTP_Request)(?: class|2)").unwrap();
     static ref RX_MAYBE_CRAWLER_OTHER: Regex =
         Regex::new(r"(?:Rome Client |UnwindFetchor/|ia_archiver |Summify |PostRank/)").unwrap();
+    static ref RX_SAMSUNG_BROWSER: Regex = Regex::new(r"SamsungBrowser/([.0-9]+)").unwrap();
     static ref RE_SLEIPNIR_VERSION: Regex = Regex::new(r"Sleipnir/([.0-9]+)").unwrap();
     static ref RX_YABROWSER_VERSION: Regex = Regex::new(r"YaBrowser/(\d+\.\d+\.\d+\.\d+)").unwrap();
 }
@@ -237,6 +238,10 @@ impl Parser {
             return true;
         }
 
+        if self.challenge_samsung(agent, result) {
+            return true;
+        }
+
         if self.challenge_safari_chrome(agent, result) {
             return true;
         }
@@ -337,6 +342,14 @@ impl Parser {
                 return self.populate_dataset(result, "GoogleBotMobile");
             }
             return self.populate_dataset(result, "GoogleBot");
+        }
+
+        if agent.contains("compatible; AdsBot-Google-Mobile;") {
+            return self.populate_dataset(result, "AdsBotGoogleMobile");
+        }
+
+        if agent.starts_with("AdsBot-Google") {
+            return self.populate_dataset(result, "AdsBotGoogle");
         }
 
         if agent.contains("Googlebot-Image/") {
@@ -1219,6 +1232,22 @@ impl Parser {
         }
 
         false
+    }
+
+    fn challenge_samsung<'a>(&self, agent: &'a str, result: &mut WootheeResult<'a>) -> bool {
+        if !agent.contains("SamsungBrowser/") {
+            return false
+        }
+
+        let version = match RX_SAMSUNG_BROWSER.captures(agent) {
+            Some(caps) => caps.get(1).unwrap().as_str(),
+            None => VALUE_UNKNOWN,
+        };
+
+        self.populate_dataset(result, "SamsungBrowser");
+        result.version = version;
+
+        true
     }
 
     fn challenge_sleipnir<'a>(&self, agent: &'a str, result: &mut WootheeResult<'a>) -> bool {
