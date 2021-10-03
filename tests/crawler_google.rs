@@ -117,5 +117,25 @@ mod tests {
                 assert_eq!(result.version, "UNKNOWN");
             }
         }
+        match parser.parse(r#"Mozilla/5.0 (Linux; Android 5.0; SM-G920A) AppleWebKit (KHTML, like Gecko) Chrome Mobile Safari (compatible; AdsBot-Google-Mobile; +http://www.google.com/mobile/adsbot.html)"#) {
+            None => panic!(r#"invalid parse. "Mozilla/5.0 (Linux; Android 5.0; SM-G920A) AppleWebKit (KHTML, like Gecko) Chrome Mobile Safari (compatible; AdsBot-Google-Mobile; +http://www.google.com/mobile/adsbot.html)""#),
+            Some(result) => {
+                assert_eq!(result.category, "crawler");
+                assert_eq!(result.name, "AdsBot-Google-Mobile");
+                assert_eq!(result.os, "UNKNOWN");
+                assert_eq!(result.os_version, "UNKNOWN".to_string());
+                assert_eq!(result.version, "UNKNOWN");
+            }
+        }
+        match parser.parse(r#"AdsBot-Google (+http://www.google.com/adsbot.html)"#) {
+            None => panic!(r#"invalid parse. "AdsBot-Google (+http://www.google.com/adsbot.html)""#),
+            Some(result) => {
+                assert_eq!(result.category, "crawler");
+                assert_eq!(result.name, "AdsBot-Google");
+                assert_eq!(result.os, "UNKNOWN");
+                assert_eq!(result.os_version, "UNKNOWN".to_string());
+                assert_eq!(result.version, "UNKNOWN");
+            }
+        }
     }
 }

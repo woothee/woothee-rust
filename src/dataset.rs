@@ -139,6 +139,18 @@ lazy_static! {
             },
         );
         dataset.insert(
+            "SamsungBrowser",
+            WootheeResult {
+                name: "SamsungBrowser",
+                browser_type: "browser",
+                category: "",
+                os: "",
+                os_version: "".into(),
+                vendor: "Samsung",
+                version: "",
+            },
+        );
+        dataset.insert(
             "Win",
             WootheeResult {
                 name: "Windows UNKNOWN Ver",
@@ -1102,6 +1114,30 @@ lazy_static! {
             "VariousCrawler",
             WootheeResult {
                 name: "misc crawler",
+                browser_type: "full",
+                category: "crawler",
+                os: "",
+                os_version: "".into(),
+                vendor: "",
+                version: "",
+            },
+        );
+        dataset.insert(
+            "AdsBotGoogleMobile",
+            WootheeResult {
+                name: "AdsBot-Google-Mobile",
+                browser_type: "full",
+                category: "crawler",
+                os: "",
+                os_version: "".into(),
+                vendor: "",
+                version: "",
+            },
+        );
+        dataset.insert(
+            "AdsBotGoogle",
+            WootheeResult {
+                name: "AdsBot-Google",
                 browser_type: "full",
                 category: "crawler",
                 os: "",
