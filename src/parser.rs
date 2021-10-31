@@ -47,9 +47,9 @@ lazy_static! {
     static ref RX_PS4_OS_VERSION: Regex = Regex::new(r"PlayStation 4 ([.0-9]+)\)").unwrap();
     static ref RX_BLACKBERRY10_OS_VERSION: Regex = Regex::new(r"BB10(?:.+)Version/([.0-9]+) ").unwrap();
     static ref RX_BLACKBERRY_OS_VERSION: Regex = Regex::new(r"BlackBerry(?:\d+)/([.0-9]+) ").unwrap();
-    static ref RE_OSX_IPHONE_OS_VERSION: Regex =
+    static ref RX_OSX_IPHONE_OS_VERSION: Regex =
         Regex::new(r"; CPU(?: iPhone)? OS (\d+_\d+(?:_\d+)?) like Mac OS X").unwrap();
-    static ref RE_OSX_OS_VERSION: Regex = Regex::new(r"Mac OS X (10[._]\d+(?:[._]\d+)?)(?:\)|;)").unwrap();
+    static ref RX_OSX_OS_VERSION: Regex = Regex::new(r"Mac OS X (10[._]\d+(?:[._]\d+)?)(?:\)|;)").unwrap();
     static ref RX_HTTP_CLIENT: Regex =
         Regex::new(r"^(?:Apache-HttpClient/|Jakarta Commons-HttpClient/|Java/)").unwrap();
     static ref RX_HTTP_CLIENT_OTHER: Regex = Regex::new(r"[- ]HttpClient(/|$)").unwrap();
@@ -58,7 +58,7 @@ lazy_static! {
     static ref RX_MAYBE_CRAWLER_OTHER: Regex =
         Regex::new(r"(?:Rome Client |UnwindFetchor/|ia_archiver |Summify |PostRank/)").unwrap();
     static ref RX_SAMSUNG_BROWSER: Regex = Regex::new(r"SamsungBrowser/([.0-9]+)").unwrap();
-    static ref RE_SLEIPNIR_VERSION: Regex = Regex::new(r"Sleipnir/([.0-9]+)").unwrap();
+    static ref RX_SLEIPNIR_VERSION: Regex = Regex::new(r"Sleipnir/([.0-9]+)").unwrap();
     static ref RX_YABROWSER_VERSION: Regex = Regex::new(r"YaBrowser/(\d+\.\d+\.\d+\.\d+)").unwrap();
 }
 
@@ -1025,13 +1025,13 @@ impl Parser {
             }
             data = d.unwrap();
 
-            let caps = RE_OSX_IPHONE_OS_VERSION.captures(agent);
+            let caps = RX_OSX_IPHONE_OS_VERSION.captures(agent);
             if let Some(c) = caps {
                 let v = c.get(1).unwrap().as_str();
                 version = v.replace("_", ".").into();
             }
         } else {
-            let caps = RE_OSX_OS_VERSION.captures(agent);
+            let caps = RX_OSX_OS_VERSION.captures(agent);
             if let Some(c) = caps {
                 let v = c.get(1).unwrap().as_str();
                 version = v.replace("_", ".").into();
@@ -1255,7 +1255,7 @@ impl Parser {
             return false;
         }
 
-        let version = match RE_SLEIPNIR_VERSION.captures(agent) {
+        let version = match RX_SLEIPNIR_VERSION.captures(agent) {
             Some(caps) => caps.get(1).unwrap().as_str(),
             None => VALUE_UNKNOWN,
         };
