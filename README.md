@@ -47,7 +47,7 @@ generate code from woothee/woothee dataset & testsets.
 
 ```
 $ cargo build --features=generate
-$ cargo fmt
+$ cargo +nightly fmt
 $ cargo test    # and code review!!!
 ```
 
