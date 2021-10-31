@@ -70,6 +70,16 @@ mod tests {
                 assert_eq!(result.version, "14.0");
             }
         }
+        match parser.parse(r#"Mozilla/5.0 (Android 11; Mobile; rv:93.0) Gecko/93.0 Firefox/93.0"#) {
+            None => panic!(r#"invalid parse. "Mozilla/5.0 (Android 11; Mobile; rv:93.0) Gecko/93.0 Firefox/93.0""#),
+            Some(result) => {
+                assert_eq!(result.category, "smartphone");
+                assert_eq!(result.name, "Firefox");
+                assert_eq!(result.os, "Android");
+                assert_eq!(result.os_version, "11".to_string());
+                assert_eq!(result.version, "93.0");
+            }
+        }
         match parser.parse(r#"Mozilla/5.0 (Android; Tablet; rv:14.0) Gecko/14.0 Firefox/14.0"#) {
             None => panic!(r#"invalid parse. "Mozilla/5.0 (Android; Tablet; rv:14.0) Gecko/14.0 Firefox/14.0""#),
             Some(result) => {
