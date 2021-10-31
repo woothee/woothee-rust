@@ -1276,7 +1276,6 @@ impl Parser {
     }
 
     fn challenge_http_library(&self, agent: &str, result: &mut WootheeResult) -> bool {
-        // TODO: wip
         let mut version = "";
 
         if RX_HTTP_CLIENT.is_match(agent)
