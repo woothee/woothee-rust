@@ -1087,6 +1087,10 @@ impl Parser {
         } else if agent.contains("iPod") {
             self.lookup_dataset("iPod")
         } else if agent.contains("Android") {
+            let caps = RX_ANDROIDOS_OS_VERSION.captures(agent);
+            if let Some(c) = caps {
+                os_version = c.get(1).unwrap().as_str();
+            }
             self.lookup_dataset("Android")
         } else if agent.contains("CFNetwork") {
             self.lookup_dataset("iOS")
