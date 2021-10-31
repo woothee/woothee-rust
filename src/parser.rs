@@ -1236,7 +1236,7 @@ impl Parser {
 
     fn challenge_samsung<'a>(&self, agent: &'a str, result: &mut WootheeResult<'a>) -> bool {
         if !agent.contains("SamsungBrowser/") {
-            return false
+            return false;
         }
 
         let version = match RX_SAMSUNG_BROWSER.captures(agent) {
