@@ -25,12 +25,12 @@ path = "benches/benchmark.rs"
 
 [features]
 default = []
-generate = ["yaml-rust", "tera", "tempdir", "glob", "serde", "serde_json", "serde_derive"]
+generate = ["yaml-rust", "tera", "tempfile", "glob", "serde", "serde_json", "serde_derive"]
 
 [build-dependencies]
 tera = { version = "1", optional = true }
 yaml-rust = { version = "0.4", optional = true }
-tempdir = { version = "0.3", optional = true }
+tempfile = { version = "3", optional = true }
 glob = { version = "0.3.0", optional = true }
 serde = { version = "1.0", optional = true }
 serde_json = { version = "1.0", optional = true }

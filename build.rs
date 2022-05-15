@@ -7,7 +7,7 @@ mod inner {
     extern crate glob;
     extern crate serde;
     extern crate serde_json;
-    extern crate tempdir;
+    extern crate tempfile;
     extern crate tera;
     extern crate yaml_rust;
     use self::serde_json::value::{from_value, to_value, Value};
@@ -307,7 +307,7 @@ mod inner {
         let root_path = env::current_dir().unwrap();
 
         // git clone in tempdir
-        let dir = tempdir::TempDir::new("fooo").unwrap();
+        let dir = tempfile::TempDir::new().unwrap();
         let mut curdir = dir.path();
         match env::set_current_dir(&mut curdir) {
             Err(e) => panic!("set_current_dir() error. {}", e),
