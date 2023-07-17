@@ -35,7 +35,8 @@ lazy_static! {
     static ref RX_WILLCOM_PATTERN: Regex = Regex::new(r"(?:WILLCOM|DDIPOCKET);[^/]+/([^ /;()]+)").unwrap();
     static ref RX_WINDOWS_VERSION_PATTERN: Regex = Regex::new(r"Windows ([ .a-zA-Z0-9]+)[;\\)]").unwrap();
     static ref RX_WIN_PHONE: Regex = Regex::new(r"^Phone(?: OS)? ([.0-9]+)").unwrap();
-    static ref RX_WEBVIEW_PATTERN: Regex = Regex::new(r"iP(hone;|ad;|od) .*like Mac OS X").unwrap();
+    static ref RX_IOS_WEBVIEW_PATTERN: Regex = Regex::new(r"iP(hone;|ad;|od) .*like Mac OS X").unwrap();
+    static ref RX_ANDROID_KK_WEBVIEW_PATTERN: Regex = Regex::new(r"Android 4\.4.*Version/([.0-9]+) Chrome/").unwrap();
     static ref RX_WEBVIEW_VERSION_PATTERN: Regex = Regex::new(r"Version/([.0-9]+)").unwrap();
     static ref RX_PPC_OS_VERSION: Regex = Regex::new(r"rv:(\d+\.\d+\.\d+)").unwrap();
     static ref RX_FREEBSD_OS_VERSION: Regex = Regex::new(r"FreeBSD ([^;\)]+);").unwrap();
@@ -625,6 +626,10 @@ impl Parser {
                 return true;
             }
 
+            if RX_WEBVIEW_VERSION_PATTERN.is_match(agent) {
+                return false;
+            }
+
             if !self.populate_dataset(result, "Chrome") {
                 return false;
             }
@@ -720,7 +725,9 @@ impl Parser {
             return true;
         }
 
-        if !RX_WEBVIEW_PATTERN.is_match(agent) || agent.contains("Safari/") {
+        if (!RX_IOS_WEBVIEW_PATTERN.is_match(agent) || agent.contains("Safari/"))
+            && !RX_ANDROID_KK_WEBVIEW_PATTERN.is_match(agent)
+        {
             return false;
         }
 
@@ -734,9 +741,10 @@ impl Parser {
         };
         if !version.is_empty() {
             result.version = version;
+            return true;
+        } else {
+            return false;
         }
-
-        true
     }
 
     fn challenge_docomo<'a>(&self, agent: &'a str, result: &mut WootheeResult<'a>) -> bool {
