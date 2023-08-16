@@ -969,6 +969,7 @@ impl Parser {
             "NT 6.2" => self.lookup_dataset("Win8"),
             "NT 6.1" => self.lookup_dataset("Win7"),
             "NT 6.0" => self.lookup_dataset("WinVista"),
+            "NT 5.2" => self.lookup_dataset("WinXP"),
             "NT 5.1" => self.lookup_dataset("WinXP"),
             "NT 5.0" => self.lookup_dataset("Win2000"),
             "NT 4.0" => self.lookup_dataset("WinNT4"),
