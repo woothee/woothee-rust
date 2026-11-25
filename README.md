@@ -29,15 +29,12 @@ Some(WootheeResult { name: "Internet Explorer", category: "pc", os: "Windows 7",
 ## Benchmark
 ```
 $ cargo +nightly bench
-running 8 tests
-test bench_stabilizer       ... bench:          22 ns/iter (+/- 1)
-test create_parser_uap      ... bench: 190,983,237 ns/iter (+/- 18,726,783)
-test create_parser_uaparser ... bench: 331,963,075 ns/iter (+/- 20,320,543)
-test create_parser_woothee  ... bench:           0 ns/iter (+/- 0)
-test parse_fast_uaparser    ... bench:     423,632 ns/iter (+/- 42,520)
-test parse_uap              ... bench:     606,682 ns/iter (+/- 65,967)
-test parse_uaparser         ... bench:     826,622 ns/iter (+/- 105,940)
-test parse_woothee          ... bench:       6,814 ns/iter (+/- 1,924)
+running 5 tests
+test bench_stabilizer       ... bench:           0.25 ns/iter (+/- 0.01)
+test create_parser_uaparser ... bench: 193,413,350.00 ns/iter (+/- 2,899,137.53)
+test create_parser_woothee  ... bench:           0.25 ns/iter (+/- 0.02)
+test parse_uaparser         ... bench:     276,041.65 ns/iter (+/- 6,581.72)
+test parse_woothee          ... bench:       1,490.25 ns/iter (+/- 32.03)
 ```
 [benchmark script](https://github.com/woothee/woothee-rust/blob/master/benches/benchmark.rs)
 

@@ -6,14 +6,11 @@ extern crate serde_derive;
 mod inner {
     extern crate glob;
     extern crate serde;
-    extern crate serde_json;
     extern crate tempfile;
     extern crate tera;
     extern crate yaml_rust;
-    use self::serde_json::value::{from_value, to_value, Value};
-    use self::tera::{Context, Result, Tera};
+    use self::tera::{Context, Kwargs, State, Tera, TeraResult};
     use self::yaml_rust::YamlLoader;
-    use std::collections::HashMap;
     use std::env;
     use std::fs::File;
     use std::io::{Read, Write};
@@ -59,62 +56,52 @@ mod inner {
         }
     }
 
-    fn is_skip_test_for_version(args: &HashMap<String, Value>) -> Result<Value> {
-        let name = match args.get("name") {
-            Some(val) => match from_value::<String>(val.clone()) {
-                Ok(v) => v,
-                Err(_) => {
-                    return Err("uasge: is_skip_test_for_version(name='your test name')".into());
-                }
-            },
-            None => "".to_string(),
-        };
-        let mut is_skip = false;
-        for test_name in vec![
+    fn is_skip_test_for_version(kwargs: Kwargs, _: &State) -> TeraResult<bool> {
+        // a non-string `name` is reported as an error by tera itself
+        let name = kwargs.get::<&str>("name")?.unwrap_or("");
+        let skip_tests = [
             r#"Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Trident/5.0; Xbox)"#,
             r#"Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.2; Trident/6.0; Xbox; Xbox One)"#,
             r#"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.48 Safari/537.36 Edg/74.1.96.24"#,
             r#"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.135 Safari/537.36 Edge/12.10240"#,
-        ] {
-            if test_name == name {
-                is_skip = true;
-                break;
-            }
-        }
+        ];
 
-        Ok(to_value(is_skip).unwrap())
+        Ok(skip_tests.contains(&name))
     }
 
-    fn is_skip_test_for_os_version(args: &HashMap<String, Value>) -> Result<Value> {
-        let name = match args.get("name") {
-            Some(val) => match from_value::<String>(val.clone()) {
-                Ok(v) => v,
-                Err(_) => {
-                    return Err("uasge: is_skip_test_for_os_version(name='your test name')".into());
-                }
-            },
-            None => "".to_string(),
-        };
-        let mut is_skip = false;
-        for test_name in vec![
+    fn is_skip_test_for_os_version(kwargs: Kwargs, _: &State) -> TeraResult<bool> {
+        // a non-string `name` is reported as an error by tera itself
+        let name = kwargs.get::<&str>("name")?.unwrap_or("");
+        let skip_tests = [
             r#"Mozilla/5.0 (Windows; U; Windows NT 6.0; en-US; aggregator VocusBot 0.4; +http://www.vocus.com/vnhs.html)"#,
             r#"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_6_8) AppleWebKit/534.50 (KHTML, like Gecko) Version/5.1 Instapaper/4.0 (+http://www.instapaper.com/)"#,
             r#"Mozilla/5.0 (X11; FreeBSD amd64; rv:8.0) Gecko/20100101 Firefox/8.0"#,
             r#"Mozilla/5.0 (Mobile; rv:18.0) Gecko/18.0 Firefox/18.0"#,
             r#"Mozilla/4.0 (compatible; MSIE 6.0; Windows CE; IEMobile 7.7) S12HT"#,
-        ] {
-            if test_name == name {
-                is_skip = true;
-                break;
-            }
-        }
+        ];
 
-        Ok(to_value(is_skip).unwrap())
+        Ok(skip_tests.contains(&name))
+    }
+
+    fn new_template_engine(root: &Path) -> Tera {
+        let mut template_engine = Tera::new();
+        // tera v2 checks that every function used in a template exists when the template is added,
+        // so functions have to be registered before loading templates.
+        template_engine.register_function("is_skip_test_for_version", is_skip_test_for_version);
+        template_engine.register_function("is_skip_test_for_os_version", is_skip_test_for_os_version);
+
+        let template_dir = root.join("templates");
+        match template_engine.add_template_files(vec![
+            (template_dir.join("dataset.tmpl"), Some("dataset.tmpl")),
+            (template_dir.join("tests.tmpl"), Some("tests.tmpl")),
+        ]) {
+            Ok(_) => template_engine,
+            Err(e) => panic!("tera.add_template_files() error. {}", e),
+        }
     }
 
     fn gen_dataset(woothee_dir: PathBuf, root: PathBuf) {
         let dest = root.join("./src/dataset.rs");
-        let template_dir = root.join("templates/*.tmpl");
         let mut f = File::create(&dest).unwrap();
 
         // load dataset
@@ -132,7 +119,7 @@ mod inner {
         }
 
         // render dataset.rs
-        let template_engine = Tera::new(template_dir.to_str().unwrap()).unwrap();
+        let template_engine = new_template_engine(&root);
         let mut context = Context::new();
         let mut woothee_results = vec![];
 
@@ -200,8 +187,7 @@ mod inner {
 
     fn gen_testsets(woothee_dir: PathBuf, root: PathBuf) {
         let woothee_tests_glob = woothee_dir.join("testsets/*.yaml");
-        let template_dir = root.join("templates/*.tmpl");
-        let mut template_engine = Tera::new(template_dir.to_str().unwrap()).unwrap();
+        let template_engine = new_template_engine(&root);
         let mut context = Context::new();
 
         for entry in glob::glob(woothee_tests_glob.to_str().unwrap()).unwrap() {
@@ -292,8 +278,6 @@ mod inner {
                 context.insert("tests", &tests);
             }
 
-            template_engine.register_function("is_skip_test_for_version", is_skip_test_for_version);
-            template_engine.register_function("is_skip_test_for_os_version", is_skip_test_for_os_version);
             let output = match template_engine.render("tests.tmpl", &context) {
                 Ok(ret) => ret,
                 Err(e) => panic!("tera.render() error. {}", e),
