@@ -120,6 +120,16 @@ mod tests {
                 assert_eq!(result.version, "UNKNOWN");
             }
         }
+        match parser.parse(r#"Mozilla/5.0 (Linux; Android 4.4.4; ko-kr; SAMSUNG SM-G710K/KTUBPK1 Build/KTU84P) AppleWebKit/537.36 (KHTML, like Gecko) Version/1.5 Chrome/28.0.1500.94 Safari/537.36"#) {
+            None => panic!(r#"invalid parse. "Mozilla/5.0 (Linux; Android 4.4.4; ko-kr; SAMSUNG SM-G710K/KTUBPK1 Build/KTU84P) AppleWebKit/537.36 (KHTML, like Gecko) Version/1.5 Chrome/28.0.1500.94 Safari/537.36""#),
+            Some(result) => {
+                assert_eq!(result.category, "smartphone");
+                assert_eq!(result.name, "Webview");
+                assert_eq!(result.os, "Android");
+                assert_eq!(result.os_version, "4.4.4".to_string());
+                assert_eq!(result.version, "1.5");
+            }
+        }
         match parser.parse(r#"Mozilla/5.0 (Linux; Android 5.1.1; Nexus 5 Build/LMY48B; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/43.0.2357.65 Mobile Safari/537.36"#) {
             None => panic!(r#"invalid parse. "Mozilla/5.0 (Linux; Android 5.1.1; Nexus 5 Build/LMY48B; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/43.0.2357.65 Mobile Safari/537.36""#),
             Some(result) => {
