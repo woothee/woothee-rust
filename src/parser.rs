@@ -123,7 +123,7 @@ impl Parser {
 
     pub fn parse<'a>(&self, agent: &'a str) -> Option<WootheeResult<'a>> {
         let mut result = WootheeResult::new();
-        if agent == "" || agent == "-" {
+        if agent.is_empty() || agent == "-" {
             return Some(result);
         }
 
@@ -301,11 +301,7 @@ impl Parser {
         false
     }
     fn try_misc(&self, agent: &str, result: &mut WootheeResult) -> bool {
-        if self.challenge_desktop_tools(agent, result) {
-            return true;
-        }
-
-        false
+        self.challenge_desktop_tools(agent, result)
     }
 
     fn try_rare_cases<'a>(&self, agent: &'a str, result: &mut WootheeResult<'a>) -> bool {
@@ -522,11 +518,7 @@ impl Parser {
             VALUE_UNKNOWN
         };
 
-        if !self.populate_dataset(result, "MSIE") {
-            return false;
-        }
-
-        true
+        self.populate_dataset(result, "MSIE")
     }
 
     fn challenge_ms_edge<'a>(&self, agent: &'a str, result: &mut WootheeResult<'a>) -> bool {
@@ -539,11 +531,7 @@ impl Parser {
             }
         };
 
-        if !self.populate_dataset(result, "Edge") {
-            return false;
-        }
-
-        true
+        self.populate_dataset(result, "Edge")
     }
 
     fn challenge_vivaldi<'a>(&self, agent: &'a str, result: &mut WootheeResult<'a>) -> bool {
@@ -556,11 +544,7 @@ impl Parser {
             }
         };
 
-        if !self.populate_dataset(result, "Vivaldi") {
-            return false;
-        }
-
-        true
+        self.populate_dataset(result, "Vivaldi")
     }
 
     fn challenge_firefox_ios<'a>(&self, agent: &'a str, result: &mut WootheeResult<'a>) -> bool {
@@ -573,11 +557,7 @@ impl Parser {
             }
         };
 
-        if !self.populate_dataset(result, "Firefox") {
-            return false;
-        }
-
-        true
+        self.populate_dataset(result, "Firefox")
     }
 
     fn challenge_yandexbrowser<'a>(&self, agent: &'a str, result: &mut WootheeResult<'a>) -> bool {
@@ -594,11 +574,7 @@ impl Parser {
             }
         }
 
-        if !self.populate_dataset(result, "YaBrowser") {
-            return false;
-        }
-
-        true
+        self.populate_dataset(result, "YaBrowser")
     }
 
     fn challenge_safari_chrome<'a>(&self, agent: &'a str, result: &mut WootheeResult<'a>) -> bool {
