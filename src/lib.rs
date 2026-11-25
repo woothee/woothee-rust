@@ -42,7 +42,7 @@ pub fn is_crawler(agent: &str) -> bool {
 mod tests {
     use super::{is_crawler, Parser, WootheeResult};
 
-    fn get_woothee_result(agent: &str) -> WootheeResult {
+    fn get_woothee_result(agent: &str) -> WootheeResult<'_> {
         Parser::new().parse(agent).expect("fail parse()")
     }
 
